@@ -60,7 +60,7 @@
 
 	var _reactRedux = __webpack_require__(187);
 
-	var _reducer = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./reducer/reducer\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
+	var _reducer = __webpack_require__(200);
 
 	var _reducer2 = _interopRequireDefault(_reducer);
 
@@ -212,19 +212,24 @@
 	        _this4.state = {
 	            tasks: [{
 	                title: 'Subir predicas',
-	                priority: 1
+	                priority: 1,
+	                id: 0
 	            }, {
 	                title: 'Quitar errores',
-	                priority: 2
+	                priority: 2,
+	                id: 1
 	            }, {
 	                title: 'Responder mensajes',
-	                priority: 3
+	                priority: 3,
+	                id: 2
 	            }, {
 	                title: 'Contactar con proveedores',
-	                priority: 1
+	                priority: 1,
+	                id: 3
 	            }, {
 	                title: 'Extender suscripción',
-	                priority: 2
+	                priority: 2,
+	                id: 4
 	            }]
 	        };
 	        return _this4;
@@ -22695,15 +22700,15 @@
 
 	var _warning2 = _interopRequireDefault(_warning);
 
-	var _isPlainObject = __webpack_require__(195);
+	var _isPlainObject = __webpack_require__(194);
 
 	var _isPlainObject2 = _interopRequireDefault(_isPlainObject);
 
-	var _hoistNonReactStatics = __webpack_require__(199);
+	var _hoistNonReactStatics = __webpack_require__(198);
 
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 
-	var _invariant = __webpack_require__(200);
+	var _invariant = __webpack_require__(199);
 
 	var _invariant2 = _interopRequireDefault(_invariant);
 
@@ -23114,12 +23119,11 @@
 	}
 
 /***/ },
-/* 194 */,
-/* 195 */
+/* 194 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var getPrototype = __webpack_require__(196),
-	    isObjectLike = __webpack_require__(198);
+	var getPrototype = __webpack_require__(195),
+	    isObjectLike = __webpack_require__(197);
 
 	/** `Object#toString` result references. */
 	var objectTag = '[object Object]';
@@ -23189,10 +23193,10 @@
 
 
 /***/ },
-/* 196 */
+/* 195 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var overArg = __webpack_require__(197);
+	var overArg = __webpack_require__(196);
 
 	/** Built-in value references. */
 	var getPrototype = overArg(Object.getPrototypeOf, Object);
@@ -23201,7 +23205,7 @@
 
 
 /***/ },
-/* 197 */
+/* 196 */
 /***/ function(module, exports) {
 
 	/**
@@ -23222,7 +23226,7 @@
 
 
 /***/ },
-/* 198 */
+/* 197 */
 /***/ function(module, exports) {
 
 	/**
@@ -23257,7 +23261,7 @@
 
 
 /***/ },
-/* 199 */
+/* 198 */
 /***/ function(module, exports) {
 
 	/**
@@ -23313,7 +23317,7 @@
 
 
 /***/ },
-/* 200 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -23369,6 +23373,46 @@
 	module.exports = invariant;
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 200 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var issuesApp = function issuesApp() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case 'ADD_ISSUE':
+	            return state.concat({
+	                id: action.id,
+	                text: action.text,
+	                priority: action.priority
+	            });
+	        case 'DELETE_ISSUE':
+	            return state.filter(function (el) {
+	                return el.id !== action.id;
+	            });
+	        case 'EDIT_ISSUE':
+	            return state.map(function (el) {
+	                return el.id !== action.id ? el : {
+	                    id: action.id,
+	                    text: action.text,
+	                    priority: action.priority
+	                };
+	            });
+	        default:
+	            break;
+	    }
+	    return state;
+	};
+
+	exports.default = issuesApp;
 
 /***/ }
 /******/ ]);

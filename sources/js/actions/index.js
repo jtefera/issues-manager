@@ -1,8 +1,9 @@
 let nextId = 0;
-export const addIssue = (text) => ({
+export const addIssue = (text, priority) => ({
     type: 'ADD_TODO',
     id: nextId++,
     text,
+    priority,
 });
 
 export const changeIssueDescriptionDisplay = (issueId) => ({
@@ -23,4 +24,5 @@ export const showEditIssueForm = (issueId) => ({
 export const editIssue = (issueId, text) => ({
     type: 'EDIT_ISSUE',
     text,
+    priority,
 });

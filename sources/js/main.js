@@ -81,26 +81,31 @@ class App extends Component {
              tasks: [
                 {
                     title: 'Subir predicas',
-                    priority: 1
+                    priority: 1,
+                    id: 0,
                 },
                 {
                     title: 'Quitar errores',
-                    priority: 2
+                    priority: 2,
+                    id: 1,
                 },
                 {
                     title: 'Responder mensajes',
-                    priority: 3
+                    priority: 3,
+                    id: 2,
                 },
                 {
                     title: 'Contactar con proveedores',
-                    priority: 1
+                    priority: 1,
+                    id: 3,
                 },
                 {
                     title: 'Extender suscripción',
-                    priority: 2
-                }
+                    priority: 2,
+                    id: 4,
+                },
             ],
-        }
+        };
     }
     render() {
        const tasks = this.state.tasks.slice();
