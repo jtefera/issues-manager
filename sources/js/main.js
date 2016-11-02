@@ -4,6 +4,7 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from './reducer/reducer';
 import {addIssue} from './actions/';
+import AddIssueForm from './containers/addIssueForm';
 
 import ListIssuesOfPriority from './containers/issuesOfPriority.js';
 /*
@@ -50,7 +51,6 @@ const init = () => {
     mockIssues.forEach((issue) => {
         store.dispatch(addIssue(issue.text, issue.priority))
     });
-    console.log(store.getState());
 }
 
 init();
@@ -63,20 +63,6 @@ const LoginForm = ({onClick}) => (
     </form>
 );
 
-class AddIssueForm extends Component {
-    constructor() {
-        super();
-    }
-    render() {
-        return (
-            <form>
-                Title: <input type='text' name='text' /><br />
-                Priority: <input type='password' name='password' /> <br />
-                <button type='submit'>Add Issue</button>
-            </form>
-        )
-    }
-}
 
 class App extends Component {
     constructor() {
@@ -94,6 +80,7 @@ class App extends Component {
     }
 }
 
+store.subscribe(() => console.log(store.getState()));
 ReactDOM.render(
     <Provider store={store}>
         <App />

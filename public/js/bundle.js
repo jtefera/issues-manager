@@ -66,7 +66,11 @@
 	
 	var _actions = __webpack_require__(201);
 	
-	var _issuesOfPriority = __webpack_require__(202);
+	var _addIssueForm = __webpack_require__(202);
+	
+	var _addIssueForm2 = _interopRequireDefault(_addIssueForm);
+	
+	var _issuesOfPriority = __webpack_require__(203);
 	
 	var _issuesOfPriority2 = _interopRequireDefault(_issuesOfPriority);
 	
@@ -117,7 +121,6 @@
 	    mockIssues.forEach(function (issue) {
 	        store.dispatch((0, _actions.addIssue)(issue.text, issue.priority));
 	    });
-	    console.log(store.getState());
 	};
 	
 	init();
@@ -142,42 +145,8 @@
 	    );
 	};
 	
-	var AddIssueForm = function (_Component) {
-	    _inherits(AddIssueForm, _Component);
-	
-	    function AddIssueForm() {
-	        _classCallCheck(this, AddIssueForm);
-	
-	        return _possibleConstructorReturn(this, (AddIssueForm.__proto__ || Object.getPrototypeOf(AddIssueForm)).call(this));
-	    }
-	
-	    _createClass(AddIssueForm, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'form',
-	                null,
-	                'Title: ',
-	                _react2.default.createElement('input', { type: 'text', name: 'text' }),
-	                _react2.default.createElement('br', null),
-	                'Priority: ',
-	                _react2.default.createElement('input', { type: 'password', name: 'password' }),
-	                ' ',
-	                _react2.default.createElement('br', null),
-	                _react2.default.createElement(
-	                    'button',
-	                    { type: 'submit' },
-	                    'Add Issue'
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return AddIssueForm;
-	}(Component);
-	
-	var App = function (_Component2) {
-	    _inherits(App, _Component2);
+	var App = function (_Component) {
+	    _inherits(App, _Component);
 	
 	    function App() {
 	        _classCallCheck(this, App);
@@ -191,7 +160,7 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(AddIssueForm, null),
+	                _react2.default.createElement(_addIssueForm2.default, null),
 	                _react2.default.createElement(_issuesOfPriority2.default, { priority: '1' }),
 	                _react2.default.createElement(_issuesOfPriority2.default, { priority: '2' }),
 	                _react2.default.createElement(_issuesOfPriority2.default, { priority: '3' })
@@ -202,6 +171,9 @@
 	    return App;
 	}(Component);
 	
+	store.subscribe(function () {
+	    return console.log(store.getState());
+	});
 	_reactDom2.default.render(_react2.default.createElement(
 	    _reactRedux.Provider,
 	    { store: store },
@@ -23413,16 +23385,75 @@
 	    value: true
 	});
 	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
 	var _actions = __webpack_require__(201);
 	
 	var _reactRedux = __webpack_require__(187);
 	
-	var _presentationals = __webpack_require__(203);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var AddIssueForm = function AddIssueForm(_ref) {
+	    var dispatch = _ref.dispatch;
+	
+	    var textInput = void 0;
+	    var priorityInput = void 0;
+	    return _react2.default.createElement(
+	        'form',
+	        { onSubmit: function onSubmit(e) {
+	                e.preventDefault();
+	                if (!textInput.value.trim() || !priorityInput.value.trim()) {
+	                    return;
+	                }
+	                dispatch((0, _actions.addIssue)(textInput.value, priorityInput.value));
+	                textInput.value = '';
+	                priorityInput.value = '';
+	            } },
+	        'Title: ',
+	        _react2.default.createElement('input', { ref: function ref(node) {
+	                textInput = node;
+	            } }),
+	        _react2.default.createElement('br', null),
+	        'Priority: ',
+	        _react2.default.createElement('input', { type: 'text', ref: function ref(node) {
+	                priorityInput = node;
+	            } }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(
+	            'button',
+	            { type: 'submit' },
+	            'Add Issue'
+	        )
+	    );
+	};
+	
+	AddIssueForm = (0, _reactRedux.connect)()(AddIssueForm);
+	
+	exports.default = AddIssueForm;
+
+/***/ },
+/* 203 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _actions = __webpack_require__(201);
+	
+	var _reactRedux = __webpack_require__(187);
+	
+	var _presentationals = __webpack_require__(204);
 	
 	var getIssuesWithThePriority = function getIssuesWithThePriority(issues, priority) {
-	    return issues.filter(function (issue) {
-	        return issue.priority === parseInt(priority, 10);
+	    var filteredIsues = issues.filter(function (issue) {
+	        return parseInt(issue.priority, 10) === parseInt(priority, 10);
 	    });
+	    return filteredIsues;
 	};
 	
 	var mapStateToProps = function mapStateToProps(state, _ref) {
@@ -23440,13 +23471,12 @@
 	    };
 	};
 	
-	console.log(mapStateToProps, mapDispatchToProps, _presentationals.ListIssues);
 	var ListIssuesOfPriority = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_presentationals.ListIssues);
 	
 	exports.default = ListIssuesOfPriority;
 
 /***/ },
-/* 203 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -23482,7 +23512,6 @@
 	    var issues = _ref2.issues,
 	        priority = _ref2.priority;
 	
-	    console.log(issues);
 	    var issuesEl = issues.map(function (issue) {
 	        return _react2.default.createElement(Issue, { key: issue.id, text: issue.text });
 	    });

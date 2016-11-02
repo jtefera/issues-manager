@@ -11,7 +11,6 @@ function Issue({text}) {
 }
 
 export const ListIssues = ({issues, priority}) => {
-    console.log(issues);
     const issuesEl = issues.map(
             (issue) => <Issue key={issue.id} text={issue.text}/>
         );
