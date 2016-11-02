@@ -1,6 +1,6 @@
 let nextId = 0;
 export const addIssue = (text, priority) => ({
-    type: 'ADD_TODO',
+    type: 'ADD_ISSUE',
     id: nextId++,
     text,
     priority,
