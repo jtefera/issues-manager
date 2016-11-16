@@ -1,18 +1,10 @@
 import React from 'react';
+import Issue from '../containers/issue';
 
-function Issue({text}) {
-    return (
-        <li>
-            <div>
-                Issue: {text}<br />
-            </div>
-        </li>
-    );
-}
 
 export const ListIssues = ({issues, priority}) => {
     const issuesEl = issues.map(
-            (issue) => <Issue key={issue.id} text={issue.text}/>
+            (issue) => <Issue key={issue.id} id={issue.id} text={issue.text}/>
         );
     return (
         <div>

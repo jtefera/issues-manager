@@ -23509,30 +23509,18 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
+	var _issue = __webpack_require__(205);
+	
+	var _issue2 = _interopRequireDefault(_issue);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function Issue(_ref) {
-	    var text = _ref.text;
-	
-	    return _react2.default.createElement(
-	        'li',
-	        null,
-	        _react2.default.createElement(
-	            'div',
-	            null,
-	            'Issue: ',
-	            text,
-	            _react2.default.createElement('br', null)
-	        )
-	    );
-	}
-	
-	var ListIssues = exports.ListIssues = function ListIssues(_ref2) {
-	    var issues = _ref2.issues,
-	        priority = _ref2.priority;
+	var ListIssues = exports.ListIssues = function ListIssues(_ref) {
+	    var issues = _ref.issues,
+	        priority = _ref.priority;
 	
 	    var issuesEl = issues.map(function (issue) {
-	        return _react2.default.createElement(Issue, { key: issue.id, text: issue.text });
+	        return _react2.default.createElement(_issue2.default, { key: issue.id, id: issue.id, text: issue.text });
 	    });
 	    return _react2.default.createElement(
 	        'div',
@@ -23547,6 +23535,82 @@
 	        )
 	    );
 	};
+
+/***/ },
+/* 205 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(187);
+	
+	var _actions = __webpack_require__(201);
+	
+	var _Issue = __webpack_require__(206);
+	
+	var _Issue2 = _interopRequireDefault(_Issue);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref) {
+	    var id = _ref.id;
+	    return {
+	        deleteIssue: function deleteIssue() {
+	            return dispatch((0, _actions.deleteIssue)(id));
+	        }
+	    };
+	};
+	
+	var Issue = (0, _reactRedux.connect)(null, mapDispatchToProps)(_Issue2.default);
+	
+	exports.default = Issue;
+
+/***/ },
+/* 206 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var IssuePres = function IssuePres(_ref) {
+	    var text = _ref.text,
+	        deleteIssue = _ref.deleteIssue;
+	    return _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	            'div',
+	            null,
+	            'Issue: ',
+	            text,
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement(
+	                'a',
+	                { onClick: deleteIssue },
+	                'Delete'
+	            )
+	        )
+	    );
+	};
+	
+	exports.default = IssuePres;
 
 /***/ }
 /******/ ]);
