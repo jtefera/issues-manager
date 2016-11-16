@@ -23399,15 +23399,16 @@
 	    var dispatch = _ref.dispatch;
 	
 	    var textInput = void 0;
-	    var priorityInput = void 0;
+	    var prioritySelect = void 0;
 	    return _react2.default.createElement(
 	        'form',
 	        { onSubmit: function onSubmit(e) {
 	                e.preventDefault();
-	                if (!textInput.value.trim() || !priorityInput.value.trim()) {
+	                console.log(prioritySelect.value);
+	                if (!textInput.value.trim()) {
 	                    return;
 	                }
-	                dispatch((0, _actions.addIssue)(textInput.value, priorityInput.value));
+	                dispatch((0, _actions.addIssue)(textInput.value, prioritySelect.value));
 	                textInput.value = '';
 	                priorityInput.value = '';
 	            } },
@@ -23417,9 +23418,27 @@
 	            } }),
 	        _react2.default.createElement('br', null),
 	        'Priority: ',
-	        _react2.default.createElement('input', { type: 'text', ref: function ref(node) {
-	                priorityInput = node;
-	            } }),
+	        _react2.default.createElement(
+	            'select',
+	            { ref: function ref(node) {
+	                    prioritySelect = node;
+	                } },
+	            _react2.default.createElement(
+	                'option',
+	                null,
+	                '1'
+	            ),
+	            _react2.default.createElement(
+	                'option',
+	                null,
+	                '2'
+	            ),
+	            _react2.default.createElement(
+	                'option',
+	                null,
+	                '3'
+	            )
+	        ),
 	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
 	            'button',
