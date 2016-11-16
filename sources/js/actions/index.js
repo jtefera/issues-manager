@@ -21,8 +21,14 @@ export const showEditIssueForm = (issueId) => ({
     id: issueId,
 });
 
-export const editIssue = (issueId, text) => ({
+export const editIssue = (issueId, text, priority) => ({
     type: 'EDIT_ISSUE',
+    id: issueId,
     text,
     priority,
+});
+
+export const cancelEditIssue = (issueId) => ({
+    type: 'CANCEL_EDIT_ISSUE',
+    id: issueId,
 });

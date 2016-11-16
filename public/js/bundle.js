@@ -23296,6 +23296,9 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var issuesApp = function issuesApp() {
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	    var action = arguments[1];
@@ -23316,8 +23319,21 @@
 	                return el.id !== action.id ? el : {
 	                    id: action.id,
 	                    text: action.text,
-	                    priority: action.priority
+	                    priority: action.priority,
+	                    editMode: false
 	                };
+	            });
+	        case 'SHOW_EDIT_ISSUE_FORM':
+	            return state.map(function (el) {
+	                return el.id !== action.id ? el : _extends({}, el, {
+	                    editMode: true
+	                });
+	            });
+	        case 'CANCEL_EDIT_ISSUE':
+	            return state.map(function (el) {
+	                return el.id !== action.id ? el : _extends({}, el, {
+	                    editMode: false
+	                });
 	            });
 	        default:
 	            break;
@@ -23367,11 +23383,19 @@
 	    };
 	};
 	
-	var editIssue = exports.editIssue = function editIssue(issueId, text) {
+	var editIssue = exports.editIssue = function editIssue(issueId, text, priority) {
 	    return {
 	        type: 'EDIT_ISSUE',
+	        id: issueId,
 	        text: text,
 	        priority: priority
+	    };
+	};
+	
+	var cancelEditIssue = exports.cancelEditIssue = function cancelEditIssue(issueId) {
+	    return {
+	        type: 'CANCEL_EDIT_ISSUE',
+	        id: issueId
 	    };
 	};
 
@@ -23513,6 +23537,10 @@
 	
 	var _issue2 = _interopRequireDefault(_issue);
 	
+	var _issueEditor = __webpack_require__(207);
+	
+	var _issueEditor2 = _interopRequireDefault(_issueEditor);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var ListIssues = exports.ListIssues = function ListIssues(_ref) {
@@ -23520,6 +23548,9 @@
 	        priority = _ref.priority;
 	
 	    var issuesEl = issues.map(function (issue) {
+	        if (issue.editMode) {
+	            return _react2.default.createElement(_issueEditor2.default, { key: issue.id, id: issue.id, text: issue.text, priority: issue.priority });
+	        }
 	        return _react2.default.createElement(_issue2.default, { key: issue.id, id: issue.id, text: issue.text });
 	    });
 	    return _react2.default.createElement(
@@ -23543,7 +23574,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	   value: true
 	});
 	
 	var _react = __webpack_require__(1);
@@ -23561,12 +23592,15 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref) {
-	    var id = _ref.id;
-	    return {
-	        deleteIssue: function deleteIssue() {
-	            return dispatch((0, _actions.deleteIssue)(id));
-	        }
-	    };
+	   var id = _ref.id;
+	   return {
+	      deleteIssue: function deleteIssue() {
+	         return dispatch((0, _actions.deleteIssue)(id));
+	      },
+	      showEditIssueForm: function showEditIssueForm() {
+	         return dispatch((0, _actions.showEditIssueForm)(id));
+	      }
+	   };
 	};
 	
 	var Issue = (0, _reactRedux.connect)(null, mapDispatchToProps)(_Issue2.default);
@@ -23591,7 +23625,8 @@
 	
 	var IssuePres = function IssuePres(_ref) {
 	    var text = _ref.text,
-	        deleteIssue = _ref.deleteIssue;
+	        deleteIssue = _ref.deleteIssue,
+	        showEditIssueForm = _ref.showEditIssueForm;
 	    return _react2.default.createElement(
 	        'li',
 	        null,
@@ -23604,13 +23639,139 @@
 	            _react2.default.createElement(
 	                'a',
 	                { onClick: deleteIssue },
-	                'Delete'
+	                'Delete '
+	            ),
+	            ' |',
+	            _react2.default.createElement(
+	                'a',
+	                { onClick: showEditIssueForm },
+	                ' Edit'
 	            )
 	        )
 	    );
 	};
 	
 	exports.default = IssuePres;
+
+/***/ },
+/* 207 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(187);
+	
+	var _issueEditor = __webpack_require__(208);
+	
+	var _issueEditor2 = _interopRequireDefault(_issueEditor);
+	
+	var _actions = __webpack_require__(201);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref) {
+	    var id = _ref.id;
+	    return {
+	        editIssue: function editIssue(text, priority) {
+	            dispatch((0, _actions.editIssue)(id, text, priority));
+	        },
+	        cancelEditIssue: function cancelEditIssue() {
+	            return dispatch((0, _actions.cancelEditIssue)(id));
+	        }
+	    };
+	};
+	
+	var IssueEditor = (0, _reactRedux.connect)(null, mapDispatchToProps)(_issueEditor2.default);
+	
+	exports.default = IssueEditor;
+
+/***/ },
+/* 208 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var IssueEditor = function IssueEditor(_ref) {
+	    var text = _ref.text,
+	        priority = _ref.priority,
+	        editIssue = _ref.editIssue,
+	        cancelEditIssue = _ref.cancelEditIssue;
+	
+	    var issueInput = void 0;
+	    var prioritySelect = void 0;
+	    return _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	            'form',
+	            { onSubmit: function onSubmit(e) {
+	                    e.preventDefault();
+	                    editIssue(issueInput.value, prioritySelect.value);
+	                } },
+	            'Issue: ',
+	            _react2.default.createElement('input', { ref: function ref(node) {
+	                    issueInput = node;
+	                }, defaultValue: text }),
+	            _react2.default.createElement('br', null),
+	            'Priority: ',
+	            _react2.default.createElement(
+	                'select',
+	                { ref: function ref(node) {
+	                        prioritySelect = node;
+	                    }, defaultValue: priority },
+	                _react2.default.createElement(
+	                    'option',
+	                    null,
+	                    '1'
+	                ),
+	                _react2.default.createElement(
+	                    'option',
+	                    null,
+	                    '2'
+	                ),
+	                _react2.default.createElement(
+	                    'option',
+	                    null,
+	                    '3'
+	                )
+	            ),
+	            _react2.default.createElement(
+	                'button',
+	                { type: 'submit' },
+	                'Edit Issue '
+	            ),
+	            ' |',
+	            _react2.default.createElement(
+	                'button',
+	                { onClick: function onClick(e) {
+	                        e.preventDefault();
+	                        cancelEditIssue();
+	                    } },
+	                'Cancel'
+	            )
+	        )
+	    );
+	};
+	
+	exports.default = IssueEditor;
 
 /***/ }
 /******/ ]);

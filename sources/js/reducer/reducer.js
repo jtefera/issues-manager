@@ -14,8 +14,25 @@ const issuesApp = (state = [], action) => {
                                             id: action.id,
                                             text: action.text,
                                             priority: action.priority,
+                                            editMode: false,
                                         }
             );
+        case 'SHOW_EDIT_ISSUE_FORM':
+            return state.map((el) => (el.id !== action.id) 
+                                        ? el
+                                        : {
+                                            ...el,
+                                            editMode: true,
+                                        }
+            );
+        case 'CANCEL_EDIT_ISSUE': 
+            return state.map((el) => (el.id !== action.id) 
+                                        ? el
+                                        : {
+                                            ...el,
+                                            editMode: false,
+                                        }
+                    );
         default:
             break;
     }
