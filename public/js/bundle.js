@@ -23549,7 +23549,11 @@
 	
 	    var issuesEl = issues.map(function (issue) {
 	        if (issue.editMode) {
-	            return _react2.default.createElement(_issueEditor2.default, { key: issue.id, id: issue.id, text: issue.text, priority: issue.priority });
+	            return _react2.default.createElement(_issueEditor2.default, {
+	                key: issue.id,
+	                id: issue.id,
+	                text: issue.text,
+	                priority: issue.priority });
 	        }
 	        return _react2.default.createElement(_issue2.default, { key: issue.id, id: issue.id, text: issue.text });
 	    });

@@ -5,12 +5,12 @@ import IssuePres from '../presentationals/Issue';
 
 const mapDispatchToProps = (dispatch, {id}) => ({
    deleteIssue: () => dispatch(deleteIssue(id)),
-   showEditIssueForm: () => dispatch(showEditIssueForm(id)), 
+   showEditIssueForm: () => dispatch(showEditIssueForm(id)),
 });
 
 const Issue = connect(
     null,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(IssuePres);
 
 export default Issue;

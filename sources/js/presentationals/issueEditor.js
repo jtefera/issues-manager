@@ -12,7 +12,7 @@ const IssueEditor = ({text, priority, editIssue, cancelEditIssue}) => {
             }}>
                 Issue: <input ref={(node) => {
                     issueInput = node;
-                }} defaultValue={text}/>
+                }} defaultValue={text} />
                 <br />
                 Priority: <select ref={(node) => {
                     prioritySelect = node;
