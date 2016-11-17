@@ -23444,25 +23444,31 @@
 	
 	    var titleInput = void 0;
 	    var prioritySelect = void 0;
+	    var authorInput = void 0;
+	    var emailInput = void 0;
+	    var descriptionInput = void 0;
 	    return _react2.default.createElement(
 	        'form',
 	        { onSubmit: function onSubmit(e) {
 	                var issue = {
 	                    title: titleInput.value,
-	                    priority: prioritySelect.value
+	                    priority: prioritySelect.value,
+	                    author: authorInput.value,
+	                    email: emailInput.value,
+	                    description: descriptionInput.value,
+	                    date: Date()
 	                };
 	                e.preventDefault();
-	                console.log(prioritySelect.value);
+	                console.log(issue);
 	                if (!titleInput.value.trim()) {
 	                    return;
 	                }
 	                dispatch((0, _actions.addIssue)(issue));
-	                titleInput.value = '';
 	            } },
 	        'Title: ',
 	        _react2.default.createElement('input', { ref: function ref(node) {
 	                titleInput = node;
-	            } }),
+	            }, defaultValue: 'Title Test' }),
 	        _react2.default.createElement('br', null),
 	        'Priority: ',
 	        _react2.default.createElement(
@@ -23486,6 +23492,22 @@
 	                '3'
 	            )
 	        ),
+	        _react2.default.createElement('br', null),
+	        'Author: ',
+	        _react2.default.createElement('input', { ref: function ref(node) {
+	                authorInput = node;
+	            }, defaultValue: 'Author Test' }),
+	        _react2.default.createElement('br', null),
+	        'Email: ',
+	        _react2.default.createElement('input', { ref: function ref(node) {
+	                emailInput = node;
+	            }, defaultValue: 'Email Test' }),
+	        _react2.default.createElement('br', null),
+	        'Description: ',
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement('textarea', { rows: '10', cols: '50', ref: function ref(node) {
+	                descriptionInput = node;
+	            }, defaultValue: 'Description Test' }),
 	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(
 	            'button',
