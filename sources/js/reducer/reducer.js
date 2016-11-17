@@ -1,10 +1,10 @@
 const issuesApp = (state = [], action) => {
     switch (action.type) {
         case 'ADD_ISSUE':
+            console.log(...action.issue);
             return state.concat({
                id: action.id,
-               text: action.text,
-               priority: action.priority,
+               ...action.issue,
             });
         case 'DELETE_ISSUE':
             return state.filter((el) => el.id !== action.id);
@@ -12,7 +12,7 @@ const issuesApp = (state = [], action) => {
             return state.map((el) => (el.id !== action.id) 
                                         ? el : {
                                             id: action.id,
-                                            text: action.text,
+                                            title: action.text,
                                             priority: action.priority,
                                             editMode: false,
                                         }

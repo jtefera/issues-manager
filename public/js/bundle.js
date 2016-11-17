@@ -94,32 +94,60 @@
 	*/
 	var Component = _react2.default.Component;
 	
-	var store = (0, _redux.createStore)(_reducer2.default);
-	
+	var store = (0, _redux.createStore)(_reducer2.default,
+	//For Chrome Debug
+	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
+	store.subscribe(function () {
+	    return console.log(store.getState());
+	});
 	var init = function init() {
+	    var loremIpsum = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
+	    var randomDate = function randomDate() {
+	        return Date(2016, 11, Math.floor(Math.random() * 30));
+	    };
 	    var mockIssues = [{
-	        text: 'Subir predicas',
+	        title: 'Subir predicas',
+	        description: loremIpsum,
+	        author: 'Jonathan Endale',
+	        email: 'media@icmadrid.com',
+	        date: randomDate(),
 	        priority: 1,
 	        id: 0
 	    }, {
-	        text: 'Quitar errores',
+	        title: 'Quitar errores',
+	        description: loremIpsum,
+	        author: 'Jonathan Endale',
+	        email: 'media@icmadrid.com',
+	        date: randomDate(),
 	        priority: 2,
 	        id: 1
 	    }, {
-	        text: 'Responder mensajes',
+	        title: 'Responder mensajes',
+	        description: loremIpsum,
+	        author: 'Jonathan Endale',
+	        email: 'media@icmadrid.com',
+	        date: randomDate(),
 	        priority: 3,
 	        id: 2
 	    }, {
-	        text: 'Contactar con proveedores',
+	        title: 'Contactar con proveedores',
+	        description: loremIpsum,
+	        author: 'Jonathan Endale',
+	        email: 'media@icmadrid.com',
+	        date: randomDate(),
 	        priority: 1,
 	        id: 3
 	    }, {
-	        text: 'Extender suscripción',
+	        title: 'Extender suscripción',
+	        description: loremIpsum,
+	        author: 'Jonathan Endale',
+	        email: 'media@icmadrid.com',
+	        date: randomDate(),
 	        priority: 2,
 	        id: 4
 	    }];
 	    mockIssues.forEach(function (issue) {
-	        store.dispatch((0, _actions.addIssue)(issue.text, issue.priority));
+	        store.dispatch((0, _actions.addIssue)(issue));
 	    });
 	};
 	
@@ -171,9 +199,6 @@
 	    return App;
 	}(Component);
 	
-	store.subscribe(function () {
-	    return console.log(store.getState());
-	});
 	_reactDom2.default.render(_react2.default.createElement(
 	    _reactRedux.Provider,
 	    { store: store },
@@ -23299,17 +23324,20 @@
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
 	var issuesApp = function issuesApp() {
+	    var _console;
+	
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	    var action = arguments[1];
 	
 	    switch (action.type) {
 	        case 'ADD_ISSUE':
-	            return state.concat({
-	                id: action.id,
-	                text: action.text,
-	                priority: action.priority
-	            });
+	            (_console = console).log.apply(_console, _toConsumableArray(action.issue));
+	            return state.concat(_extends({
+	                id: action.id
+	            }, action.issue));
 	        case 'DELETE_ISSUE':
 	            return state.filter(function (el) {
 	                return el.id !== action.id;
@@ -23318,7 +23346,7 @@
 	            return state.map(function (el) {
 	                return el.id !== action.id ? el : {
 	                    id: action.id,
-	                    text: action.text,
+	                    title: action.text,
 	                    priority: action.priority,
 	                    editMode: false
 	                };
@@ -23353,12 +23381,11 @@
 	    value: true
 	});
 	var nextId = 0;
-	var addIssue = exports.addIssue = function addIssue(text, priority) {
+	var addIssue = exports.addIssue = function addIssue(issue) {
 	    return {
 	        type: 'ADD_ISSUE',
 	        id: nextId++,
-	        text: text,
-	        priority: priority
+	        issue: issue
 	    };
 	};
 	
@@ -23383,11 +23410,11 @@
 	    };
 	};
 	
-	var editIssue = exports.editIssue = function editIssue(issueId, text, priority) {
+	var editIssue = exports.editIssue = function editIssue(issueId, title, priority) {
 	    return {
 	        type: 'EDIT_ISSUE',
 	        id: issueId,
-	        text: text,
+	        title: title,
 	        priority: priority
 	    };
 	};
@@ -23422,23 +23449,26 @@
 	var AddIssueForm = function AddIssueForm(_ref) {
 	    var dispatch = _ref.dispatch;
 	
-	    var textInput = void 0;
+	    var titleInput = void 0;
 	    var prioritySelect = void 0;
 	    return _react2.default.createElement(
 	        'form',
 	        { onSubmit: function onSubmit(e) {
+	                var issue = {
+	                    title: titleInput.value,
+	                    priority: prioritySelect.value
+	                };
 	                e.preventDefault();
 	                console.log(prioritySelect.value);
-	                if (!textInput.value.trim()) {
+	                if (!titleInput.value.trim()) {
 	                    return;
 	                }
-	                dispatch((0, _actions.addIssue)(textInput.value, prioritySelect.value));
-	                textInput.value = '';
-	                priorityInput.value = '';
+	                dispatch((0, _actions.addIssue)(issue));
+	                titleInput.value = '';
 	            } },
 	        'Title: ',
 	        _react2.default.createElement('input', { ref: function ref(node) {
-	                textInput = node;
+	                titleInput = node;
 	            } }),
 	        _react2.default.createElement('br', null),
 	        'Priority: ',
@@ -23552,10 +23582,10 @@
 	            return _react2.default.createElement(_issueEditor2.default, {
 	                key: issue.id,
 	                id: issue.id,
-	                text: issue.text,
+	                title: issue.title,
 	                priority: issue.priority });
 	        }
-	        return _react2.default.createElement(_issue2.default, { key: issue.id, id: issue.id, text: issue.text });
+	        return _react2.default.createElement(_issue2.default, { key: issue.id, id: issue.id, title: issue.title });
 	    });
 	    return _react2.default.createElement(
 	        'div',
@@ -23628,7 +23658,7 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var IssuePres = function IssuePres(_ref) {
-	    var text = _ref.text,
+	    var title = _ref.title,
 	        deleteIssue = _ref.deleteIssue,
 	        showEditIssueForm = _ref.showEditIssueForm;
 	    return _react2.default.createElement(
@@ -23638,7 +23668,7 @@
 	            'div',
 	            null,
 	            'Issue: ',
-	            text,
+	            title,
 	            _react2.default.createElement('br', null),
 	            _react2.default.createElement(
 	                'a',
@@ -23684,8 +23714,8 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref) {
 	    var id = _ref.id;
 	    return {
-	        editIssue: function editIssue(text, priority) {
-	            dispatch((0, _actions.editIssue)(id, text, priority));
+	        editIssue: function editIssue(title, priority) {
+	            dispatch((0, _actions.editIssue)(id, title, priority));
 	        },
 	        cancelEditIssue: function cancelEditIssue() {
 	            return dispatch((0, _actions.cancelEditIssue)(id));

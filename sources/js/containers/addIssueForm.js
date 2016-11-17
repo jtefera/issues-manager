@@ -3,22 +3,25 @@ import {addIssue} from '../actions/';
 import {connect} from 'react-redux';
 
 let AddIssueForm = ({dispatch}) => {
-    let textInput;
+    let titleInput;
     let prioritySelect;
     return (
         <form onSubmit={(e) => {
+                const issue = {
+                    title: titleInput.value,
+                    priority: prioritySelect.value,
+                };
                 e.preventDefault();
                 console.log(prioritySelect.value);
-                if(!textInput.value.trim()) {
+                if(!titleInput.value.trim()) {
                     return;
                 }
-                dispatch(addIssue(textInput.value, prioritySelect.value));
-                textInput.value = '';
-                priorityInput.value = '';
+                dispatch(addIssue(issue));
+                titleInput.value = '';
             }
         }>
             Title: <input ref={(node) => {
-                textInput = node;
+                titleInput = node;
             }}/>
             <br />
             Priority: <select ref={(node) => {

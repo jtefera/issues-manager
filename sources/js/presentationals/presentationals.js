@@ -11,11 +11,11 @@ export const ListIssues = ({issues, priority}) => {
                         <IssueEditor
                             key={issue.id}
                             id={issue.id}
-                            text={issue.text}
+                            title={issue.title}
                             priority={issue.priority}/>
                     );
                 }
-                return (<Issue key={issue.id} id={issue.id} text={issue.text}/>);
+                return (<Issue key={issue.id} id={issue.id} title={issue.title}/>);
             }
         );
     return (

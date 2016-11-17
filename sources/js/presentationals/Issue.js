@@ -1,9 +1,9 @@
 import React from 'react';
 
-const IssuePres = ({text, deleteIssue, showEditIssueForm}) => (
+const IssuePres = ({title, deleteIssue, showEditIssueForm}) => (
     <li>
         <div>
-            Issue: {text}<br />
+            Issue: {title}<br />
             <a onClick={deleteIssue}>Delete </a> |
             <a onClick={showEditIssueForm}> Edit</a>
         </div>
