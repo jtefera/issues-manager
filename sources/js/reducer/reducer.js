@@ -11,9 +11,8 @@ const issuesApp = (state = [], action) => {
         case 'EDIT_ISSUE':
             return state.map((el) => (el.id !== action.id) 
                                         ? el : {
-                                            id: action.id,
-                                            title: action.text,
-                                            priority: action.priority,
+                                            ...el,
+                                            ...action.issue,
                                             editMode: false,
                                         }
             );

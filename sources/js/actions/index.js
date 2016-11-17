@@ -2,7 +2,7 @@ let nextId = 0;
 export const addIssue = (issue) => ({
     type: 'ADD_ISSUE',
     id: nextId++,
-    issue: issue
+    issue,
 });
 
 export const changeIssueDescriptionDisplay = (issueId) => ({
@@ -20,11 +20,10 @@ export const showEditIssueForm = (issueId) => ({
     id: issueId,
 });
 
-export const editIssue = (issueId, title, priority) => ({
+export const editIssue = (issueId, issue) => ({
     type: 'EDIT_ISSUE',
     id: issueId,
-    title,
-    priority,
+    issue,
 });
 
 export const cancelEditIssue = (issueId) => ({

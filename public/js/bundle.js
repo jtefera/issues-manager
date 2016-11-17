@@ -97,11 +97,8 @@
 	var store = (0, _redux.createStore)(_reducer2.default,
 	//For Chrome Debug
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
-	store.subscribe(function () {
-	    return console.log(store.getState());
-	});
 	var init = function init() {
-	    var loremIpsum = 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.';
+	    var loremIpsum = 'Lorem Ipsum is simply dummy text of the printing \n    and typesetting industry. Lorem Ipsum has been the industry\'s \n    standard dummy text ever since the 1500s, when an unknown printer \n    took a galley of type and scrambled it to make a type specimen book.';
 	    var randomDate = function randomDate() {
 	        return Date(2016, 11, Math.floor(Math.random() * 30));
 	    };
@@ -23344,12 +23341,9 @@
 	            });
 	        case 'EDIT_ISSUE':
 	            return state.map(function (el) {
-	                return el.id !== action.id ? el : {
-	                    id: action.id,
-	                    title: action.text,
-	                    priority: action.priority,
+	                return el.id !== action.id ? el : _extends({}, el, action.issue, {
 	                    editMode: false
-	                };
+	                });
 	            });
 	        case 'SHOW_EDIT_ISSUE_FORM':
 	            return state.map(function (el) {
@@ -23410,12 +23404,11 @@
 	    };
 	};
 	
-	var editIssue = exports.editIssue = function editIssue(issueId, title, priority) {
+	var editIssue = exports.editIssue = function editIssue(issueId, issue) {
 	    return {
 	        type: 'EDIT_ISSUE',
 	        id: issueId,
-	        title: title,
-	        priority: priority
+	        issue: issue
 	    };
 	};
 	
@@ -23559,6 +23552,8 @@
 	});
 	exports.ListIssues = undefined;
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -23579,13 +23574,11 @@
 	
 	    var issuesEl = issues.map(function (issue) {
 	        if (issue.editMode) {
-	            return _react2.default.createElement(_issueEditor2.default, {
-	                key: issue.id,
-	                id: issue.id,
-	                title: issue.title,
-	                priority: issue.priority });
+	            return _react2.default.createElement(_issueEditor2.default, _extends({
+	                key: issue.id
+	            }, issue));
 	        }
-	        return _react2.default.createElement(_issue2.default, { key: issue.id, id: issue.id, title: issue.title });
+	        return _react2.default.createElement(_issue2.default, _extends({ key: issue.id }, issue));
 	    });
 	    return _react2.default.createElement(
 	        'div',
@@ -23659,7 +23652,11 @@
 	
 	var IssuePres = function IssuePres(_ref) {
 	    var title = _ref.title,
+	        author = _ref.author,
+	        email = _ref.email,
+	        description = _ref.description,
 	        deleteIssue = _ref.deleteIssue,
+	        date = _ref.date,
 	        showEditIssueForm = _ref.showEditIssueForm;
 	    return _react2.default.createElement(
 	        'li',
@@ -23667,8 +23664,22 @@
 	        _react2.default.createElement(
 	            'div',
 	            null,
-	            'Issue: ',
+	            'Title: ',
 	            title,
+	            _react2.default.createElement('br', null),
+	            'Author (Email): ',
+	            author,
+	            '(',
+	            email,
+	            ') ',
+	            _react2.default.createElement('br', null),
+	            'Date: ',
+	            date,
+	            ' ',
+	            _react2.default.createElement('br', null),
+	            'Description: ',
+	            description,
+	            ' ',
 	            _react2.default.createElement('br', null),
 	            _react2.default.createElement(
 	                'a',
@@ -23714,8 +23725,8 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref) {
 	    var id = _ref.id;
 	    return {
-	        editIssue: function editIssue(title, priority) {
-	            dispatch((0, _actions.editIssue)(id, title, priority));
+	        editIssue: function editIssue(issue) {
+	            dispatch((0, _actions.editIssue)(id, issue));
 	        },
 	        cancelEditIssue: function cancelEditIssue() {
 	            return dispatch((0, _actions.cancelEditIssue)(id));
@@ -23731,7 +23742,7 @@
 /* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -23744,62 +23755,92 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var IssueEditor = function IssueEditor(_ref) {
-	    var text = _ref.text,
+	    var title = _ref.title,
 	        priority = _ref.priority,
+	        author = _ref.author,
+	        email = _ref.email,
+	        description = _ref.description,
 	        editIssue = _ref.editIssue,
 	        cancelEditIssue = _ref.cancelEditIssue;
 	
-	    var issueInput = void 0;
+	    var titleInput = void 0;
 	    var prioritySelect = void 0;
+	    var authorInput = void 0;
+	    var emailInput = void 0;
+	    var descriptionInput = void 0;
 	    return _react2.default.createElement(
-	        'li',
+	        "li",
 	        null,
 	        _react2.default.createElement(
-	            'form',
+	            "form",
 	            { onSubmit: function onSubmit(e) {
+	                    var issue = {
+	                        title: titleInput.value,
+	                        priority: prioritySelect.value,
+	                        author: authorInput.value,
+	                        email: emailInput.value,
+	                        description: descriptionInput.value
+	                    };
 	                    e.preventDefault();
-	                    editIssue(issueInput.value, prioritySelect.value);
+	                    editIssue(issue);
 	                } },
-	            'Issue: ',
-	            _react2.default.createElement('input', { ref: function ref(node) {
-	                    issueInput = node;
-	                }, defaultValue: text }),
-	            _react2.default.createElement('br', null),
-	            'Priority: ',
+	            "Title: ",
+	            _react2.default.createElement("input", { ref: function ref(node) {
+	                    titleInput = node;
+	                }, defaultValue: title }),
+	            _react2.default.createElement("br", null),
+	            "Priority: ",
 	            _react2.default.createElement(
-	                'select',
+	                "select",
 	                { ref: function ref(node) {
 	                        prioritySelect = node;
 	                    }, defaultValue: priority },
 	                _react2.default.createElement(
-	                    'option',
+	                    "option",
 	                    null,
-	                    '1'
+	                    "1"
 	                ),
 	                _react2.default.createElement(
-	                    'option',
+	                    "option",
 	                    null,
-	                    '2'
+	                    "2"
 	                ),
 	                _react2.default.createElement(
-	                    'option',
+	                    "option",
 	                    null,
-	                    '3'
+	                    "3"
 	                )
 	            ),
+	            _react2.default.createElement("br", null),
+	            "Author: ",
+	            _react2.default.createElement("input", { ref: function ref(node) {
+	                    authorInput = node;
+	                }, defaultValue: author }),
+	            _react2.default.createElement("br", null),
+	            "Email: ",
+	            _react2.default.createElement("input", { ref: function ref(node) {
+	                    emailInput = node;
+	                }, defaultValue: email }),
+	            _react2.default.createElement("br", null),
+	            "Description: ",
+	            _react2.default.createElement("br", null),
+	            _react2.default.createElement("textarea", { rows: "10", cols: "50", ref: function ref(node) {
+	                    descriptionInput = node;
+	                }, defaultValue: description }),
+	            _react2.default.createElement("br", null),
 	            _react2.default.createElement(
-	                'button',
-	                { type: 'submit' },
-	                'Edit Issue '
+	                "button",
+	                { type: "submit" },
+	                "Edit Issue "
 	            ),
-	            ' |',
+	            " |",
 	            _react2.default.createElement(
-	                'button',
+	                "button",
 	                { onClick: function onClick(e) {
 	                        e.preventDefault();
 	                        cancelEditIssue();
 	                    } },
-	                'Cancel'
+	                "Cancel"
 	            )
 	        )
 	    );

@@ -4,8 +4,8 @@ import IssueEditorPres from '../presentationals/issueEditor';
 import {editIssue, cancelEditIssue} from '../actions/';
 
 const mapDispatchToProps = (dispatch, {id}) => ({
-    editIssue: (title, priority) => {
-        dispatch(editIssue(id, title, priority));
+    editIssue: (issue) => {
+        dispatch(editIssue(id, issue));
     },
     cancelEditIssue: () => dispatch(cancelEditIssue(id)),
 });
