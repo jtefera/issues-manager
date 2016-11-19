@@ -32,6 +32,22 @@ const issuesApp = (state = [], action) => {
                                             editMode: false,
                                         }
                     );
+        case 'SHOW_ISSUE_DESCRIPTION':
+            return state.map((el) => (el.id !== action.id) 
+                                        ? el
+                                        : {
+                                            ...el,
+                                            showDescription: true,
+                                        }
+                    );
+        case 'HIDE_ISSUE_DESCRIPTION':
+            return state.map((el) => (el.id !== action.id) 
+                                        ? el
+                                        : {
+                                            ...el,
+                                            showDescription: false,
+                                        }
+                    );
         default:
             break;
     }

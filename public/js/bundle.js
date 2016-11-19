@@ -23357,6 +23357,18 @@
 	                    editMode: false
 	                });
 	            });
+	        case 'SHOW_ISSUE_DESCRIPTION':
+	            return state.map(function (el) {
+	                return el.id !== action.id ? el : _extends({}, el, {
+	                    showDescription: true
+	                });
+	            });
+	        case 'HIDE_ISSUE_DESCRIPTION':
+	            return state.map(function (el) {
+	                return el.id !== action.id ? el : _extends({}, el, {
+	                    showDescription: false
+	                });
+	            });
 	        default:
 	            break;
 	    }
@@ -23415,6 +23427,20 @@
 	var cancelEditIssue = exports.cancelEditIssue = function cancelEditIssue(issueId) {
 	    return {
 	        type: 'CANCEL_EDIT_ISSUE',
+	        id: issueId
+	    };
+	};
+	
+	var showIssueDescription = exports.showIssueDescription = function showIssueDescription(issueId) {
+	    return {
+	        type: 'SHOW_ISSUE_DESCRIPTION',
+	        id: issueId
+	    };
+	};
+	
+	var hideIssueDescription = exports.hideIssueDescription = function hideIssueDescription(issueId) {
+	    return {
+	        type: 'HIDE_ISSUE_DESCRIPTION',
 	        id: issueId
 	    };
 	};
@@ -23648,6 +23674,12 @@
 	      },
 	      showEditIssueForm: function showEditIssueForm() {
 	         return dispatch((0, _actions.showEditIssueForm)(id));
+	      },
+	      showIssueDescription: function showIssueDescription() {
+	         return dispatch((0, _actions.showIssueDescription)(id));
+	      },
+	      hideIssueDescription: function hideIssueDescription() {
+	         return dispatch((0, _actions.hideIssueDescription)(id));
 	      }
 	   };
 	};
@@ -23660,7 +23692,7 @@
 /* 206 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -23672,48 +23704,72 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var IssuePres = function IssuePres(_ref) {
-	    var title = _ref.title,
-	        author = _ref.author,
-	        email = _ref.email,
-	        description = _ref.description,
-	        deleteIssue = _ref.deleteIssue,
-	        date = _ref.date,
-	        showEditIssueForm = _ref.showEditIssueForm;
+	var Description = function Description(_ref) {
+	    var text = _ref.text;
 	    return _react2.default.createElement(
-	        'li',
+	        "div",
+	        null,
+	        "Description: ",
+	        text
+	    );
+	};
+	
+	var IssuePres = function IssuePres(_ref2) {
+	    var title = _ref2.title,
+	        author = _ref2.author,
+	        email = _ref2.email,
+	        description = _ref2.description,
+	        date = _ref2.date,
+	        deleteIssue = _ref2.deleteIssue,
+	        showDescription = _ref2.showDescription,
+	        showEditIssueForm = _ref2.showEditIssueForm,
+	        showIssueDescription = _ref2.showIssueDescription,
+	        hideIssueDescription = _ref2.hideIssueDescription;
+	
+	    var descriptionEl = showDescription ? _react2.default.createElement(Description, { text: description }) : null;
+	    var showHideLinkEl = showDescription ? _react2.default.createElement(
+	        "a",
+	        { onClick: hideIssueDescription },
+	        "Hide Description"
+	    ) : _react2.default.createElement(
+	        "a",
+	        { onClick: showIssueDescription },
+	        "Show Description"
+	    );
+	    return _react2.default.createElement(
+	        "li",
 	        null,
 	        _react2.default.createElement(
-	            'div',
+	            "div",
 	            null,
-	            'Title: ',
+	            "Title: ",
 	            title,
-	            _react2.default.createElement('br', null),
-	            'Author (Email): ',
+	            _react2.default.createElement("br", null),
+	            "Author (Email): ",
 	            author,
-	            '(',
+	            "(",
 	            email,
-	            ') ',
-	            _react2.default.createElement('br', null),
-	            'Date: ',
+	            ") ",
+	            _react2.default.createElement("br", null),
+	            "Date: ",
 	            date,
-	            ' ',
-	            _react2.default.createElement('br', null),
-	            'Description: ',
-	            description,
-	            ' ',
-	            _react2.default.createElement('br', null),
+	            " ",
+	            _react2.default.createElement("br", null),
+	            descriptionEl,
 	            _react2.default.createElement(
-	                'a',
+	                "a",
 	                { onClick: deleteIssue },
-	                'Delete '
+	                "Delete "
 	            ),
-	            ' |',
+	            " |",
 	            _react2.default.createElement(
-	                'a',
+	                "a",
 	                { onClick: showEditIssueForm },
-	                ' Edit'
-	            )
+	                " Edit"
+	            ),
+	            " |",
+	            " ",
+	            showHideLinkEl
 	        )
 	    );
 	};
@@ -23798,7 +23854,7 @@
 	            { onSubmit: function onSubmit(e) {
 	                    var issue = {
 	                        title: titleInput.value,
-	                        priority: prioritySelect.value,
+	                        priority: parseInt(prioritySelect.value, 10),
 	                        author: authorInput.value,
 	                        email: emailInput.value,
 	                        description: descriptionInput.value

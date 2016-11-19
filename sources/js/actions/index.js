@@ -30,3 +30,13 @@ export const cancelEditIssue = (issueId) => ({
     type: 'CANCEL_EDIT_ISSUE',
     id: issueId,
 });
+
+export const showIssueDescription = (issueId) => ({
+    type: 'SHOW_ISSUE_DESCRIPTION',
+    id: issueId,
+});
+
+export const hideIssueDescription = (issueId) => ({
+    type: 'HIDE_ISSUE_DESCRIPTION',
+    id: issueId,
+});

@@ -20,7 +20,7 @@ const IssueEditor = ({
             <form onSubmit={(e) => {
                 const issue = {
                     title: titleInput.value,
-                    priority: prioritySelect.value,
+                    priority: parseInt(prioritySelect.value, 10),
                     author: authorInput.value,
                     email: emailInput.value,
                     description: descriptionInput.value,

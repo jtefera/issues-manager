@@ -1,24 +1,46 @@
 import React from 'react';
 
+const Description = ({text}) => (
+    <div>
+    Description: {text}
+    </div>
+);
+
 const IssuePres = ({
     title,
     author,
     email,
     description,
-    deleteIssue,
     date,
+    deleteIssue,
+    showDescription,
     showEditIssueForm,
-}) => (
-    <li>
-        <div>
-            Title: {title}<br />
-            Author (Email): {author}({email}) <br />
-            Date: {date} <br />
-            Description: {description} <br />
-            <a onClick={deleteIssue}>Delete </a> |
-            <a onClick={showEditIssueForm}> Edit</a>
-        </div>
-    </li>
-);
+    showIssueDescription,
+    hideIssueDescription,
+}) => {
+    const descriptionEl = (showDescription) ? 
+                        <Description text={description} />
+                        : null;
+    const showHideLinkEl = (showDescription) ?
+                        (<a onClick={hideIssueDescription}>
+                            Hide Description
+                        </a>)
+                        : (<a onClick={showIssueDescription}>
+                            Show Description
+                        </a>);
+    return (
+        <li>
+            <div>
+                Title: {title}<br />
+                Author (Email): {author}({email}) <br />
+                Date: {date} <br />
+                {descriptionEl}
+                <a onClick={deleteIssue}>Delete </a> |
+                <a onClick={showEditIssueForm}> Edit</a> |
+                {" "}{showHideLinkEl}
+            </div>
+        </li>
+    );
+}
 
 export default IssuePres;
