@@ -1,4 +1,34 @@
-const issuesApp = (state = [], action) => {
+import {combineReducers} from 'redux';
+
+const asyncState = (state = {
+    isFetching: false,
+    didInvalidate: false,
+    errorMessage: "",
+}, action) => {
+    switch (action.type) {
+        case 'REQUEST_ISSUES':
+            return {
+                isFetching: true,
+                didInvalidate: false,
+            };
+        case 'RECEIVE_SUCCESS':
+            return {
+                isFetching: false,
+                didInvalidate: false,
+            };
+        case 'RECIEVE_FAILURE':
+            return {
+                isFetching: false,
+                didInvalidate: true,
+                errorMessage: action.errorMessage,
+            }
+    
+        default:
+            return state;
+    }
+}
+
+const issuesList = (state = [], action) => {
     switch (action.type) {
         case 'ADD_ISSUE':
             console.log(...action.issue);
@@ -54,4 +84,8 @@ const issuesApp = (state = [], action) => {
     return state;
 }
 
+const issuesApp = combineReducers({
+    asyncState,
+    issuesList,
+});
 export default issuesApp;

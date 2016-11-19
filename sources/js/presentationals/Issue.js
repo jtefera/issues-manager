@@ -8,7 +8,7 @@ const Description = ({text}) => (
 
 const IssuePres = ({
     title,
-    author,
+    name,
     email,
     description,
     date,
@@ -32,7 +32,7 @@ const IssuePres = ({
         <li>
             <div>
                 Title: {title}<br />
-                Author (Email): {author}({email}) <br />
+                Name (Email): {name}({email}) <br />
                 Date: {date} <br />
                 {descriptionEl}
                 <a onClick={deleteIssue}>Delete </a> |

@@ -4,7 +4,7 @@ import React from 'react';
 const IssueEditor = ({
     title,
     priority,
-    author,
+    name,
     email,
     description,
     editIssue,
@@ -12,7 +12,7 @@ const IssueEditor = ({
 }) => {
     let titleInput;
     let prioritySelect;
-    let authorInput;
+    let nameInput;
     let emailInput;
     let descriptionInput;
     return (
@@ -21,7 +21,7 @@ const IssueEditor = ({
                 const issue = {
                     title: titleInput.value,
                     priority: parseInt(prioritySelect.value, 10),
-                    author: authorInput.value,
+                    name: nameInput.value,
                     email: emailInput.value,
                     description: descriptionInput.value,
                 }
@@ -41,8 +41,8 @@ const IssueEditor = ({
                 </select>
                 <br />
                 Author: <input ref={(node) => {
-                    authorInput = node;
-                }} defaultValue={author} />
+                    nameInput = node;
+                }} defaultValue={name} />
                 <br />
                 Email: <input ref={(node) => {
                     emailInput = node;

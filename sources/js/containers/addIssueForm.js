@@ -5,7 +5,7 @@ import {connect} from 'react-redux';
 let AddIssueForm = ({dispatch}) => {
     let titleInput;
     let prioritySelect;
-    let authorInput;
+    let nameInput;
     let emailInput;
     let descriptionInput;
     return (
@@ -13,7 +13,7 @@ let AddIssueForm = ({dispatch}) => {
                 const issue = {
                     title: titleInput.value,
                     priority: prioritySelect.value,
-                    author: authorInput.value,
+                    name: nameInput.value,
                     email: emailInput.value,
                     description: descriptionInput.value,
                     date: Date(),
@@ -38,9 +38,9 @@ let AddIssueForm = ({dispatch}) => {
                 <option>3</option>
             </select>
             <br />
-            Author: <input ref={(node) => {
-                authorInput = node;
-            }} defaultValue='Author Test'/>
+            Name: <input ref={(node) => {
+                nameInput = node;
+            }} defaultValue='Name Test'/>
             <br />
             Email: <input ref={(node) => {
                 emailInput = node;

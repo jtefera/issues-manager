@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {createStore} from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider} from 'react-redux';
 import reducer from './reducer/reducer';
-import {addIssue} from './actions/';
+import {addIssue, fetchIssues} from './actions/';
 import AddIssueForm from './containers/addIssueForm';
-
+import thunkMiddleware from 'redux-thunk';
 import ListIssuesOfPriority from './containers/issuesOfPriority.js';
 /*
 
@@ -20,8 +20,12 @@ import ListIssuesOfPriority from './containers/issuesOfPriority.js';
 const {Component} = React;
 const store = createStore(
     reducer,
-    //For Chrome Debug
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+    compose(
+        applyMiddleware(thunkMiddleware),
+        //  For Chrome Debug
+        window.__REDUX_DEVTOOLS_EXTENSION__ &&
+            window.__REDUX_DEVTOOLS_EXTENSION__()
+    )
 );
 const init = () => {
     const loremIpsum = `Lorem Ipsum is simply dummy text of the printing 
@@ -29,7 +33,8 @@ const init = () => {
     standard dummy text ever since the 1500s, when an unknown printer 
     took a galley of type and scrambled it to make a type specimen book.`;
     const randomDate = () => Date(2016, 11, Math.floor(Math.random() * 30));
-    const mockIssues = [
+    store.dispatch(fetchIssues());
+    /*const mockIssues = [
         {
             title: 'Subir predicas',
             description: loremIpsum,
@@ -78,7 +83,7 @@ const init = () => {
     ];
     mockIssues.forEach((issue) => {
         store.dispatch(addIssue(issue));
-    });
+    });*/
 }
 
 init();

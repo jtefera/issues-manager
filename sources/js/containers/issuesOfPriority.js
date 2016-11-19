@@ -10,7 +10,7 @@ const getIssuesWithThePriority = (issues, priority) => {
 };
 
 const mapStateToProps = (state, {priority}) => ({
-    issues: getIssuesWithThePriority(state, priority),
+    issues: getIssuesWithThePriority(state.issuesList, priority),
 });
 
 const mapDispatchToProps = (dispatch) => ({
