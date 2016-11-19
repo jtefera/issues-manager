@@ -28,62 +28,7 @@ const store = createStore(
     )
 );
 const init = () => {
-    const loremIpsum = `Lorem Ipsum is simply dummy text of the printing 
-    and typesetting industry. Lorem Ipsum has been the industry\'s 
-    standard dummy text ever since the 1500s, when an unknown printer 
-    took a galley of type and scrambled it to make a type specimen book.`;
-    const randomDate = () => Date(2016, 11, Math.floor(Math.random() * 30));
     store.dispatch(fetchIssues());
-    /*const mockIssues = [
-        {
-            title: 'Subir predicas',
-            description: loremIpsum,
-            author: 'Jonathan Endale',
-            email: 'media@icmadrid.com',
-            date: randomDate(),
-            priority: 1,
-            id: 0,
-        },
-        {
-            title: 'Quitar errores',
-            description: loremIpsum,
-            author: 'Jonathan Endale',
-            email: 'media@icmadrid.com',
-            date: randomDate(),
-            priority: 2,
-            id: 1,
-        },
-        {
-            title: 'Responder mensajes',
-            description: loremIpsum,
-            author: 'Jonathan Endale',
-            email: 'media@icmadrid.com',
-            date: randomDate(),
-            priority: 3,
-            id: 2,
-        },
-        {
-            title: 'Contactar con proveedores',
-            description: loremIpsum,
-            author: 'Jonathan Endale',
-            email: 'media@icmadrid.com',
-            date: randomDate(),
-            priority: 1,
-            id: 3,
-        },
-        {
-            title: 'Extender suscripción',
-            description: loremIpsum,
-            author: 'Jonathan Endale',
-            email: 'media@icmadrid.com',
-            date: randomDate(),
-            priority: 2,
-            id: 4,
-        },  
-    ];
-    mockIssues.forEach((issue) => {
-        store.dispatch(addIssue(issue));
-    });*/
 }
 
 init();

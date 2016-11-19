@@ -102,61 +102,7 @@
 	//  For Chrome Debug
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
 	var init = function init() {
-	    var loremIpsum = 'Lorem Ipsum is simply dummy text of the printing \n    and typesetting industry. Lorem Ipsum has been the industry\'s \n    standard dummy text ever since the 1500s, when an unknown printer \n    took a galley of type and scrambled it to make a type specimen book.';
-	    var randomDate = function randomDate() {
-	        return Date(2016, 11, Math.floor(Math.random() * 30));
-	    };
 	    store.dispatch((0, _actions.fetchIssues)());
-	    /*const mockIssues = [
-	        {
-	            title: 'Subir predicas',
-	            description: loremIpsum,
-	            author: 'Jonathan Endale',
-	            email: 'media@icmadrid.com',
-	            date: randomDate(),
-	            priority: 1,
-	            id: 0,
-	        },
-	        {
-	            title: 'Quitar errores',
-	            description: loremIpsum,
-	            author: 'Jonathan Endale',
-	            email: 'media@icmadrid.com',
-	            date: randomDate(),
-	            priority: 2,
-	            id: 1,
-	        },
-	        {
-	            title: 'Responder mensajes',
-	            description: loremIpsum,
-	            author: 'Jonathan Endale',
-	            email: 'media@icmadrid.com',
-	            date: randomDate(),
-	            priority: 3,
-	            id: 2,
-	        },
-	        {
-	            title: 'Contactar con proveedores',
-	            description: loremIpsum,
-	            author: 'Jonathan Endale',
-	            email: 'media@icmadrid.com',
-	            date: randomDate(),
-	            priority: 1,
-	            id: 3,
-	        },
-	        {
-	            title: 'Extender suscripción',
-	            description: loremIpsum,
-	            author: 'Jonathan Endale',
-	            email: 'media@icmadrid.com',
-	            date: randomDate(),
-	            priority: 2,
-	            id: 4,
-	        },  
-	    ];
-	    mockIssues.forEach((issue) => {
-	        store.dispatch(addIssue(issue));
-	    });*/
 	};
 	
 	init();
