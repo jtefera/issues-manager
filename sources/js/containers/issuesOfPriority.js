@@ -9,9 +9,19 @@ const getIssuesWithThePriority = (issues, priority) => {
     return filteredIsues;
 };
 
-const mapStateToProps = (state, {priority}) => ({
-    issues: getIssuesWithThePriority(state.issuesList, priority),
-});
+const mapStateToProps = (state, {priority}) => {
+    let allIssues = [...state.issuesList];
+    if(state.optimisticIssueList) {
+        allIssues.push(state.optimisticIssueList);
+    }
+    console.log(allIssues);
+    return {
+        issues: getIssuesWithThePriority(
+            allIssues,
+            priority
+        ),
+    };
+};
 
 const mapDispatchToProps = (dispatch) => ({
     onClick: (id) => dispatch(changeIssueDescriptionDisplay(id)),

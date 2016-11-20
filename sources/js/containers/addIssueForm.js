@@ -1,5 +1,5 @@
 import React from 'react';
-import {addIssue} from '../actions/';
+import {addIssueToDB} from '../actions/';
 import {connect} from 'react-redux';
 
 let AddIssueForm = ({dispatch}) => {
@@ -23,7 +23,7 @@ let AddIssueForm = ({dispatch}) => {
                 if(!titleInput.value.trim()) {
                     return;
                 }
-                dispatch(addIssue(issue));
+                dispatch(addIssueToDB(issue));
             }
         }>
             Title: <input ref={(node) => {

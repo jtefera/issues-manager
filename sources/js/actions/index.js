@@ -2,10 +2,10 @@ import fetch from 'isomorphic-fetch';
 import firebase from 'firebase';
 import '../config/firebaseConfig';
 
-let nextId = 0;
+const firebaseBase = firebase.database().ref("listTasks");
+
 export const addIssue = (issue) => ({
     type: 'ADD_ISSUE',
-    id: nextId++,
     issue,
 });
 
@@ -45,9 +45,25 @@ export const hideIssueDescription = (issueId) => ({
     id: issueId,
 });
 
-export const addIssueToDB = (issue) => ({
-    type: 'ADD_ISSUE_TO_DB',
+export function addIssueToDB(issue) {
+   return (dispatch) => {
+       dispatch(addIssueOptimistic({
+           ...issue,
+           id: "optimistic",
+        }));
+        return firebaseBase.push(issue).then(() => {
+            dispatch(removeOptimistic());
+        });
+   } 
+};
+
+const addIssueOptimistic = (issue) => ({
+    type: 'ADD_ISSUE_OPTIMISTIC',
     issue,
+})
+
+const removeOptimistic = () => ({
+    type: 'REMOVE_OPTIMISTIC',
 });
 
 const requestIssues = () => ({
@@ -61,12 +77,13 @@ const receiveIssues = () => ({
 export function fetchIssues () {
     return (dispatch) => {
         dispatch(requestIssues());
-        return firebase.database().ref("listTasks")
-        .orderByKey().on("child_added", function(issue) {
-          // allTasksDisplayed[task.key] = task.val();
-          // Gets also the comments for the task. If there are no comments list,
-          // it creates one.
-          dispatch(addIssue(issue.val()));
+        return firebaseBase.orderByKey()
+            .on("child_added", function(issueFirebase) {
+            const issue = {
+                ...issueFirebase.val(),
+                id: issueFirebase.key,
+            };
+            dispatch(addIssue(issue));
         }); 
     };
 };

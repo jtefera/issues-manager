@@ -23280,8 +23280,6 @@
 	
 	var _redux = __webpack_require__(172);
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-	
 	var asyncState = function asyncState() {
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
 	        isFetching: false,
@@ -23313,15 +23311,27 @@
 	    }
 	};
 	
-	var issuesList = function issuesList() {
-	    var _console;
+	var optimisticIssueList = function optimisticIssueList() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	    var action = arguments[1];
 	
+	    switch (action.type) {
+	        case 'ADD_ISSUE_OPTIMISTIC':
+	            return _extends({}, action.issue, {
+	                id: "optimisitc"
+	            });
+	        case 'REMOVE_OPTIMISTIC':
+	            return {};
+	        default:
+	            return state;
+	    }
+	};
+	var issuesList = function issuesList() {
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	    var action = arguments[1];
 	
 	    switch (action.type) {
 	        case 'ADD_ISSUE':
-	            (_console = console).log.apply(_console, _toConsumableArray(action.issue));
 	            return state.concat(_extends({
 	                id: action.id
 	            }, action.issue));
@@ -23367,7 +23377,8 @@
 	
 	var issuesApp = (0, _redux.combineReducers)({
 	    asyncState: asyncState,
-	    issuesList: issuesList
+	    issuesList: issuesList,
+	    optimisticIssueList: optimisticIssueList
 	});
 	exports.default = issuesApp;
 
@@ -23380,7 +23391,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.addIssueToDB = exports.hideIssueDescription = exports.showIssueDescription = exports.cancelEditIssue = exports.editIssue = exports.showEditIssueForm = exports.deleteIssue = exports.changeIssueDescriptionDisplay = exports.addIssue = undefined;
+	exports.hideIssueDescription = exports.showIssueDescription = exports.cancelEditIssue = exports.editIssue = exports.showEditIssueForm = exports.deleteIssue = exports.changeIssueDescriptionDisplay = exports.addIssue = undefined;
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	exports.addIssueToDB = addIssueToDB;
 	exports.fetchIssues = fetchIssues;
 	
 	var _isomorphicFetch = __webpack_require__(209);
@@ -23395,11 +23410,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var nextId = 0;
+	var firebaseBase = _firebase2.default.database().ref("listTasks");
+	
 	var addIssue = exports.addIssue = function addIssue(issue) {
 	    return {
 	        type: 'ADD_ISSUE',
-	        id: nextId++,
 	        issue: issue
 	    };
 	};
@@ -23454,10 +23469,27 @@
 	    };
 	};
 	
-	var addIssueToDB = exports.addIssueToDB = function addIssueToDB(issue) {
+	function addIssueToDB(issue) {
+	    return function (dispatch) {
+	        dispatch(addIssueOptimistic(_extends({}, issue, {
+	            id: "optimistic"
+	        })));
+	        return firebaseBase.push(issue).then(function () {
+	            dispatch(removeOptimistic());
+	        });
+	    };
+	};
+	
+	var addIssueOptimistic = function addIssueOptimistic(issue) {
 	    return {
-	        type: 'ADD_ISSUE_TO_DB',
+	        type: 'ADD_ISSUE_OPTIMISTIC',
 	        issue: issue
+	    };
+	};
+	
+	var removeOptimistic = function removeOptimistic() {
+	    return {
+	        type: 'REMOVE_OPTIMISTIC'
 	    };
 	};
 	
@@ -23476,11 +23508,11 @@
 	function fetchIssues() {
 	    return function (dispatch) {
 	        dispatch(requestIssues());
-	        return _firebase2.default.database().ref("listTasks").orderByKey().on("child_added", function (issue) {
-	            // allTasksDisplayed[task.key] = task.val();
-	            // Gets also the comments for the task. If there are no comments list,
-	            // it creates one.
-	            dispatch(addIssue(issue.val()));
+	        return firebaseBase.orderByKey().on("child_added", function (issueFirebase) {
+	            var issue = _extends({}, issueFirebase.val(), {
+	                id: issueFirebase.key
+	            });
+	            dispatch(addIssue(issue));
 	        });
 	    };
 	};
@@ -23529,7 +23561,7 @@
 	                if (!titleInput.value.trim()) {
 	                    return;
 	                }
-	                dispatch((0, _actions.addIssue)(issue));
+	                dispatch((0, _actions.addIssueToDB)(issue));
 	            } },
 	        'Title: ',
 	        _react2.default.createElement('input', { ref: function ref(node) {
@@ -23603,6 +23635,8 @@
 	
 	var _presentationals = __webpack_require__(204);
 	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
 	var getIssuesWithThePriority = function getIssuesWithThePriority(issues, priority) {
 	    var filteredIsues = issues.filter(function (issue) {
 	        return parseInt(issue.priority, 10) === parseInt(priority, 10);
@@ -23612,8 +23646,14 @@
 	
 	var mapStateToProps = function mapStateToProps(state, _ref) {
 	    var priority = _ref.priority;
+	
+	    var allIssues = [].concat(_toConsumableArray(state.issuesList));
+	    if (state.optimisticIssueList) {
+	        allIssues.push(state.optimisticIssueList);
+	    }
+	    console.log(allIssues);
 	    return {
-	        issues: getIssuesWithThePriority(state.issuesList, priority)
+	        issues: getIssuesWithThePriority(allIssues, priority)
 	    };
 	};
 	

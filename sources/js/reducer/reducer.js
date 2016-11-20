@@ -28,10 +28,22 @@ const asyncState = (state = {
     }
 }
 
+const optimisticIssueList = (state = {}, action) => {
+    switch (action.type) {
+        case 'ADD_ISSUE_OPTIMISTIC':
+            return {
+                ...action.issue,
+                id: "optimisitc",
+            };
+        case 'REMOVE_OPTIMISTIC':
+            return {}
+        default:
+            return state;
+    }
+}
 const issuesList = (state = [], action) => {
     switch (action.type) {
         case 'ADD_ISSUE':
-            console.log(...action.issue);
             return state.concat({
                id: action.id,
                ...action.issue,
@@ -87,5 +99,6 @@ const issuesList = (state = [], action) => {
 const issuesApp = combineReducers({
     asyncState,
     issuesList,
+    optimisticIssueList,
 });
 export default issuesApp;
