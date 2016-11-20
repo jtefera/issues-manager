@@ -40,7 +40,7 @@ const IssueEditor = ({
                     <option>3</option>
                 </select>
                 <br />
-                Author: <input ref={(node) => {
+                Name: <input ref={(node) => {
                     nameInput = node;
                 }} defaultValue={name} />
                 <br />

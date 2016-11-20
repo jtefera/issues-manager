@@ -19,7 +19,7 @@ export const ListIssues = ({issues, priority}) => {
     return (
         <div>
             {priority} Priority Issues: <br />
-            <ul>
+            <ul className='priorityList' id='P{priority}'>
                 {issuesEl}
             </ul>
         </div>

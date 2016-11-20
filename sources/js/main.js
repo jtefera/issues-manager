@@ -7,6 +7,10 @@ import {addIssue, fetchIssues} from './actions/';
 import AddIssueForm from './containers/addIssueForm';
 import thunkMiddleware from 'redux-thunk';
 import ListIssuesOfPriority from './containers/issuesOfPriority.js';
+import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import AppBar from 'material-ui/AppBar';
 /*
 
     Componentess que tendra
@@ -59,8 +63,10 @@ class App extends Component {
 }
 
 ReactDOM.render(
-    <Provider store={store}>
-        <App />
-    </Provider>,
+    <MuiThemeProvider>
+        <Provider store={store}>        
+            <App />
+        </Provider>
+    </MuiThemeProvider>,
     document.getElementById('root')
 );
