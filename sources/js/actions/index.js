@@ -14,21 +14,33 @@ export const changeIssueDescriptionDisplay = (issueId) => ({
     id: issueId,
 });
 
-export const deleteIssue = (issueId) => ({
-    type: 'DELETE_ISSUE',
-    id: issueId,
-});
+const markIssueAsDeleting = (id) => ({
+    type: 'MARK_ISSUE_AS_DELETING',
+    id,
+})
+export function deleteIssue(id) {
+    return (dispatch) => {
+        dispatch(markIssueAsDeleting(id));
+        return firebaseBase.child(id).remove();
+    }
+};
 
-export const showEditIssueForm = (issueId) => ({
+export const showEditIssueForm = (id) => ({
     type: 'SHOW_EDIT_ISSUE_FORM',
-    id: issueId,
+    id,
 });
 
-export const editIssue = (issueId, issue) => ({
-    type: 'EDIT_ISSUE',
-    id: issueId,
+const optimisticEditIssue = (id, issue) => ({
+    type: 'OPTIMISTIC_EDIT_ISSUE',
+    id,
     issue,
 });
+
+export function editIssue(issueId, issue){
+    return (dispatch) => {
+        dispatch(optimisticEditIssue(issueId, issue));
+    }   
+};
 
 export const cancelEditIssue = (issueId) => ({
     type: 'CANCEL_EDIT_ISSUE',
@@ -52,7 +64,7 @@ export function addIssueToDB(issue) {
            id: "optimistic",
         }));
         return firebaseBase.push(issue).then(() => {
-            dispatch(removeOptimistic());
+            dispatch(removeAddedOptimistic());
         });
    } 
 };
@@ -62,8 +74,8 @@ const addIssueOptimistic = (issue) => ({
     issue,
 })
 
-const removeOptimistic = () => ({
-    type: 'REMOVE_OPTIMISTIC',
+const removeAddedOptimistic = () => ({
+    type: 'REMOVE_ADDED_OPTIMISTIC',
 });
 
 const requestIssues = () => ({

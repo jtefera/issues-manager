@@ -13,11 +13,15 @@ const IssuePres = ({
     description,
     date,
     deleteIssue,
+    deleting,
     showDescription,
     showEditIssueForm,
     showIssueDescription,
     hideIssueDescription,
 }) => {
+    if(deleting) {
+        return null;
+    }
     const descriptionEl = (showDescription) ? 
                         <Description text={description} />
                         : null;

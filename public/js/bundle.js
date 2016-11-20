@@ -23311,7 +23311,7 @@
 	    }
 	};
 	
-	var optimisticIssueList = function optimisticIssueList() {
+	var optimisticIssue = function optimisticIssue() {
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 	    var action = arguments[1];
 	
@@ -23320,7 +23320,7 @@
 	            return _extends({}, action.issue, {
 	                id: "optimisitc"
 	            });
-	        case 'REMOVE_OPTIMISTIC':
+	        case 'REMOVE_ADDED_OPTIMISTIC':
 	            return {};
 	        default:
 	            return state;
@@ -23340,9 +23340,16 @@
 	                return el.id !== action.id;
 	            });
 	        case 'EDIT_ISSUE':
+	        case 'OPTIMISTIC_EDIT_ISSUE':
 	            return state.map(function (el) {
 	                return el.id !== action.id ? el : _extends({}, el, action.issue, {
 	                    editMode: false
+	                });
+	            });
+	        case 'MARK_ISSUE_AS_DELETING':
+	            return state.map(function (el) {
+	                return el.id !== action.id ? el : _extends({}, el, {
+	                    deleting: true
 	                });
 	            });
 	        case 'SHOW_EDIT_ISSUE_FORM':
@@ -23378,7 +23385,7 @@
 	var issuesApp = (0, _redux.combineReducers)({
 	    asyncState: asyncState,
 	    issuesList: issuesList,
-	    optimisticIssueList: optimisticIssueList
+	    optimisticIssue: optimisticIssue
 	});
 	exports.default = issuesApp;
 
@@ -23391,10 +23398,12 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.hideIssueDescription = exports.showIssueDescription = exports.cancelEditIssue = exports.editIssue = exports.showEditIssueForm = exports.deleteIssue = exports.changeIssueDescriptionDisplay = exports.addIssue = undefined;
+	exports.hideIssueDescription = exports.showIssueDescription = exports.cancelEditIssue = exports.showEditIssueForm = exports.changeIssueDescriptionDisplay = exports.addIssue = undefined;
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
+	exports.deleteIssue = deleteIssue;
+	exports.editIssue = editIssue;
 	exports.addIssueToDB = addIssueToDB;
 	exports.fetchIssues = fetchIssues;
 	
@@ -23426,25 +23435,37 @@
 	    };
 	};
 	
-	var deleteIssue = exports.deleteIssue = function deleteIssue(issueId) {
+	var markIssueAsDeleting = function markIssueAsDeleting(id) {
 	    return {
-	        type: 'DELETE_ISSUE',
-	        id: issueId
+	        type: 'MARK_ISSUE_AS_DELETING',
+	        id: id
+	    };
+	};
+	function deleteIssue(id) {
+	    return function (dispatch) {
+	        dispatch(markIssueAsDeleting(id));
+	        return firebaseBase.child(id).remove();
 	    };
 	};
 	
-	var showEditIssueForm = exports.showEditIssueForm = function showEditIssueForm(issueId) {
+	var showEditIssueForm = exports.showEditIssueForm = function showEditIssueForm(id) {
 	    return {
 	        type: 'SHOW_EDIT_ISSUE_FORM',
-	        id: issueId
+	        id: id
 	    };
 	};
 	
-	var editIssue = exports.editIssue = function editIssue(issueId, issue) {
+	var optimisticEditIssue = function optimisticEditIssue(id, issue) {
 	    return {
-	        type: 'EDIT_ISSUE',
-	        id: issueId,
+	        type: 'OPTIMISTIC_EDIT_ISSUE',
+	        id: id,
 	        issue: issue
+	    };
+	};
+	
+	function editIssue(issueId, issue) {
+	    return function (dispatch) {
+	        dispatch(optimisticEditIssue(issueId, issue));
 	    };
 	};
 	
@@ -23475,7 +23496,7 @@
 	            id: "optimistic"
 	        })));
 	        return firebaseBase.push(issue).then(function () {
-	            dispatch(removeOptimistic());
+	            dispatch(removeAddedOptimistic());
 	        });
 	    };
 	};
@@ -23487,9 +23508,9 @@
 	    };
 	};
 	
-	var removeOptimistic = function removeOptimistic() {
+	var removeAddedOptimistic = function removeAddedOptimistic() {
 	    return {
-	        type: 'REMOVE_OPTIMISTIC'
+	        type: 'REMOVE_ADDED_OPTIMISTIC'
 	    };
 	};
 	
@@ -23649,7 +23670,7 @@
 	
 	    var allIssues = [].concat(_toConsumableArray(state.issuesList));
 	    if (state.optimisticIssueList) {
-	        allIssues.push(state.optimisticIssueList);
+	        allIssues.push(state.optimisticIssue);
 	    }
 	    console.log(allIssues);
 	    return {
@@ -23801,11 +23822,15 @@
 	        description = _ref2.description,
 	        date = _ref2.date,
 	        deleteIssue = _ref2.deleteIssue,
+	        deleting = _ref2.deleting,
 	        showDescription = _ref2.showDescription,
 	        showEditIssueForm = _ref2.showEditIssueForm,
 	        showIssueDescription = _ref2.showIssueDescription,
 	        hideIssueDescription = _ref2.hideIssueDescription;
 	
+	    if (deleting) {
+	        return null;
+	    }
 	    var descriptionEl = showDescription ? _react2.default.createElement(Description, { text: description }) : null;
 	    var showHideLinkEl = showDescription ? _react2.default.createElement(
 	        "a",

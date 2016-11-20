@@ -28,14 +28,14 @@ const asyncState = (state = {
     }
 }
 
-const optimisticIssueList = (state = {}, action) => {
+const optimisticIssue = (state = {}, action) => {
     switch (action.type) {
         case 'ADD_ISSUE_OPTIMISTIC':
             return {
                 ...action.issue,
                 id: "optimisitc",
             };
-        case 'REMOVE_OPTIMISTIC':
+        case 'REMOVE_ADDED_OPTIMISTIC':
             return {}
         default:
             return state;
@@ -51,12 +51,20 @@ const issuesList = (state = [], action) => {
         case 'DELETE_ISSUE':
             return state.filter((el) => el.id !== action.id);
         case 'EDIT_ISSUE':
+        case 'OPTIMISTIC_EDIT_ISSUE':
             return state.map((el) => (el.id !== action.id) 
                                         ? el : {
                                             ...el,
                                             ...action.issue,
                                             editMode: false,
                                         }
+            );
+        case 'MARK_ISSUE_AS_DELETING': 
+            return state.map((el) => (el.id !== action.id) 
+                            ? el : {
+                                ...el,
+                                deleting: true,
+                            }
             );
         case 'SHOW_EDIT_ISSUE_FORM':
             return state.map((el) => (el.id !== action.id) 
@@ -99,6 +107,6 @@ const issuesList = (state = [], action) => {
 const issuesApp = combineReducers({
     asyncState,
     issuesList,
-    optimisticIssueList,
+    optimisticIssue,
 });
 export default issuesApp;
