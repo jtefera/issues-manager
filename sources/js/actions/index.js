@@ -36,9 +36,12 @@ const optimisticEditIssue = (id, issue) => ({
     issue,
 });
 
-export function editIssue(issueId, issue){
+export function editIssue(id, issue){
     return (dispatch) => {
-        dispatch(optimisticEditIssue(issueId, issue));
+        dispatch(optimisticEditIssue(id, issue));
+        firebaseBase.child(id).update(
+            issue
+        );
     }   
 };
 

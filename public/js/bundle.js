@@ -23339,10 +23339,11 @@
 	            return state.filter(function (el) {
 	                return el.id !== action.id;
 	            });
-	        case 'EDIT_ISSUE':
 	        case 'OPTIMISTIC_EDIT_ISSUE':
 	            return state.map(function (el) {
-	                return el.id !== action.id ? el : _extends({}, el, action.issue, {
+	                return el.id !== action.id ? el : _extends({
+	                    prev: el
+	                }, el, action.issue, {
 	                    editMode: false
 	                });
 	            });
@@ -23463,9 +23464,10 @@
 	    };
 	};
 	
-	function editIssue(issueId, issue) {
+	function editIssue(id, issue) {
 	    return function (dispatch) {
-	        dispatch(optimisticEditIssue(issueId, issue));
+	        dispatch(optimisticEditIssue(id, issue));
+	        firebaseBase.child(id).update(issue);
 	    };
 	};
 	

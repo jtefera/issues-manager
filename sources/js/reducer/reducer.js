@@ -50,10 +50,10 @@ const issuesList = (state = [], action) => {
             });
         case 'DELETE_ISSUE':
             return state.filter((el) => el.id !== action.id);
-        case 'EDIT_ISSUE':
         case 'OPTIMISTIC_EDIT_ISSUE':
             return state.map((el) => (el.id !== action.id) 
                                         ? el : {
+                                            prev: el,
                                             ...el,
                                             ...action.issue,
                                             editMode: false,
