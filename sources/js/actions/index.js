@@ -9,11 +9,6 @@ export const addIssue = (issue) => ({
     issue,
 });
 
-export const changeIssueDescriptionDisplay = (issueId) => ({
-    type: 'CHANGE_ISSSUE_DESCRIPTION_DISPLAY',
-    id: issueId,
-});
-
 const markIssueAsDeleting = (id) => ({
     type: 'MARK_ISSUE_AS_DELETING',
     id,
