@@ -14,7 +14,6 @@ const mapStateToProps = (state, {priority}) => {
     if(state.optimisticIssueList) {
         allIssues.push(state.optimisticIssue);
     }
-    console.log(allIssues);
     return {
         issues: getIssuesWithThePriority(
             allIssues,

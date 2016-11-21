@@ -1,4 +1,6 @@
 import React from 'react';
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton';
 
 const Description = ({text}) => (
     <div>
@@ -22,27 +24,23 @@ const IssuePres = ({
     if(deleting) {
         return null;
     }
-    const descriptionEl = (showDescription) ? 
-                        <Description text={description} />
-                        : null;
-    const showHideLinkEl = (showDescription) ?
-                        (<a onClick={hideIssueDescription}>
-                            Hide Description
-                        </a>)
-                        : (<a onClick={showIssueDescription}>
-                            Show Description
-                        </a>);
     return (
         <li>
-            <div>
-                Title: {title}<br />
-                Name (Email): {name}({email}) <br />
-                Date: {date} <br />
-                {descriptionEl}
-                <a onClick={deleteIssue}>Delete </a> |
-                <a onClick={showEditIssueForm}> Edit</a> |
-                {" "}{showHideLinkEl}
-            </div>
+            <Card>
+                <CardHeader
+                    title={title}
+                    subtitle={name}
+                    actAsExpander={true}
+                    showExpandableButton={true}
+                />
+                <CardText expandable={true}>
+                    {description}
+                </CardText>
+                <CardActions>
+                    <FlatButton label="Delete" onTouchTap={deleteIssue}/>
+                    <FlatButton label="Edit" onTouchTap={showEditIssueForm}/>
+                </CardActions>
+            </Card>
         </li>
     );
 }

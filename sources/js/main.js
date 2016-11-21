@@ -11,6 +11,9 @@ import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
+import Paper from 'material-ui/Paper';
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
 /*
 
     Componentess que tendra
@@ -45,6 +48,9 @@ const LoginForm = ({onClick}) => (
     </form>
 );
 
+const rootStyle = {
+    width: '100%',
+};
 
 class App extends Component {
     constructor() {
