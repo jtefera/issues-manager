@@ -41465,7 +41465,6 @@
 	var IssuePres = function IssuePres(_ref) {
 	    var issue = _ref.issue,
 	        deleteIssue = _ref.deleteIssue,
-	        deleting = _ref.deleting,
 	        showDescription = _ref.showDescription,
 	        showEditIssueForm = _ref.showEditIssueForm,
 	        showIssueDescription = _ref.showIssueDescription,
@@ -41474,7 +41473,8 @@
 	        name = issue.name,
 	        email = issue.email,
 	        description = issue.description,
-	        date = issue.date;
+	        date = issue.date,
+	        deleting = issue.deleting;
 	
 	    if (deleting) {
 	        return null;

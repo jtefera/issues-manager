@@ -5,7 +5,6 @@ import FlatButton from 'material-ui/FlatButton';
 const IssuePres = ({
     issue,
     deleteIssue,
-    deleting,
     showDescription,
     showEditIssueForm,
     showIssueDescription,
@@ -17,6 +16,7 @@ const IssuePres = ({
         email,
         description,
         date,
+        deleting,
     } = issue;
     if(deleting) {
         return null;
