@@ -5,17 +5,18 @@ import {Provider} from 'react-redux';
 import reducer from './reducer/reducer';
 import {addIssue, fetchIssues} from './actions/';
 import AddIssueForm from './containers/addIssueForm';
+import IssueEditor from './containers/issueEditor';
+import HeaderBar from './containers/HeaderBar';
 import thunkMiddleware from 'redux-thunk';
 import ListIssuesOfPriority from './containers/issuesOfPriority.js';
 import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import AppBar from 'material-ui/AppBar';
-import Paper from 'material-ui/Paper';
+import FlatButton from 'material-ui/FlatButton';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 /*
-
     Componentess que tendra
         Formulario
         Login
@@ -59,7 +60,9 @@ class App extends Component {
     render() {
        return (
            <div>
+                <HeaderBar />
                 <AddIssueForm />
+                <IssueEditor />
                 <ListIssuesOfPriority priority="1"/>
                 <ListIssuesOfPriority priority="2"/>
                 <ListIssuesOfPriority priority="3"/>

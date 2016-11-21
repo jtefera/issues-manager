@@ -1,18 +1,26 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import IssueEditorPres from '../presentationals/issueEditor';
-import {editIssue, cancelEditIssue} from '../actions/';
+import IssueForm from '../presentationals/issueForm';
+import {editIssue, hideEditIssueForm} from '../actions/';
 
-const mapDispatchToProps = (dispatch, {id}) => ({
-    editIssue: (issue) => {
-        dispatch(editIssue(id, issue));
+const mapDispatchToProps = (dispatch) =>({
+    onSubmitHandle: (issue) => {
+        console.log(issue);
+        dispatch(hideEditIssueForm());
+        dispatch(editIssue(issue.id, issue));
     },
-    cancelEditIssue: () => dispatch(cancelEditIssue(id)),
 });
 
+const mapStateToProps = (state) =>{ 
+    return ({
+        isOpen: state.formsDisplay.showEditIssueForm,
+        titleForm: 'Edit Issue',
+        editingIssue: state.formsDisplay.editingIssue,
+    });
+};
 const IssueEditor = connect(
-    null,
+    mapStateToProps,
     mapDispatchToProps
-)(IssueEditorPres);
+)(IssueForm);
 
 export default IssueEditor;

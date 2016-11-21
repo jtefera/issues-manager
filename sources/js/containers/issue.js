@@ -3,16 +3,12 @@ import {connect} from 'react-redux';
 import {
         deleteIssue,
         showEditIssueForm,
-        showIssueDescription,
-        hideIssueDescription,
     } from '../actions';
 import IssuePres from '../presentationals/Issue';
 
-const mapDispatchToProps = (dispatch, {id}) => ({
+const mapDispatchToProps = (dispatch, {id, issue}) => ({
    deleteIssue: () => dispatch(deleteIssue(id)),
-   showEditIssueForm: () => dispatch(showEditIssueForm(id)),
-   showIssueDescription: () => dispatch(showIssueDescription(id)),
-   hideIssueDescription: () => dispatch(hideIssueDescription(id)),
+   showEditIssueForm: () => dispatch(showEditIssueForm(id, issue)),
 });
 
 const Issue = connect(

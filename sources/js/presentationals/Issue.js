@@ -2,18 +2,8 @@ import React from 'react';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
-const Description = ({text}) => (
-    <div>
-    Description: {text}
-    </div>
-);
-
 const IssuePres = ({
-    title,
-    name,
-    email,
-    description,
-    date,
+    issue,
     deleteIssue,
     deleting,
     showDescription,
@@ -21,6 +11,13 @@ const IssuePres = ({
     showIssueDescription,
     hideIssueDescription,
 }) => {
+    const {
+        title,
+        name,
+        email,
+        description,
+        date,
+    } = issue;
     if(deleting) {
         return null;
     }

@@ -25,8 +25,29 @@ export function deleteIssue(id) {
     }
 };
 
-export const showEditIssueForm = (id) => ({
+export const showAddIssueForm = () => ({
+    type: 'SHOW_ADD_ISSUE_FORM',
+});
+
+export const hideAddIssueForm = () => ({
+    type: 'HIDE_ADD_ISSUE_FORM',
+});
+
+export const showLoginForm = () => ({
+    type: 'SHOW_LOGIN_FORM',
+});
+
+export const hideLoginForm = () => ({
+    type: 'HIDE_LOGIN_FORM',
+});
+
+export const showEditIssueForm = (id, issue) => ({
     type: 'SHOW_EDIT_ISSUE_FORM',
+    id,
+    issue,
+});
+export const hideEditIssueForm = (id) => ({
+    type: 'HIDE_EDIT_ISSUE_FORM',
     id,
 });
 

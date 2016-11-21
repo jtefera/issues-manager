@@ -1,6 +1,5 @@
 import React from 'react';
 import Issue from '../containers/issue';
-import IssueEditor from '../containers/issueEditor';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
 
@@ -8,14 +7,7 @@ import FlatButton from 'material-ui/FlatButton';
 export const ListIssues = ({issues, priority}) => {
     const issuesEl = issues.map(
             (issue) => {
-                if(issue.editMode) {
-                    return (
-                        <IssueEditor
-                            key={issue.id}
-                            {...issue}/>
-                    );
-                }
-                return (<Issue key={issue.id} {...issue}/>);
+                return (<Issue key={issue.id} id={issue.id} issue={issue}/>);
             }
         );
     const title = `Priority ${priority}`;
