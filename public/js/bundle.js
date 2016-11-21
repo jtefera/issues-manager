@@ -41487,13 +41487,15 @@
 	            null,
 	            _react2.default.createElement(_Card.CardHeader, {
 	                title: title,
-	                subtitle: name,
+	                subtitle: name + ' (' + email + ')',
 	                actAsExpander: true,
 	                showExpandableButton: true
 	            }),
 	            _react2.default.createElement(
 	                _Card.CardText,
 	                { expandable: true },
+	                date,
+	                _react2.default.createElement('br', null),
 	                description
 	            ),
 	            _react2.default.createElement(

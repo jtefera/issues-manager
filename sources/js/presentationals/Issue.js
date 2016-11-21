@@ -26,11 +26,12 @@ const IssuePres = ({
             <Card>
                 <CardHeader
                     title={title}
-                    subtitle={name}
+                    subtitle={`${name} (${email})`}
                     actAsExpander={true}
                     showExpandableButton={true}
                 />
                 <CardText expandable={true}>
+                    {date}<br />
                     {description}
                 </CardText>
                 <CardActions>
