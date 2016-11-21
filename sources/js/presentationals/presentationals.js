@@ -2,6 +2,11 @@ import React from 'react';
 import Issue from '../containers/issue';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
+import {
+    red500,
+    orange500,
+    teal500,
+} from 'material-ui/styles/colors';
 
 
 export const ListIssues = ({issues, priority}) => {
@@ -14,7 +19,7 @@ export const ListIssues = ({issues, priority}) => {
     const style = {
         margin: '10px 20px',
     };
-    const priorityColors = ['red', 'orange', 'blue'];
+    const priorityColors = [red500, orange500, teal500];
     const styleHeader = {
         backgroundColor: priorityColors[parseInt(priority, 10) - 1],
         color: 'white',
