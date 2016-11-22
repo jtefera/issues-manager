@@ -76,6 +76,10 @@
 	
 	var _HeaderBar2 = _interopRequireDefault(_HeaderBar);
 	
+	var _message = __webpack_require__(527);
+	
+	var _message2 = _interopRequireDefault(_message);
+	
 	var _reduxThunk = __webpack_require__(468);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
@@ -109,6 +113,7 @@
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
 	var init = function init() {
 	    store.dispatch((0, _actions.fetchIssues)());
+	    store.dispatch((0, _actions.startConnectionCheck)());
 	};
 	
 	init();
@@ -136,11 +141,13 @@
 	var App = function App(_ref2) {
 	    var showAddIssueForm = _ref2.showAddIssueForm,
 	        showEditIssueForm = _ref2.showEditIssueForm,
-	        showLoginForm = _ref2.showLoginForm;
+	        showLoginForm = _ref2.showLoginForm,
+	        showMessage = _ref2.showMessage;
 	
 	    var addIssueForm = showAddIssueForm ? _react2.default.createElement(_addIssueForm2.default, null) : null;
 	    var editIssueForm = showEditIssueForm ? _react2.default.createElement(_editIssueForm2.default, null) : null;
 	    var loginForm = showLoginForm ? _react2.default.createElement(LoginForm, null) : null;
+	    var message = showMessage ? _react2.default.createElement(_message2.default, null) : null;
 	    return _react2.default.createElement(
 	        'div',
 	        null,
@@ -148,6 +155,7 @@
 	        addIssueForm,
 	        editIssueForm,
 	        loginForm,
+	        message,
 	        _react2.default.createElement(_issuesOfPriority2.default, { priority: '1' }),
 	        _react2.default.createElement(_issuesOfPriority2.default, { priority: '2' }),
 	        _react2.default.createElement(_issuesOfPriority2.default, { priority: '3' })
@@ -158,7 +166,8 @@
 	    return {
 	        showAddIssueForm: state.formsDisplay.showAddIssueForm,
 	        showEditIssueForm: state.formsDisplay.showEditIssueForm,
-	        showLoginForm: state.formsDisplay.showLoginForm
+	        showLoginForm: state.formsDisplay.showLoginForm,
+	        showMessage: state.messageDisplay.showMessage
 	    };
 	};
 	
@@ -23707,6 +23716,12 @@
 	                    editMode: false
 	                });
 	            });
+	        case 'SET_ALL_ISSUES_AS_SENT':
+	            return state.map(function (el) {
+	                return _extends({}, el, {
+	                    isConnected: true
+	                });
+	            });
 	        case 'MARK_ISSUE_AS_DELETING':
 	            return state.map(function (el) {
 	                return el.id !== action.id ? el : _extends({}, el, {
@@ -23719,11 +23734,60 @@
 	    return state;
 	};
 	
+	var messageDisplay = function messageDisplay() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+	        showMessage: false,
+	        title: '',
+	        description: '',
+	        isError: false
+	    };
+	    var action = arguments[1];
+	
+	    switch (action.type) {
+	        case 'SHOW_MESSAGE':
+	            return _extends({}, state, {
+	                showMessage: true,
+	                title: action.title,
+	                description: action.description,
+	                isError: false
+	            });
+	        case 'SHOW_ERROR_MESSAGE':
+	            return _extends({}, state, {
+	                showMessage: true,
+	                title: action.title,
+	                description: action.description,
+	                isError: true
+	            });
+	        case 'HIDE_MESSAGE':
+	            return _extends({}, state, {
+	                showMessage: false
+	            });
+	        default:
+	            return state;
+	    }
+	};
+	
+	var connected = function connected() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	    var action = arguments[1];
+	
+	    switch (action.type) {
+	        case 'SET_STATE_AS_CONNECTED':
+	            return true;
+	        case 'SET_STATE_AS_DISCONNECTED':
+	            return false;
+	        default:
+	            return state;
+	    }
+	};
+	
 	var issuesApp = (0, _redux.combineReducers)({
 	    asyncState: asyncState,
 	    issuesList: issuesList,
 	    optimisticIssue: optimisticIssue,
-	    formsDisplay: formsDisplay
+	    formsDisplay: formsDisplay,
+	    messageDisplay: messageDisplay,
+	    connected: connected
 	});
 	exports.default = issuesApp;
 
@@ -23736,7 +23800,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.hideIssueDescription = exports.showIssueDescription = exports.cancelEditIssue = exports.hideEditIssueForm = exports.showEditIssueForm = exports.hideLoginForm = exports.showLoginForm = exports.hideAddIssueForm = exports.showAddIssueForm = exports.addIssue = undefined;
+	exports.startConnectionCheck = exports.setAllIssuesAsSent = exports.setStateAsNotConnected = exports.setStateAsConnected = exports.hideMessage = exports.showErrorMessage = exports.showMessage = exports.hideIssueDescription = exports.showIssueDescription = exports.cancelEditIssue = exports.hideEditIssueForm = exports.showEditIssueForm = exports.hideLoginForm = exports.showLoginForm = exports.hideAddIssueForm = exports.showAddIssueForm = exports.addIssue = undefined;
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
@@ -23856,9 +23920,13 @@
 	function addIssueToDB(issue) {
 	    return function (dispatch) {
 	        dispatch(addIssueOptimistic(_extends({}, issue, {
-	            id: "optimistic"
+	            id: 'optimistic'
 	        })));
-	        return firebaseBase.push(issue).then(function () {
+	        return _firebase2.default.database().ref("listTasks").push(issue, function (error) {
+	            if (error) {
+	                dispatch(showErrorMessage('Not able to add issue into db', error));
+	            }
+	        }).then(function () {
 	            dispatch(removeAddedOptimistic());
 	        });
 	    };
@@ -23890,13 +23958,69 @@
 	};
 	
 	function fetchIssues() {
-	    return function (dispatch) {
+	    return function (dispatch, getState) {
 	        dispatch(requestIssues());
-	        return firebaseBase.orderByKey().on("child_added", function (issueFirebase) {
+	        return firebaseBase.orderByKey().on('child_added', function (issueFirebase) {
 	            var issue = _extends({}, issueFirebase.val(), {
-	                id: issueFirebase.key
+	                id: issueFirebase.key,
+	                isConnected: getState().connected
 	            });
 	            dispatch(addIssue(issue));
+	        });
+	    };
+	};
+	
+	// Messages
+	var showMessage = exports.showMessage = function showMessage(title, description) {
+	    return {
+	        type: 'SHOW_MESSAGE',
+	        title: title,
+	        description: description
+	    };
+	};
+	
+	var showErrorMessage = exports.showErrorMessage = function showErrorMessage(title, description) {
+	    return {
+	        type: 'SHOW_ERROR_MESSAGE',
+	        title: title,
+	        description: description
+	    };
+	};
+	
+	var hideMessage = exports.hideMessage = function hideMessage() {
+	    return {
+	        type: 'HIDE_MESSAGE'
+	    };
+	};
+	
+	var setStateAsConnected = exports.setStateAsConnected = function setStateAsConnected() {
+	    return {
+	        type: 'SET_STATE_AS_CONNECTED'
+	    };
+	};
+	
+	var setStateAsNotConnected = exports.setStateAsNotConnected = function setStateAsNotConnected() {
+	    return {
+	        type: 'SET_STATE_AS_DISCONNECTED'
+	    };
+	};
+	
+	var setAllIssuesAsSent = exports.setAllIssuesAsSent = function setAllIssuesAsSent() {
+	    return {
+	        type: 'SET_ALL_ISSUES_AS_SENT'
+	    };
+	};
+	
+	var startConnectionCheck = exports.startConnectionCheck = function startConnectionCheck() {
+	    return function (dispatch) {
+	        var connectionRef = _firebase2.default.database().ref('.info/connected');
+	        return connectionRef.on('value', function (snap) {
+	            if (snap.val() === true) {
+	                dispatch(setStateAsConnected());
+	                dispatch(setAllIssuesAsSent());
+	            } else {
+	                dispatch(setStateAsNotConnected());
+	            }
 	        });
 	    };
 	};
@@ -25237,7 +25361,7 @@
 	                _Dialog2.default,
 	                {
 	                    title: titleForm,
-	                    modal: true,
+	                    modal: false,
 	                    open: isOpen,
 	                    autoScrollBodyContent: true,
 	                    actions: actions
@@ -51785,11 +51909,14 @@
 	        email = issue.email,
 	        description = issue.description,
 	        date = issue.date,
-	        deleting = issue.deleting;
+	        deleting = issue.deleting,
+	        isConnected = issue.isConnected;
 	
+	    var sentState = isConnected === false ? ' - Sending...' : '';
 	    if (deleting) {
 	        return null;
 	    }
+	
 	    return _react2.default.createElement(
 	        'li',
 	        null,
@@ -51797,7 +51924,7 @@
 	            _Card.Card,
 	            null,
 	            _react2.default.createElement(_Card.CardHeader, {
-	                title: title,
+	                title: '' + title + sentState,
 	                subtitle: name + ' (' + email + ')',
 	                actAsExpander: true,
 	                showExpandableButton: true
@@ -51926,6 +52053,89 @@
 	var IssueEditor = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_issueForm2.default);
 	
 	exports.default = IssueEditor;
+
+/***/ },
+/* 526 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Dialog = __webpack_require__(224);
+	
+	var _Dialog2 = _interopRequireDefault(_Dialog);
+	
+	var _FlatButton = __webpack_require__(382);
+	
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Message = function Message(_ref) {
+	    var title = _ref.title,
+	        description = _ref.description,
+	        isError = _ref.isError,
+	        hideMessageHandler = _ref.hideMessageHandler;
+	
+	    var action = _react2.default.createElement(_FlatButton2.default, { label: 'Ok', onTouchTap: hideMessageHandler });
+	    return _react2.default.createElement(
+	        _Dialog2.default,
+	        {
+	            title: title,
+	            modal: false,
+	            open: true,
+	            autoScrollBodyContent: true,
+	            actions: action
+	        },
+	        description
+	    );
+	};
+	exports.default = Message;
+
+/***/ },
+/* 527 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _actions = __webpack_require__(212);
+	
+	var _reactRedux = __webpack_require__(198);
+	
+	var _message = __webpack_require__(526);
+	
+	var _message2 = _interopRequireDefault(_message);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	    return _extends({}, state.messageDisplay);
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	    return {
+	        hideMessageHandler: function hideMessageHandler() {
+	            return dispatch((0, _actions.hideMessage)());
+	        }
+	    };
+	};
+	
+	var Message = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_message2.default);
+	
+	exports.default = Message;
 
 /***/ }
 /******/ ]);

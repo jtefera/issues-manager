@@ -103,6 +103,12 @@ const issuesList = (state = [], action) => {
                                             editMode: false,
                                         }
             );
+        case 'SET_ALL_ISSUES_AS_SENT':
+            return state.map((el) => ({
+                    ...el,
+                    isConnected: true,
+                })
+            );
         case 'MARK_ISSUE_AS_DELETING':
             return state.map((el) => (el.id !== action.id)
                             ? el : {
@@ -116,10 +122,56 @@ const issuesList = (state = [], action) => {
     return state;
 };
 
+const messageDisplay = (state = {
+    showMessage: false,
+    title: '',
+    description: '',
+    isError: false,
+}, action) => {
+    switch (action.type) {
+        case 'SHOW_MESSAGE':
+            return {
+                ...state,
+                showMessage: true,
+                title: action.title,
+                description: action.description,
+                isError: false,
+            };
+        case 'SHOW_ERROR_MESSAGE':
+            return {
+                ...state,
+                showMessage: true,
+                title: action.title,
+                description: action.description,
+                isError: true,
+            };
+        case 'HIDE_MESSAGE':
+            return {
+                ...state,
+                showMessage: false,
+            };
+        default:
+            return state;
+    }
+};
+
+const connected = (state = false, action) => {
+    switch (action.type) {
+        case 'SET_STATE_AS_CONNECTED':
+            return true;
+        case 'SET_STATE_AS_DISCONNECTED':
+            return false;
+        default:
+            return state;
+    }
+};
+
 const issuesApp = combineReducers({
     asyncState,
     issuesList,
     optimisticIssue,
     formsDisplay,
+    messageDisplay,
+    connected,
 });
 export default issuesApp;

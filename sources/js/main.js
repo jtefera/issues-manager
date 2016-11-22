@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider, connect} from 'react-redux';
 import reducer from './reducer/reducer';
-import {fetchIssues} from './actions/';
+import {fetchIssues, startConnectionCheck} from './actions/';
 import AddIssueForm from './containers/addIssueForm';
 import IssueEditor from './containers/editIssueForm';
 import HeaderBar from './containers/HeaderBar';
+import Message from './containers/message';
 import thunkMiddleware from 'redux-thunk';
 import ListIssuesOfPriority from './containers/issuesOfPriority.js';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -32,6 +33,7 @@ const store = createStore(
 );
 const init = () => {
     store.dispatch(fetchIssues());
+    store.dispatch(startConnectionCheck());    
 }
 
 init();
@@ -45,16 +47,23 @@ const LoginForm = ({onClick}) => (
 );
 
 
-let App = ({showAddIssueForm, showEditIssueForm, showLoginForm}) => {
+let App = ({
+    showAddIssueForm,
+    showEditIssueForm,
+    showLoginForm,
+    showMessage,
+}) => {
     const addIssueForm = (showAddIssueForm) ? <AddIssueForm /> : null;
     const editIssueForm = (showEditIssueForm) ? <IssueEditor /> : null;
     const loginForm = (showLoginForm) ? <LoginForm /> : null;
+    const message = (showMessage) ? <Message /> : null;
     return (
         <div>
             <HeaderBar />
             {addIssueForm}
             {editIssueForm}
             {loginForm}
+            {message}
             <ListIssuesOfPriority priority="1"/>
             <ListIssuesOfPriority priority="2"/>
             <ListIssuesOfPriority priority="3"/>
@@ -66,6 +75,7 @@ const mapStateToProps = (state) => ({
     showAddIssueForm: state.formsDisplay.showAddIssueForm,
     showEditIssueForm: state.formsDisplay.showEditIssueForm,
     showLoginForm: state.formsDisplay.showLoginForm,
+    showMessage: state.messageDisplay.showMessage,
 });
 
 App = connect(mapStateToProps)(App);

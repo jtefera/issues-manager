@@ -20,7 +20,7 @@ class IssueForm extends Component{
             editingIssue,
             onSubmitHandle,
             onCancelHandle,
-            isOpen,
+            isOpen,            
         } = this.props;
         let titleInput;
         let prioritySelect;
@@ -58,7 +58,7 @@ class IssueForm extends Component{
         return (
             <Dialog
             title={titleForm}
-            modal={true}
+            modal={false}
             open={isOpen}
             autoScrollBodyContent={true}
             actions={actions}

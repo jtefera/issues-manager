@@ -80,12 +80,18 @@ export function addIssueToDB(issue) {
    return (dispatch) => {
        dispatch(addIssueOptimistic({
            ...issue,
-           id: "optimistic",
+           id: 'optimistic',
         }));
-        return firebaseBase.push(issue).then(() => {
+        return firebase.database().ref("listTasks").push(issue, (error) => {
+            if (error) {
+                dispatch(
+                    showErrorMessage('Not able to add issue into db', error)
+                );
+            }
+        }).then(() => {
             dispatch(removeAddedOptimistic());
         });
-   } 
+    };
 };
 
 const addIssueOptimistic = (issue) => ({
@@ -106,15 +112,59 @@ const receiveIssues = () => ({
 });
 
 export function fetchIssues () {
-    return (dispatch) => {
+    return (dispatch, getState) => {
         dispatch(requestIssues());
         return firebaseBase.orderByKey()
-            .on("child_added", function(issueFirebase) {
+            .on('child_added', function(issueFirebase) {
             const issue = {
                 ...issueFirebase.val(),
                 id: issueFirebase.key,
+                isConnected: getState().connected,
             };
             dispatch(addIssue(issue));
         }); 
     };
 };
+
+// Messages
+export const showMessage = (title, description) => ({
+    type: 'SHOW_MESSAGE',
+    title,
+    description,
+});
+
+export const showErrorMessage = (title, description) => ({
+    type: 'SHOW_ERROR_MESSAGE',
+    title,
+    description,
+});
+
+export const hideMessage = () => ({
+    type: 'HIDE_MESSAGE',
+});
+
+export const setStateAsConnected = () => ({
+    type: 'SET_STATE_AS_CONNECTED',
+});
+
+export const setStateAsNotConnected = () => ({
+    type: 'SET_STATE_AS_DISCONNECTED',
+});
+
+export const setAllIssuesAsSent = () => ({
+    type: 'SET_ALL_ISSUES_AS_SENT',
+});
+
+export const startConnectionCheck = () => {
+    return (dispatch) => {
+        const connectionRef = firebase.database().ref('.info/connected');
+        return connectionRef.on('value', (snap) => {
+            if(snap.val() === true) {
+                dispatch(setStateAsConnected());
+                dispatch(setAllIssuesAsSent());
+            } else {
+                dispatch(setStateAsNotConnected());
+            }
+        });
+    };
+}

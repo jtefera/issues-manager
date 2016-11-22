@@ -17,15 +17,18 @@ const IssuePres = ({
         description,
         date,
         deleting,
+        isConnected
     } = issue;
+    const sentState = (isConnected === false) ? ' - Sending...' :'';
     if(deleting) {
         return null;
     }
+
     return (
         <li>
             <Card>
                 <CardHeader
-                    title={title}
+                    title={`${title}${sentState}`}
                     subtitle={`${name} (${email})`}
                     actAsExpander={true}
                     showExpandableButton={true}
