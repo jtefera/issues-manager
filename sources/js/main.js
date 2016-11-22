@@ -3,17 +3,13 @@ import ReactDOM from 'react-dom';
 import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider, connect} from 'react-redux';
 import reducer from './reducer/reducer';
-import {addIssue, fetchIssues} from './actions/';
+import {fetchIssues} from './actions/';
 import AddIssueForm from './containers/addIssueForm';
-import IssueEditor from './containers/issueEditor';
+import IssueEditor from './containers/editIssueForm';
 import HeaderBar from './containers/HeaderBar';
 import thunkMiddleware from 'redux-thunk';
 import ListIssuesOfPriority from './containers/issuesOfPriority.js';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import AppBar from 'material-ui/AppBar';
-import FlatButton from 'material-ui/FlatButton';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 /*
@@ -25,7 +21,6 @@ injectTapEventPlugin();
             Comentarios
             Formulario comentario
 */
-const {Component} = React;
 const store = createStore(
     reducer,
     compose(

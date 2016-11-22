@@ -1,15 +1,13 @@
 import React from 'react';
 import Issue from '../containers/issue';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton';
+import {Card, CardText} from 'material-ui/Card';
 import {
     red500,
     orange500,
     teal500,
 } from 'material-ui/styles/colors';
 
-
-export const ListIssues = ({issues, priority}) => {
+const ListIssues = ({issues, priority}) => {
     const issuesEl = issues.map(
             (issue) => {
                 return (<Issue key={issue.id} id={issue.id} issue={issue}/>);
@@ -35,3 +33,5 @@ export const ListIssues = ({issues, priority}) => {
         </div>
     );
 };
+
+export default ListIssues;

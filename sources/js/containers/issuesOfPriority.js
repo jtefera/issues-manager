@@ -1,6 +1,6 @@
 import {changeIssueDescriptionDisplay} from '../actions/';
 import {connect} from 'react-redux';
-import {ListIssues} from '../presentationals/presentationals';
+import ListIssues from '../presentationals/ListIssues';
 
 const getIssuesWithThePriority = (issues, priority) => {
     const filteredIsues = issues.filter((issue) => (

@@ -68,9 +68,9 @@
 	
 	var _addIssueForm2 = _interopRequireDefault(_addIssueForm);
 	
-	var _issueEditor = __webpack_require__(448);
+	var _editIssueForm = __webpack_require__(525);
 	
-	var _issueEditor2 = _interopRequireDefault(_issueEditor);
+	var _editIssueForm2 = _interopRequireDefault(_editIssueForm);
 	
 	var _HeaderBar = __webpack_require__(449);
 	
@@ -84,25 +84,9 @@
 	
 	var _issuesOfPriority2 = _interopRequireDefault(_issuesOfPriority);
 	
-	var _darkBaseTheme = __webpack_require__(474);
-	
-	var _darkBaseTheme2 = _interopRequireDefault(_darkBaseTheme);
-	
 	var _MuiThemeProvider = __webpack_require__(476);
 	
 	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
-	
-	var _getMuiTheme = __webpack_require__(477);
-	
-	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
-	
-	var _AppBar = __webpack_require__(462);
-	
-	var _AppBar2 = _interopRequireDefault(_AppBar);
-	
-	var _FlatButton = __webpack_require__(382);
-	
-	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 	
 	var _reactTapEventPlugin = __webpack_require__(517);
 	
@@ -120,8 +104,6 @@
 	            Comentarios
 	            Formulario comentario
 	*/
-	var Component = _react2.default.Component;
-	
 	var store = (0, _redux.createStore)(_reducer2.default, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default),
 	//  For Chrome Debug
 	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
@@ -157,7 +139,7 @@
 	        showLoginForm = _ref2.showLoginForm;
 	
 	    var addIssueForm = showAddIssueForm ? _react2.default.createElement(_addIssueForm2.default, null) : null;
-	    var editIssueForm = showEditIssueForm ? _react2.default.createElement(_issueEditor2.default, null) : null;
+	    var editIssueForm = showEditIssueForm ? _react2.default.createElement(_editIssueForm2.default, null) : null;
 	    var loginForm = showLoginForm ? _react2.default.createElement(LoginForm, null) : null;
 	    return _react2.default.createElement(
 	        'div',
@@ -43971,54 +43953,7 @@
 	exports.default = _MenuItem2.default;
 
 /***/ },
-/* 448 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(198);
-	
-	var _issueForm = __webpack_require__(223);
-	
-	var _issueForm2 = _interopRequireDefault(_issueForm);
-	
-	var _actions = __webpack_require__(212);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	    return {
-	        onSubmitHandle: function onSubmitHandle(issue) {
-	            console.log(issue);
-	            dispatch((0, _actions.hideEditIssueForm)());
-	            dispatch((0, _actions.editIssue)(issue.id, issue));
-	        },
-	        onCancelHandle: function onCancelHandle() {
-	            return dispatch((0, _actions.hideEditIssueForm)());
-	        }
-	    };
-	};
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	    return {
-	        isOpen: state.formsDisplay.showEditIssueForm,
-	        titleForm: 'Edit Issue',
-	        editingIssue: state.formsDisplay.editingIssue
-	    };
-	};
-	var IssueEditor = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_issueForm2.default);
-	
-	exports.default = IssueEditor;
-
-/***/ },
+/* 448 */,
 /* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -44031,8 +43966,6 @@
 	var _react = __webpack_require__(1);
 	
 	var _react2 = _interopRequireDefault(_react);
-	
-	var _Card = __webpack_require__(450);
 	
 	var _FlatButton = __webpack_require__(382);
 	
@@ -46086,7 +46019,11 @@
 	
 	var _reactRedux = __webpack_require__(198);
 	
-	var _presentationals = __webpack_require__(470);
+	var _ListIssues = __webpack_require__(524);
+	
+	var _ListIssues2 = _interopRequireDefault(_ListIssues);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
@@ -46117,72 +46054,12 @@
 	    };
 	};
 	
-	var ListIssuesOfPriority = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_presentationals.ListIssues);
+	var ListIssuesOfPriority = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_ListIssues2.default);
 	
 	exports.default = ListIssuesOfPriority;
 
 /***/ },
-/* 470 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.ListIssues = undefined;
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _issue = __webpack_require__(471);
-	
-	var _issue2 = _interopRequireDefault(_issue);
-	
-	var _Card = __webpack_require__(450);
-	
-	var _FlatButton = __webpack_require__(382);
-	
-	var _FlatButton2 = _interopRequireDefault(_FlatButton);
-	
-	var _colors = __webpack_require__(473);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ListIssues = exports.ListIssues = function ListIssues(_ref) {
-	    var issues = _ref.issues,
-	        priority = _ref.priority;
-	
-	    var issuesEl = issues.map(function (issue) {
-	        return _react2.default.createElement(_issue2.default, { key: issue.id, id: issue.id, issue: issue });
-	    });
-	    var title = 'Priority ' + priority;
-	    var style = {
-	        margin: '10px 20px'
-	    };
-	    var priorityColors = [_colors.red500, _colors.orange500, _colors.teal500];
-	    var styleHeader = {
-	        backgroundColor: priorityColors[parseInt(priority, 10) - 1],
-	        color: 'white'
-	    };
-	    return _react2.default.createElement(
-	        'div',
-	        { style: style },
-	        _react2.default.createElement(
-	            _Card.Card,
-	            { zDepth: 2, style: styleHeader },
-	            _react2.default.createElement(
-	                _Card.CardText,
-	                null,
-	                title
-	            )
-	        ),
-	        issuesEl
-	    );
-	};
-
-/***/ },
+/* 470 */,
 /* 471 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -46200,9 +46077,9 @@
 	
 	var _actions = __webpack_require__(212);
 	
-	var _Issue = __webpack_require__(472);
+	var _issue = __webpack_require__(523);
 	
-	var _Issue2 = _interopRequireDefault(_Issue);
+	var _issue2 = _interopRequireDefault(_issue);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -46219,81 +46096,12 @@
 	   };
 	};
 	
-	var Issue = (0, _reactRedux.connect)(null, mapDispatchToProps)(_Issue2.default);
+	var Issue = (0, _reactRedux.connect)(null, mapDispatchToProps)(_issue2.default);
 	
 	exports.default = Issue;
 
 /***/ },
-/* 472 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Card = __webpack_require__(450);
-	
-	var _FlatButton = __webpack_require__(382);
-	
-	var _FlatButton2 = _interopRequireDefault(_FlatButton);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var IssuePres = function IssuePres(_ref) {
-	    var issue = _ref.issue,
-	        deleteIssue = _ref.deleteIssue,
-	        showDescription = _ref.showDescription,
-	        showEditIssueForm = _ref.showEditIssueForm,
-	        showIssueDescription = _ref.showIssueDescription,
-	        hideIssueDescription = _ref.hideIssueDescription;
-	    var title = issue.title,
-	        name = issue.name,
-	        email = issue.email,
-	        description = issue.description,
-	        date = issue.date,
-	        deleting = issue.deleting;
-	
-	    if (deleting) {
-	        return null;
-	    }
-	    return _react2.default.createElement(
-	        'li',
-	        null,
-	        _react2.default.createElement(
-	            _Card.Card,
-	            null,
-	            _react2.default.createElement(_Card.CardHeader, {
-	                title: title,
-	                subtitle: name + ' (' + email + ')',
-	                actAsExpander: true,
-	                showExpandableButton: true
-	            }),
-	            _react2.default.createElement(
-	                _Card.CardText,
-	                { expandable: true },
-	                date,
-	                _react2.default.createElement('br', null),
-	                description
-	            ),
-	            _react2.default.createElement(
-	                _Card.CardActions,
-	                null,
-	                _react2.default.createElement(_FlatButton2.default, { label: 'Delete', onTouchTap: deleteIssue }),
-	                _react2.default.createElement(_FlatButton2.default, { label: 'Edit', onTouchTap: showEditIssueForm })
-	            )
-	        )
-	    );
-	};
-	
-	exports.default = IssuePres;
-
-/***/ },
+/* 472 */,
 /* 473 */
 /***/ function(module, exports) {
 
@@ -46589,47 +46397,7 @@
 	var lightWhite = exports.lightWhite = 'rgba(255, 255, 255, 0.54)';
 
 /***/ },
-/* 474 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _colors = __webpack_require__(473);
-	
-	var _colorManipulator = __webpack_require__(387);
-	
-	var _spacing = __webpack_require__(475);
-	
-	var _spacing2 = _interopRequireDefault(_spacing);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = {
-	  spacing: _spacing2.default,
-	  fontFamily: 'Roboto, sans-serif',
-	  palette: {
-	    primary1Color: _colors.cyan700,
-	    primary2Color: _colors.cyan700,
-	    primary3Color: _colors.grey600,
-	    accent1Color: _colors.pinkA200,
-	    accent2Color: _colors.pinkA400,
-	    accent3Color: _colors.pinkA100,
-	    textColor: _colors.fullWhite,
-	    secondaryTextColor: (0, _colorManipulator.fade)(_colors.fullWhite, 0.7),
-	    alternateTextColor: '#303030',
-	    canvasColor: '#303030',
-	    borderColor: (0, _colorManipulator.fade)(_colors.fullWhite, 0.3),
-	    disabledColor: (0, _colorManipulator.fade)(_colors.fullWhite, 0.3),
-	    pickerHeaderColor: (0, _colorManipulator.fade)(_colors.fullWhite, 0.12),
-	    clockCircleColor: (0, _colorManipulator.fade)(_colors.fullWhite, 0.12)
-	  }
-	};
-
-/***/ },
+/* 474 */,
 /* 475 */
 /***/ function(module, exports) {
 
@@ -51982,6 +51750,182 @@
 	};
 	
 	module.exports = keyOf;
+
+/***/ },
+/* 523 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Card = __webpack_require__(450);
+	
+	var _FlatButton = __webpack_require__(382);
+	
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var IssuePres = function IssuePres(_ref) {
+	    var issue = _ref.issue,
+	        deleteIssue = _ref.deleteIssue,
+	        showDescription = _ref.showDescription,
+	        showEditIssueForm = _ref.showEditIssueForm,
+	        showIssueDescription = _ref.showIssueDescription,
+	        hideIssueDescription = _ref.hideIssueDescription;
+	    var title = issue.title,
+	        name = issue.name,
+	        email = issue.email,
+	        description = issue.description,
+	        date = issue.date,
+	        deleting = issue.deleting;
+	
+	    if (deleting) {
+	        return null;
+	    }
+	    return _react2.default.createElement(
+	        'li',
+	        null,
+	        _react2.default.createElement(
+	            _Card.Card,
+	            null,
+	            _react2.default.createElement(_Card.CardHeader, {
+	                title: title,
+	                subtitle: name + ' (' + email + ')',
+	                actAsExpander: true,
+	                showExpandableButton: true
+	            }),
+	            _react2.default.createElement(
+	                _Card.CardText,
+	                { expandable: true },
+	                date,
+	                _react2.default.createElement('br', null),
+	                description
+	            ),
+	            _react2.default.createElement(
+	                _Card.CardActions,
+	                null,
+	                _react2.default.createElement(_FlatButton2.default, { label: 'Delete', onTouchTap: deleteIssue }),
+	                _react2.default.createElement(_FlatButton2.default, { label: 'Edit', onTouchTap: showEditIssueForm })
+	            )
+	        )
+	    );
+	};
+	
+	exports.default = IssuePres;
+
+/***/ },
+/* 524 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _issue = __webpack_require__(471);
+	
+	var _issue2 = _interopRequireDefault(_issue);
+	
+	var _Card = __webpack_require__(450);
+	
+	var _colors = __webpack_require__(473);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ListIssues = function ListIssues(_ref) {
+	    var issues = _ref.issues,
+	        priority = _ref.priority;
+	
+	    var issuesEl = issues.map(function (issue) {
+	        return _react2.default.createElement(_issue2.default, { key: issue.id, id: issue.id, issue: issue });
+	    });
+	    var title = 'Priority ' + priority;
+	    var style = {
+	        margin: '10px 20px'
+	    };
+	    var priorityColors = [_colors.red500, _colors.orange500, _colors.teal500];
+	    var styleHeader = {
+	        backgroundColor: priorityColors[parseInt(priority, 10) - 1],
+	        color: 'white'
+	    };
+	    return _react2.default.createElement(
+	        'div',
+	        { style: style },
+	        _react2.default.createElement(
+	            _Card.Card,
+	            { zDepth: 2, style: styleHeader },
+	            _react2.default.createElement(
+	                _Card.CardText,
+	                null,
+	                title
+	            )
+	        ),
+	        issuesEl
+	    );
+	};
+	
+	exports.default = ListIssues;
+
+/***/ },
+/* 525 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(198);
+	
+	var _issueForm = __webpack_require__(223);
+	
+	var _issueForm2 = _interopRequireDefault(_issueForm);
+	
+	var _actions = __webpack_require__(212);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	    return {
+	        onSubmitHandle: function onSubmitHandle(issue) {
+	            console.log(issue);
+	            dispatch((0, _actions.hideEditIssueForm)());
+	            dispatch((0, _actions.editIssue)(issue.id, issue));
+	        },
+	        onCancelHandle: function onCancelHandle() {
+	            return dispatch((0, _actions.hideEditIssueForm)());
+	        }
+	    };
+	};
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	    return {
+	        isOpen: state.formsDisplay.showEditIssueForm,
+	        titleForm: 'Edit Issue',
+	        editingIssue: state.formsDisplay.editingIssue
+	    };
+	};
+	var IssueEditor = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_issueForm2.default);
+	
+	exports.default = IssueEditor;
 
 /***/ }
 /******/ ]);

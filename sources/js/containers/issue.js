@@ -4,7 +4,7 @@ import {
         deleteIssue,
         showEditIssueForm,
     } from '../actions';
-import IssuePres from '../presentationals/Issue';
+import IssuePres from '../presentationals/issue';
 
 const mapDispatchToProps = (dispatch, {id, issue}) => ({
    deleteIssue: () => dispatch(deleteIssue(id)),
