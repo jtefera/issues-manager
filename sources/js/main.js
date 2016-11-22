@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {createStore, applyMiddleware, compose} from 'redux';
-import {Provider} from 'react-redux';
+import {Provider, connect} from 'react-redux';
 import reducer from './reducer/reducer';
 import {addIssue, fetchIssues} from './actions/';
 import AddIssueForm from './containers/addIssueForm';
@@ -49,27 +49,31 @@ const LoginForm = ({onClick}) => (
     </form>
 );
 
-const rootStyle = {
-    width: '100%',
+
+let App = ({showAddIssueForm, showEditIssueForm, showLoginForm}) => {
+    const addIssueForm = (showAddIssueForm) ? <AddIssueForm /> : null;
+    const editIssueForm = (showEditIssueForm) ? <IssueEditor /> : null;
+    const loginForm = (showLoginForm) ? <LoginForm /> : null;
+    return (
+        <div>
+            <HeaderBar />
+            {addIssueForm}
+            {editIssueForm}
+            {loginForm}
+            <ListIssuesOfPriority priority="1"/>
+            <ListIssuesOfPriority priority="2"/>
+            <ListIssuesOfPriority priority="3"/>
+        </div>
+    );
 };
 
-class App extends Component {
-    constructor() {
-        super();
-    }
-    render() {
-       return (
-           <div>
-                <HeaderBar />
-                <AddIssueForm />
-                <IssueEditor />
-                <ListIssuesOfPriority priority="1"/>
-                <ListIssuesOfPriority priority="2"/>
-                <ListIssuesOfPriority priority="3"/>
-           </div>
-        );
-    }
-}
+const mapStateToProps = (state) => ({
+    showAddIssueForm: state.formsDisplay.showAddIssueForm,
+    showEditIssueForm: state.formsDisplay.showEditIssueForm,
+    showLoginForm: state.formsDisplay.showLoginForm,
+});
+
+App = connect(mapStateToProps)(App);
 
 ReactDOM.render(
     <MuiThemeProvider>
