@@ -11,6 +11,7 @@ const mapDispatchToProps = (dispatch) =>({
         dispatch(hideAddIssueForm());
         dispatch(addIssueToDB(issue));
     },
+    onCancelHandle: () => dispatch(hideAddIssueForm()),
 });
 
 const mapStateToProps = (state) => ({

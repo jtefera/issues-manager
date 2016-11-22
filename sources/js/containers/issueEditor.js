@@ -9,6 +9,7 @@ const mapDispatchToProps = (dispatch) =>({
         dispatch(hideEditIssueForm());
         dispatch(editIssue(issue.id, issue));
     },
+    onCancelHandle: () => dispatch(hideEditIssueForm()),
 });
 
 const mapStateToProps = (state) =>{ 

@@ -23763,7 +23763,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.hideIssueDescription = exports.showIssueDescription = exports.cancelEditIssue = exports.hideEditIssueForm = exports.showEditIssueForm = exports.hideLoginForm = exports.showLoginForm = exports.hideAddIssueForm = exports.showAddIssueForm = exports.changeIssueDescriptionDisplay = exports.addIssue = undefined;
+	exports.hideIssueDescription = exports.showIssueDescription = exports.cancelEditIssue = exports.hideEditIssueForm = exports.showEditIssueForm = exports.hideLoginForm = exports.showLoginForm = exports.hideAddIssueForm = exports.showAddIssueForm = exports.addIssue = undefined;
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
@@ -23790,13 +23790,6 @@
 	    return {
 	        type: 'ADD_ISSUE',
 	        issue: issue
-	    };
-	};
-	
-	var changeIssueDescriptionDisplay = exports.changeIssueDescriptionDisplay = function changeIssueDescriptionDisplay(issueId) {
-	    return {
-	        type: 'CHANGE_ISSSUE_DESCRIPTION_DISPLAY',
-	        id: issueId
 	    };
 	};
 	
@@ -25147,6 +25140,9 @@
 	        onSubmitHandle: function onSubmitHandle(issue) {
 	            dispatch((0, _actions.hideAddIssueForm)());
 	            dispatch((0, _actions.addIssueToDB)(issue));
+	        },
+	        onCancelHandle: function onCancelHandle() {
+	            return dispatch((0, _actions.hideAddIssueForm)());
 	        }
 	    };
 	};
@@ -41365,6 +41361,8 @@
 	
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 	
+	var _colors = __webpack_require__(450);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var ListIssues = exports.ListIssues = function ListIssues(_ref) {
@@ -41378,7 +41376,7 @@
 	    var style = {
 	        margin: '10px 20px'
 	    };
-	    var priorityColors = ['red', 'orange', 'blue'];
+	    var priorityColors = [_colors.red500, _colors.orange500, _colors.teal500];
 	    var styleHeader = {
 	        backgroundColor: priorityColors[parseInt(priority, 10) - 1],
 	        color: 'white'
@@ -41540,6 +41538,9 @@
 	            console.log(issue);
 	            dispatch((0, _actions.hideEditIssueForm)());
 	            dispatch((0, _actions.editIssue)(issue.id, issue));
+	        },
+	        onCancelHandle: function onCancelHandle() {
+	            return dispatch((0, _actions.hideEditIssueForm)());
 	        }
 	    };
 	};
@@ -47262,12 +47263,6 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _actions = __webpack_require__(212);
-	
-	var _reactRedux = __webpack_require__(198);
-	
-	var _Card = __webpack_require__(223);
-	
 	var _Dialog = __webpack_require__(383);
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
@@ -47286,6 +47281,7 @@
 	    var titleForm = _ref.titleForm,
 	        editingIssue = _ref.editingIssue,
 	        onSubmitHandle = _ref.onSubmitHandle,
+	        onCancelHandle = _ref.onCancelHandle,
 	        isOpen = _ref.isOpen;
 	
 	    var titleInput = void 0;
@@ -47309,18 +47305,23 @@
 	        defaultDate = editingIssue.date;
 	        defaultId = editingIssue.id;
 	    }
-	    console.log(isOpen);
+	    var actions = [_react2.default.createElement(_FlatButton2.default, {
+	        label: 'Cancel',
+	        form: 'issueForm',
+	        onTouchTap: onCancelHandle
+	    }), _react2.default.createElement(_FlatButton2.default, {
+	        label: 'Submit',
+	        form: 'issueForm',
+	        type: 'submit'
+	    })];
 	    return _react2.default.createElement(
 	        _Dialog2.default,
 	        {
 	            title: titleForm,
 	            modal: true,
 	            open: isOpen,
-	            actions: _react2.default.createElement(_FlatButton2.default, {
-	                label: 'Add Issue',
-	                form: 'issueForm',
-	                type: 'submit'
-	            })
+	            autoScrollBodyContent: true,
+	            actions: actions
 	        },
 	        _react2.default.createElement(
 	            'form',

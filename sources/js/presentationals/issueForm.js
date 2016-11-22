@@ -1,12 +1,15 @@
 import React from 'react';
-import {addIssueToDB} from '../actions/';
-import {connect} from 'react-redux';
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import Dialog from 'material-ui/Dialog';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 
-let IssueForm = ({titleForm, editingIssue, onSubmitHandle, isOpen}) => {
+let IssueForm = ({
+    titleForm,
+    editingIssue,
+    onSubmitHandle,
+    onCancelHandle,
+    isOpen,
+}) => {
     let titleInput;
     let prioritySelect;
     let nameInput;
@@ -28,17 +31,25 @@ let IssueForm = ({titleForm, editingIssue, onSubmitHandle, isOpen}) => {
         defaultDate = editingIssue.date;
         defaultId = editingIssue.id;
     }
-    console.log(isOpen);
+    const actions = [
+        <FlatButton
+                label='Cancel'
+                form='issueForm'
+                onTouchTap={onCancelHandle}
+        />,
+        <FlatButton
+                label='Submit'
+                form='issueForm'
+                type='submit'
+        />,
+    ];
     return (
         <Dialog
           title={titleForm}
           modal={true}
           open={isOpen}
-          actions={<FlatButton
-                label='Add Issue'
-                form='issueForm'
-                type='submit'
-            />}
+          autoScrollBodyContent={true}
+          actions={actions}
         >
             <form
                 id='issueForm'
