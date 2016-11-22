@@ -166,6 +166,45 @@ const connected = (state = false, action) => {
     }
 };
 
+const loginInfo = (state = {
+    logged: false,
+    username: '',
+    loginError: false,
+    errorMessage: '',
+}, action) => {
+    switch (action.type) {
+        case 'SET_AS_LOGGED':
+            return {
+                logged: true,
+                username: action.username,
+                loginError: false,
+                errorMessage: '',
+            };
+        case 'SET_AS_LOGGED_OUT':
+            return {
+                logged: false,
+                username: '',
+                loginError: false,
+                errorMessage: '',
+            };
+        case 'SET_AS_LOGIN_ERROR':
+            return {
+                logged: false,
+                username: '',
+                loginError: true,
+                errorMessage: action.errorMessage,
+            };
+        case 'HIDE_LOGIN_FORM':
+            return {
+                ...state,
+                loginError: false,
+                errorMessage: action.errorMessage,
+            };
+        default:
+            return state;
+    }
+};
+
 const issuesApp = combineReducers({
     asyncState,
     issuesList,
@@ -173,5 +212,6 @@ const issuesApp = combineReducers({
     formsDisplay,
     messageDisplay,
     connected,
+    loginInfo,
 });
 export default issuesApp;

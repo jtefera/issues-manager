@@ -28,13 +28,6 @@ export const hideAddIssueForm = () => ({
     type: 'HIDE_ADD_ISSUE_FORM',
 });
 
-export const showLoginForm = () => ({
-    type: 'SHOW_LOGIN_FORM',
-});
-
-export const hideLoginForm = () => ({
-    type: 'HIDE_LOGIN_FORM',
-});
 
 export const showEditIssueForm = (id, issue) => ({
     type: 'SHOW_EDIT_ISSUE_FORM',
@@ -143,6 +136,8 @@ export const hideMessage = () => ({
     type: 'HIDE_MESSAGE',
 });
 
+
+// Connection state
 export const setStateAsConnected = () => ({
     type: 'SET_STATE_AS_CONNECTED',
 });
@@ -165,6 +160,53 @@ export const startConnectionCheck = () => {
             } else {
                 dispatch(setStateAsNotConnected());
             }
+        });
+    };
+}
+
+// Login actions
+export const showLoginForm = () => ({
+    type: 'SHOW_LOGIN_FORM',
+});
+
+export const hideLoginForm = () => ({
+    type: 'HIDE_LOGIN_FORM',
+});
+
+export const setAsLogged = (data) => ({
+    type: 'SET_AS_LOGGED',
+    data,
+});
+
+export const setAsLoggedOut = (data) => ({
+    type: 'SET_AS_LOGGED_OUT',
+});
+
+export const setAsLoginError = (errorMessage) => ({
+    type: 'SET_AS_LOGIN_ERROR',
+    errorMessage,
+});
+
+export function sendLoginInfo(username, password) {
+    return (dispatch) => {
+        firebase.auth()
+            .signInWithEmailAndPassword(username, password)
+            .then((data) => {
+                dispatch(setAsLogged(data));
+                dispatch(hideLoginForm());
+            })
+            .catch((error) => {
+                dispatch(setAsLoginError(error.message));
+            });
+    }
+};
+
+export function logOut() {
+    return (dispatch) => {
+        firebase.auth().signOut().then(function() {
+            dispatch(setAsLoggedOut());
+        }, function(error) {
+            dispatch(showErrorMessage('Not able to log out', error.message));
         });
     };
 }

@@ -8,6 +8,7 @@ import AddIssueForm from './containers/addIssueForm';
 import IssueEditor from './containers/editIssueForm';
 import HeaderBar from './containers/HeaderBar';
 import Message from './containers/message';
+import LoginForm from './containers/loginForm';
 import thunkMiddleware from 'redux-thunk';
 import ListIssuesOfPriority from './containers/issuesOfPriority.js';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -37,15 +38,6 @@ const init = () => {
 }
 
 init();
-
-const LoginForm = ({onClick}) => (
-    <form>
-        Username: <input type='text' name='username' /><br />
-        Password: <input type='password' name='password' /> <br />
-        <button type='submit' onClick={onClick}>Login</button>
-    </form>
-);
-
 
 let App = ({
     showAddIssueForm,

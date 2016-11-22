@@ -9,6 +9,7 @@ const IssuePres = ({
     showEditIssueForm,
     showIssueDescription,
     hideIssueDescription,
+    isLogged,
 }) => {
     const {
         title,
@@ -17,9 +18,15 @@ const IssuePres = ({
         description,
         date,
         deleting,
-        isConnected
+        isConnected,
     } = issue;
     const sentState = (isConnected === false) ? ' - Sending...' :'';
+    const actions = (isLogged) ? 
+                (<CardActions>
+                    <FlatButton label="Delete" onTouchTap={deleteIssue}/>
+                    <FlatButton label="Edit" onTouchTap={showEditIssueForm}/>
+                </CardActions>)
+                : null;
     if(deleting) {
         return null;
     }
@@ -37,10 +44,7 @@ const IssuePres = ({
                     {date}<br />
                     {description}
                 </CardText>
-                <CardActions>
-                    <FlatButton label="Delete" onTouchTap={deleteIssue}/>
-                    <FlatButton label="Edit" onTouchTap={showEditIssueForm}/>
-                </CardActions>
+                {actions}
             </Card>
         </li>
     );
