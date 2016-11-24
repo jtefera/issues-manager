@@ -4,7 +4,6 @@ import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
 import TextField from 'material-ui/TextField';
 import {hideLoginForm, sendLoginInfo} from '../actions/';
-import Paper from 'material-ui/Paper';
 import {red500} from 'material-ui/styles/colors';
 
 let LoginForm = ({
