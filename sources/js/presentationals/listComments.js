@@ -13,8 +13,7 @@ const commentStyle = {
 };
 
 const ListComments = ({listComments, idIssue}) => {
-    console.log(Object.entries(listComments));
-    const commentsEl = Object.entries(listComments)
+    const commentsEl = (!listComments) ? null : Object.entries(listComments)
                     .map((keyValArr) => keyValArr[1])
                     .map(({comment, email, name}, id) => (
         <li

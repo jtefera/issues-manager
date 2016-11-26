@@ -5,6 +5,7 @@ import {
         showEditIssueForm,
     } from '../actions';
 import IssuePres from '../presentationals/issue';
+import {startListeningForCommentsOnIssue} from '../actions/';
 
 const mapStateToProps = (state) => ({
     isLogged: state.loginInfo.logged,
@@ -13,6 +14,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch, {id, issue}) => ({
    deleteIssue: () => dispatch(deleteIssue(id)),
    showEditIssueForm: () => dispatch(showEditIssueForm(id, issue)),
+   listenForComments: () => dispatch(startListeningForCommentsOnIssue(id)),
 });
 
 const Issue = connect(

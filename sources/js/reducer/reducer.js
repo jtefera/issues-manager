@@ -116,10 +116,30 @@ const issuesList = (state = [], action) => {
                                 deleting: true,
                             }
             );
+        case 'LISTENING_TO_COMMENTS':
+            return state.map((el) => {
+                console.log(el.id, action.idIssue);
+                return (el.id !== action.idIssue)
+                            ? el : {
+                                ...el,
+                                isListeningComments: true,
+                            };
+            });
+        case 'SHOW_COMMENT':
+            return state.map((el) => {
+                if(el.id === action.idIssue) {
+                    let newComments = (el.comments) ? [...el.comments] : [];
+                    newComments.push(action.comment);
+                    return {
+                        ...el,
+                        comments: newComments,
+                    };
+                }
+                return el;
+            });
         default:
-            break;
+            return state;
     }
-    return state;
 };
 
 const messageDisplay = (state = {

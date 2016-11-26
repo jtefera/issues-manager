@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 import firebase from 'firebase';
 import '../config/firebaseConfig';
 
-const firebaseBase = firebase.database().ref("listTasks");
+const firebaseBase = firebase.database().ref("issues");
 
 export const addIssue = (issue) => ({
     type: 'ADD_ISSUE',
@@ -75,7 +75,7 @@ export function addIssueToDB(issue) {
            ...issue,
            id: 'optimistic',
         }));
-        return firebase.database().ref("listTasks").push(issue, (error) => {
+        return firebase.database().ref("issues").push(issue, (error) => {
             if (error) {
                 dispatch(
                     showErrorMessage('Not able to add issue into db', error)
@@ -212,8 +212,41 @@ export function logOut() {
 }
 
 // Comments
+const commentSubmited = (idIssue, comment) => ({
+    type: 'COMMENT_SUBMITTED',
+    idIssue,
+    comment,
+});
+
 export function submitComment(idIssue, comment) {
     return (dispatch) => {
-        return firebaseBase.child(idIssue).child('comments').push(comment);
+        return firebaseBase.child(idIssue)
+                .child('comments').push(comment).then((data) => {
+            dispatch(commentSubmited(idIssue, comment));
+        });
+    };
+};
+
+const showComment = (idIssue, comment) => ({
+    type: 'SHOW_COMMENT',
+    idIssue,
+    comment,
+});
+
+const listeningToComments = (idIssue) => ({
+    type: 'LISTENING_TO_COMMENTS',
+    idIssue,
+})
+
+export function startListeningForCommentsOnIssue(idIssue) {
+    return (dispatch) => {
+        dispatch(listeningToComments(idIssue));
+        return firebaseBase.child(idIssue).child('comments')
+        .on('child_added', function(commentFirebase) {
+            const comment = {
+                ...commentFirebase.val(),
+            };
+            dispatch(showComment(idIssue, comment));
+        });
     };
 };

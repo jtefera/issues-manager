@@ -22,6 +22,9 @@ let CommentForm = ({
                 comment: commentInput.getValue(),
             };
             submitCommentHandler(comment);
+            nameInput.getInputNode().value = '';
+            emailInput.getInputNode().value = '';
+            commentInput.getInputNode().value = '';
         }}>
             <TextField
                 defaultValue={username}

@@ -23592,6 +23592,8 @@
 	
 	var _redux = __webpack_require__(183);
 	
+	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+	
 	var asyncState = function asyncState() {
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
 	        isFetching: false,
@@ -23712,10 +23714,27 @@
 	                    deleting: true
 	                });
 	            });
+	        case 'LISTENING_TO_COMMENTS':
+	            return state.map(function (el) {
+	                console.log(el.id, action.idIssue);
+	                return el.id !== action.idIssue ? el : _extends({}, el, {
+	                    isListeningComments: true
+	                });
+	            });
+	        case 'SHOW_COMMENT':
+	            return state.map(function (el) {
+	                if (el.id === action.idIssue) {
+	                    var newComments = el.comments ? [].concat(_toConsumableArray(el.comments)) : [];
+	                    newComments.push(action.comment);
+	                    return _extends({}, el, {
+	                        comments: newComments
+	                    });
+	                }
+	                return el;
+	            });
 	        default:
-	            break;
+	            return state;
 	    }
-	    return state;
 	};
 	
 	var messageDisplay = function messageDisplay() {
@@ -23837,6 +23856,7 @@
 	exports.sendLoginInfo = sendLoginInfo;
 	exports.logOut = logOut;
 	exports.submitComment = submitComment;
+	exports.startListeningForCommentsOnIssue = startListeningForCommentsOnIssue;
 	
 	var _isomorphicFetch = __webpack_require__(213);
 	
@@ -23850,7 +23870,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var firebaseBase = _firebase2.default.database().ref("listTasks");
+	var firebaseBase = _firebase2.default.database().ref("issues");
 	
 	var addIssue = exports.addIssue = function addIssue(issue) {
 	    return {
@@ -23939,7 +23959,7 @@
 	        dispatch(addIssueOptimistic(_extends({}, issue, {
 	            id: 'optimistic'
 	        })));
-	        return _firebase2.default.database().ref("listTasks").push(issue, function (error) {
+	        return _firebase2.default.database().ref("issues").push(issue, function (error) {
 	            if (error) {
 	                dispatch(showErrorMessage('Not able to add issue into db', error));
 	            }
@@ -24098,9 +24118,44 @@
 	}
 	
 	// Comments
+	var commentSubmited = function commentSubmited(idIssue, comment) {
+	    return {
+	        type: 'COMMENT_SUBMITTED',
+	        idIssue: idIssue,
+	        comment: comment
+	    };
+	};
+	
 	function submitComment(idIssue, comment) {
 	    return function (dispatch) {
-	        return firebaseBase.child(idIssue).child('comments').push(comment);
+	        return firebaseBase.child(idIssue).child('comments').push(comment).then(function (data) {
+	            dispatch(commentSubmited(idIssue, comment));
+	        });
+	    };
+	};
+	
+	var showComment = function showComment(idIssue, comment) {
+	    return {
+	        type: 'SHOW_COMMENT',
+	        idIssue: idIssue,
+	        comment: comment
+	    };
+	};
+	
+	var listeningToComments = function listeningToComments(idIssue) {
+	    return {
+	        type: 'LISTENING_TO_COMMENTS',
+	        idIssue: idIssue
+	    };
+	};
+	
+	function startListeningForCommentsOnIssue(idIssue) {
+	    return function (dispatch) {
+	        dispatch(listeningToComments(idIssue));
+	        return firebaseBase.child(idIssue).child('comments').on('child_added', function (commentFirebase) {
+	            var comment = _extends({}, commentFirebase.val());
+	            dispatch(showComment(idIssue, comment));
+	        });
 	    };
 	};
 
@@ -25271,18 +25326,18 @@
 /* 221 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	"use strict";
 	
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
 	var firebase = __webpack_require__(215);
 	var config = {
-	  apiKey: 'AIzaSyC8yxoLCLzeUu-xZ-FxlMQL4fqJ1tgSdKI',
-	  authDomain: 'tasks-icmadrid.firebaseapp.com',
-	  databaseURL: 'https://tasks-icmadrid.firebaseio.com',
-	  storageBucket: '',
-	  messagingSenderId: '655248702737'
+	  apiKey: "AIzaSyBJYkdrA2-sNrK5ZyLT8zLkxPNNhrrkrAU",
+	  authDomain: "issue-tracker-48b5b.firebaseapp.com",
+	  databaseURL: "https://issue-tracker-48b5b.firebaseio.com",
+	  storageBucket: "issue-tracker-48b5b.appspot.com",
+	  messagingSenderId: "146086796907"
 	};
 	firebase.initializeApp(config);
 	exports.default = config;
@@ -45413,6 +45468,8 @@
 	
 	var _issue2 = _interopRequireDefault(_issue);
 	
+	var _actions2 = __webpack_require__(212);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var mapStateToProps = function mapStateToProps(state) {
@@ -45430,6 +45487,9 @@
 	        },
 	        showEditIssueForm: function showEditIssueForm() {
 	            return dispatch((0, _actions.showEditIssueForm)(id, issue));
+	        },
+	        listenForComments: function listenForComments() {
+	            return dispatch((0, _actions2.startListeningForCommentsOnIssue)(id));
 	        }
 	    };
 	};
@@ -45471,7 +45531,8 @@
 	        showEditIssueForm = _ref.showEditIssueForm,
 	        showIssueDescription = _ref.showIssueDescription,
 	        hideIssueDescription = _ref.hideIssueDescription,
-	        isLogged = _ref.isLogged;
+	        isLogged = _ref.isLogged,
+	        listenForComments = _ref.listenForComments;
 	    var id = issue.id,
 	        title = issue.title,
 	        name = issue.name,
@@ -45480,7 +45541,8 @@
 	        date = issue.date,
 	        deleting = issue.deleting,
 	        isConnected = issue.isConnected,
-	        comments = issue.comments;
+	        comments = issue.comments,
+	        isListeningComments = issue.isListeningComments;
 	
 	    var sentState = isConnected === false ? ' - Sending...' : '';
 	    var actions = isLogged ? _react2.default.createElement(
@@ -45492,30 +45554,17 @@
 	    if (deleting) {
 	        return null;
 	    }
-	    var mockComments = [{
-	        comment: 'Lists are used to present multiple items vertically as a single continuous element. They can be configured for many uses such as a contacts list, nested lists, etc.',
-	        author: 'Jonathan',
-	        date: 'Today'
-	    }, {
-	        comment: 'This tutorial is the second of a three-part series on React by Brad Westfall.',
-	        author: 'Nahum',
-	        date: 'Yesterday'
-	    }, {
-	        comment: 'In the first article, we created routes and views. In this tutorial, we’re going to explore a new concept in which components don’t create views, but rather facilitate the ones that do.',
-	        author: 'Jonathan',
-	        date: 'Monday, 2nd November'
-	    }, {
-	        comment: 'We’ll also be introducing data to our application. If you’re familiar with with any sort of component-design or MVC patterns.',
-	        author: 'Jonathan',
-	        date: 'Sunday, 1st November'
-	    }];
-	
+	    var listeningFunction = isListeningComments ? function () {
+	        return null;
+	    } : listenForComments;
 	    return _react2.default.createElement(
 	        'li',
 	        null,
 	        _react2.default.createElement(
 	            _Card.Card,
-	            null,
+	            {
+	                onExpandChange: listeningFunction
+	            },
 	            _react2.default.createElement(_Card.CardHeader, {
 	                title: '' + title + sentState,
 	                subtitle: name + ' (' + email + ')',
@@ -52441,8 +52490,7 @@
 	    var listComments = _ref.listComments,
 	        idIssue = _ref.idIssue;
 	
-	    console.log(Object.entries(listComments));
-	    var commentsEl = Object.entries(listComments).map(function (keyValArr) {
+	    var commentsEl = !listComments ? null : Object.entries(listComments).map(function (keyValArr) {
 	        return keyValArr[1];
 	    }).map(function (_ref2, id) {
 	        var comment = _ref2.comment,
@@ -52818,6 +52866,9 @@
 	                    comment: commentInput.getValue()
 	                };
 	                submitCommentHandler(comment);
+	                nameInput.getInputNode().value = '';
+	                emailInput.getInputNode().value = '';
+	                commentInput.getInputNode().value = '';
 	            } },
 	        _react2.default.createElement(_TextField2.default, {
 	            defaultValue: username,

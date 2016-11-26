@@ -11,6 +11,7 @@ const IssuePres = ({
     showIssueDescription,
     hideIssueDescription,
     isLogged,
+    listenForComments,
 }) => {
     const {
         id,
@@ -22,6 +23,7 @@ const IssuePres = ({
         deleting,
         isConnected,
         comments,
+        isListeningComments,
     } = issue;
     const sentState = (isConnected === false) ? ' - Sending...' :'';
     const actions = (isLogged) ?
@@ -33,32 +35,12 @@ const IssuePres = ({
     if(deleting) {
         return null;
     }
-    const mockComments = [
-        {
-            comment: 'Lists are used to present multiple items vertically as a single continuous element. They can be configured for many uses such as a contacts list, nested lists, etc.',
-            author: 'Jonathan',
-            date: 'Today',
-        },
-        {
-            comment: 'This tutorial is the second of a three-part series on React by Brad Westfall.',
-            author: 'Nahum',
-            date: 'Yesterday',
-        },
-        {
-            comment: 'In the first article, we created routes and views. In this tutorial, we’re going to explore a new concept in which components don’t create views, but rather facilitate the ones that do.',
-            author: 'Jonathan',
-            date: 'Monday, 2nd November',
-        },
-        {
-            comment: 'We’ll also be introducing data to our application. If you’re familiar with with any sort of component-design or MVC patterns.',
-            author: 'Jonathan',
-            date: 'Sunday, 1st November',
-        },
-    ];
-
+    const listeningFunction = (isListeningComments) ? () => null : listenForComments;
     return (
         <li>
-            <Card>
+            <Card
+                onExpandChange={listeningFunction}
+            >
                 <CardHeader
                     title={`${title}${sentState}`}
                     subtitle={`${name} (${email})`}
