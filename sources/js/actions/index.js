@@ -246,7 +246,7 @@ export function startListeningForCommentsOnIssue(idIssue) {
         .on('child_added', function(commentFirebase) {
             const comment = {
                 ...commentFirebase.val(),
-                recieved: Date.now(),
+                received: Date.now(),
             };
             dispatch(showComment(idIssue, comment));
         });

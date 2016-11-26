@@ -24162,7 +24162,7 @@
 	        dispatch(listeningToComments(idIssue));
 	        return firebaseBase.child(idIssue).child('comments').on('child_added', function (commentFirebase) {
 	            var comment = _extends({}, commentFirebase.val(), {
-	                recieved: Date.now()
+	                received: Date.now()
 	            });
 	            dispatch(showComment(idIssue, comment));
 	        });
@@ -45546,7 +45546,7 @@
 	
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 	
-	var _listComments = __webpack_require__(525);
+	var _listComments = __webpack_require__(541);
 	
 	var _listComments2 = _interopRequireDefault(_listComments);
 	
@@ -45555,6 +45555,10 @@
 	var _IconButton = __webpack_require__(439);
 	
 	var _IconButton2 = _interopRequireDefault(_IconButton);
+	
+	var _notSentWarning = __webpack_require__(540);
+	
+	var _notSentWarning2 = _interopRequireDefault(_notSentWarning);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -45578,17 +45582,7 @@
 	        isListeningComments = issue.isListeningComments,
 	        received = issue.received;
 	
-	    var sentState = isConnected === false && received > lastConnection ? _react2.default.createElement(
-	        _IconButton2.default,
-	        {
-	            iconClassName: 'material-icons',
-	            iconStyle: {
-	                color: _colors.amber300
-	            },
-	            tooltip: 'Waiting to be sent. No connection'
-	        },
-	        'warning'
-	    ) : null;
+	    var sentState = isConnected === false && received > lastConnection ? _react2.default.createElement(_notSentWarning2.default, null) : null;
 	    var actions = isLogged ? _react2.default.createElement(
 	        _Card.CardActions,
 	        null,
@@ -52495,391 +52489,11 @@
 	module.exports = keyOf;
 
 /***/ },
-/* 525 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _List = __webpack_require__(526);
-	
-	var _Subheader = __webpack_require__(427);
-	
-	var _Subheader2 = _interopRequireDefault(_Subheader);
-	
-	var _Paper = __webpack_require__(362);
-	
-	var _Paper2 = _interopRequireDefault(_Paper);
-	
-	var _Divider = __webpack_require__(528);
-	
-	var _Divider2 = _interopRequireDefault(_Divider);
-	
-	var _commentForm = __webpack_require__(530);
-	
-	var _commentForm2 = _interopRequireDefault(_commentForm);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var commentStyle = {
-	    fontSize: '14px',
-	    lineHeight: '16px',
-	    margin: '0px 0px',
-	    color: 'rgba(0, 0, 0, 0.541176)'
-	};
-	
-	var ListComments = function ListComments(_ref) {
-	    var listComments = _ref.listComments,
-	        idIssue = _ref.idIssue;
-	
-	    var dateOptions = {
-	        year: 'numeric',
-	        month: 'short',
-	        day: 'numeric',
-	        hour: '2-digit',
-	        minute: '2-digit'
-	    };
-	    var commentsEl = !listComments ? null : Object.entries(listComments).map(function (keyValArr) {
-	        return keyValArr[1];
-	    }).map(function (_ref2, id) {
-	        var comment = _ref2.comment,
-	            email = _ref2.email,
-	            name = _ref2.name,
-	            date = _ref2.date;
-	
-	        return _react2.default.createElement(
-	            'li',
-	            {
-	                key: id
-	            },
-	            _react2.default.createElement(
-	                'p',
-	                { style: commentStyle },
-	                comment
-	            ),
-	            _react2.default.createElement(
-	                'h3',
-	                null,
-	                name,
-	                ' (',
-	                email,
-	                ') - ',
-	                new Date(date).toLocaleDateString('en-US', dateOptions)
-	            )
-	        );
-	    });
-	    return _react2.default.createElement(
-	        'ul',
-	        { className: 'comments' },
-	        commentsEl,
-	        _react2.default.createElement(_commentForm2.default, { idIssue: idIssue })
-	    );
-	};
-	
-	exports.default = ListComments;
-
-/***/ },
-/* 526 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = exports.makeSelectable = exports.ListItem = exports.List = undefined;
-	
-	var _List2 = __webpack_require__(426);
-	
-	var _List3 = _interopRequireDefault(_List2);
-	
-	var _ListItem2 = __webpack_require__(438);
-	
-	var _ListItem3 = _interopRequireDefault(_ListItem2);
-	
-	var _makeSelectable2 = __webpack_require__(527);
-	
-	var _makeSelectable3 = _interopRequireDefault(_makeSelectable2);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.List = _List3.default;
-	exports.ListItem = _ListItem3.default;
-	exports.makeSelectable = _makeSelectable3.default;
-	exports.default = _List3.default;
-
-/***/ },
-/* 527 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.makeSelectable = undefined;
-	
-	var _extends2 = __webpack_require__(226);
-	
-	var _extends3 = _interopRequireDefault(_extends2);
-	
-	var _objectWithoutProperties2 = __webpack_require__(264);
-	
-	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-	
-	var _getPrototypeOf = __webpack_require__(265);
-	
-	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
-	
-	var _classCallCheck2 = __webpack_require__(270);
-	
-	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
-	
-	var _createClass2 = __webpack_require__(271);
-	
-	var _createClass3 = _interopRequireDefault(_createClass2);
-	
-	var _possibleConstructorReturn2 = __webpack_require__(275);
-	
-	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
-	
-	var _inherits2 = __webpack_require__(310);
-	
-	var _inherits3 = _interopRequireDefault(_inherits2);
-	
-	var _simpleAssign = __webpack_require__(318);
-	
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _colorManipulator = __webpack_require__(387);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var makeSelectable = exports.makeSelectable = function makeSelectable(MyComponent) {
-	  var _class, _temp2;
-	
-	  return _temp2 = _class = function (_Component) {
-	    (0, _inherits3.default)(_class, _Component);
-	
-	    function _class() {
-	      var _ref;
-	
-	      var _temp, _this, _ret;
-	
-	      (0, _classCallCheck3.default)(this, _class);
-	
-	      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
-	        args[_key] = arguments[_key];
-	      }
-	
-	      return _ret = (_temp = (_this = (0, _possibleConstructorReturn3.default)(this, (_ref = _class.__proto__ || (0, _getPrototypeOf2.default)(_class)).call.apply(_ref, [this].concat(args))), _this), _this.hasSelectedDescendant = function (previousValue, child) {
-	        if (_react2.default.isValidElement(child) && child.props.nestedItems && child.props.nestedItems.length > 0) {
-	          return child.props.nestedItems.reduce(_this.hasSelectedDescendant, previousValue);
-	        }
-	        return previousValue || _this.isChildSelected(child, _this.props);
-	      }, _this.handleItemTouchTap = function (event, item) {
-	        var itemValue = item.props.value;
-	
-	        if (itemValue !== _this.props.value) {
-	          _this.props.onChange(event, itemValue);
-	        }
-	      }, _temp), (0, _possibleConstructorReturn3.default)(_this, _ret);
-	    }
-	
-	    (0, _createClass3.default)(_class, [{
-	      key: 'extendChild',
-	      value: function extendChild(child, styles, selectedItemStyle) {
-	        var _this2 = this;
-	
-	        if (child && child.type && child.type.muiName === 'ListItem') {
-	          var selected = this.isChildSelected(child, this.props);
-	          var selectedChildrenStyles = void 0;
-	          if (selected) {
-	            selectedChildrenStyles = (0, _simpleAssign2.default)({}, styles, selectedItemStyle);
-	          }
-	
-	          var mergedChildrenStyles = (0, _simpleAssign2.default)({}, child.props.style, selectedChildrenStyles);
-	
-	          this.keyIndex += 1;
-	
-	          return _react2.default.cloneElement(child, {
-	            onTouchTap: function onTouchTap(event) {
-	              _this2.handleItemTouchTap(event, child);
-	              if (child.props.onTouchTap) {
-	                child.props.onTouchTap(event);
-	              }
-	            },
-	            key: this.keyIndex,
-	            style: mergedChildrenStyles,
-	            nestedItems: child.props.nestedItems.map(function (child) {
-	              return _this2.extendChild(child, styles, selectedItemStyle);
-	            }),
-	            initiallyOpen: this.isInitiallyOpen(child)
-	          });
-	        } else {
-	          return child;
-	        }
-	      }
-	    }, {
-	      key: 'isInitiallyOpen',
-	      value: function isInitiallyOpen(child) {
-	        if (child.props.initiallyOpen) {
-	          return child.props.initiallyOpen;
-	        }
-	        return this.hasSelectedDescendant(false, child);
-	      }
-	    }, {
-	      key: 'isChildSelected',
-	      value: function isChildSelected(child, props) {
-	        return props.value === child.props.value;
-	      }
-	    }, {
-	      key: 'render',
-	      value: function render() {
-	        var _this3 = this;
-	
-	        var _props = this.props,
-	            children = _props.children,
-	            selectedItemStyle = _props.selectedItemStyle,
-	            other = (0, _objectWithoutProperties3.default)(_props, ['children', 'selectedItemStyle']);
-	
-	
-	        this.keyIndex = 0;
-	        var styles = {};
-	
-	        if (!selectedItemStyle) {
-	          var textColor = this.context.muiTheme.baseTheme.palette.textColor;
-	          styles.backgroundColor = (0, _colorManipulator.fade)(textColor, 0.2);
-	        }
-	
-	        return _react2.default.createElement(
-	          MyComponent,
-	          (0, _extends3.default)({}, other, this.state),
-	          _react.Children.map(children, function (child) {
-	            return _this3.extendChild(child, styles, selectedItemStyle);
-	          })
-	        );
-	      }
-	    }]);
-	    return _class;
-	  }(_react.Component), _class.propTypes = {
-	    children: _react.PropTypes.node,
-	    onChange: _react.PropTypes.func,
-	    selectedItemStyle: _react.PropTypes.object,
-	    value: _react.PropTypes.any
-	  }, _class.contextTypes = {
-	    muiTheme: _react.PropTypes.object.isRequired
-	  }, _temp2;
-	};
-	
-	exports.default = makeSelectable;
-
-/***/ },
-/* 528 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = undefined;
-	
-	var _Divider = __webpack_require__(529);
-	
-	var _Divider2 = _interopRequireDefault(_Divider);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = _Divider2.default;
-
-/***/ },
-/* 529 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _extends2 = __webpack_require__(226);
-	
-	var _extends3 = _interopRequireDefault(_extends2);
-	
-	var _objectWithoutProperties2 = __webpack_require__(264);
-	
-	var _objectWithoutProperties3 = _interopRequireDefault(_objectWithoutProperties2);
-	
-	var _simpleAssign = __webpack_require__(318);
-	
-	var _simpleAssign2 = _interopRequireDefault(_simpleAssign);
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Divider = function Divider(props, context) {
-	  var inset = props.inset,
-	      style = props.style,
-	      other = (0, _objectWithoutProperties3.default)(props, ['inset', 'style']);
-	  var _context$muiTheme = context.muiTheme,
-	      baseTheme = _context$muiTheme.baseTheme,
-	      prepareStyles = _context$muiTheme.prepareStyles;
-	
-	
-	  var styles = {
-	    root: {
-	      margin: 0,
-	      marginTop: -1,
-	      marginLeft: inset ? 72 : 0,
-	      height: 1,
-	      border: 'none',
-	      backgroundColor: baseTheme.palette.borderColor
-	    }
-	  };
-	
-	  return _react2.default.createElement('hr', (0, _extends3.default)({}, other, { style: prepareStyles((0, _simpleAssign2.default)(styles.root, style)) }));
-	};
-	
-	Divider.muiName = 'Divider';
-	
-	process.env.NODE_ENV !== "production" ? Divider.propTypes = {
-	  /**
-	   * If true, the `Divider` will be indented.
-	   */
-	  inset: _react.PropTypes.bool,
-	  /**
-	   * Override the inline-styles of the root element.
-	   */
-	  style: _react.PropTypes.object
-	} : void 0;
-	
-	Divider.defaultProps = {
-	  inset: false
-	};
-	
-	Divider.contextTypes = {
-	  muiTheme: _react.PropTypes.object.isRequired
-	};
-	
-	exports.default = Divider;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
-
-/***/ },
+/* 525 */,
+/* 526 */,
+/* 527 */,
+/* 528 */,
+/* 529 */,
 /* 530 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -52985,6 +52599,153 @@
 	CommentForm = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CommentForm);
 	
 	exports.default = CommentForm;
+
+/***/ },
+/* 531 */,
+/* 532 */,
+/* 533 */,
+/* 534 */,
+/* 535 */,
+/* 536 */,
+/* 537 */,
+/* 538 */,
+/* 539 */,
+/* 540 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _IconButton = __webpack_require__(439);
+	
+	var _IconButton2 = _interopRequireDefault(_IconButton);
+	
+	var _colors = __webpack_require__(459);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var NotSentWarning = function NotSentWarning() {
+	    return _react2.default.createElement(
+	        _IconButton2.default,
+	        {
+	            iconClassName: 'material-icons',
+	            iconStyle: {
+	                color: _colors.amber300
+	            },
+	            tooltip: 'Waiting to be sent. No connection'
+	        },
+	        'warning'
+	    );
+	};
+	
+	exports.default = NotSentWarning;
+
+/***/ },
+/* 541 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(198);
+	
+	var _commentForm = __webpack_require__(530);
+	
+	var _commentForm2 = _interopRequireDefault(_commentForm);
+	
+	var _notSentWarning = __webpack_require__(540);
+	
+	var _notSentWarning2 = _interopRequireDefault(_notSentWarning);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var commentStyle = {
+	    fontSize: '14px',
+	    lineHeight: '16px',
+	    margin: '0px 0px',
+	    color: 'rgba(0, 0, 0, 0.541176)'
+	};
+	
+	var ListComments = function ListComments(_ref) {
+	    var listComments = _ref.listComments,
+	        idIssue = _ref.idIssue,
+	        isConnected = _ref.isConnected,
+	        lastConnection = _ref.lastConnection;
+	
+	    var dateOptions = {
+	        year: 'numeric',
+	        month: 'short',
+	        day: 'numeric',
+	        hour: '2-digit',
+	        minute: '2-digit'
+	    };
+	    var commentsEl = !listComments ? null : Object.entries(listComments).map(function (keyValArr) {
+	        return keyValArr[1];
+	    }).map(function (_ref2, id) {
+	        var comment = _ref2.comment,
+	            email = _ref2.email,
+	            name = _ref2.name,
+	            date = _ref2.date,
+	            received = _ref2.received;
+	
+	        console.log(isConnected, received, lastConnection);
+	        var sentState = isConnected === false && received > lastConnection ? _react2.default.createElement(_notSentWarning2.default, null) : null;
+	        return _react2.default.createElement(
+	            'li',
+	            {
+	                key: id
+	            },
+	            _react2.default.createElement(
+	                'p',
+	                { style: commentStyle },
+	                _react2.default.createElement(
+	                    'b',
+	                    null,
+	                    name,
+	                    '(',
+	                    email,
+	                    '): '
+	                ),
+	                ' ',
+	                comment
+	            ),
+	            new Date(date).toLocaleDateString('en-US', dateOptions),
+	            sentState,
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement('br', null)
+	        );
+	    });
+	    return _react2.default.createElement(
+	        'ul',
+	        { className: 'comments' },
+	        commentsEl,
+	        _react2.default.createElement(_commentForm2.default, { idIssue: idIssue })
+	    );
+	};
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	    return {
+	        isConnected: state.connected.connected,
+	        lastConnection: state.connected.lastConnection
+	    };
+	};
+	ListComments = (0, _reactRedux.connect)(mapStateToProps)(ListComments);
+	
+	exports.default = ListComments;
 
 /***/ }
 /******/ ]);

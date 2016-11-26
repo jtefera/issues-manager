@@ -1,11 +1,12 @@
 import React from 'react';
 import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
 import FlatButton from 'material-ui/FlatButton';
-import ListComments from './listComments';
+import ListComments from '../containers/listComments';
 import {
     amber300,
 } from 'material-ui/styles/colors';
 import IconButton from 'material-ui/IconButton';
+import NotSentWarning from './notSentWarning';
 
 const IssuePres = ({
     issue,
@@ -31,15 +32,7 @@ const IssuePres = ({
     } = issue;
     const sentState = (isConnected === false
                 && received > lastConnection) ?
-                    <IconButton
-                        iconClassName='material-icons'
-                        iconStyle={{
-                            color: amber300,
-                        }}
-                        tooltip='Waiting to be sent. No connection'
-                    >
-                        warning
-                    </IconButton>
+                    <NotSentWarning />
                     :null;
     const actions = (isLogged) ?
                 (<CardActions>
@@ -57,10 +50,12 @@ const IssuePres = ({
                 onExpandChange={listeningFunction}
             >
                 <CardHeader
-                    title={<div>
-                        {title}
-                        {sentState}
-                    </div>}
+                    title={
+                        <div>
+                            {title}
+                            {sentState}
+                        </div>
+                    }
                     subtitle={`${name} (${email})`}
                     actAsExpander={true}
                     showExpandableButton={true}
