@@ -175,7 +175,7 @@ export const hideLoginForm = () => ({
 
 export const setAsLogged = (data) => ({
     type: 'SET_AS_LOGGED',
-    data,
+    username: data.email,
 });
 
 export const setAsLoggedOut = (data) => ({
@@ -210,3 +210,10 @@ export function logOut() {
         });
     };
 }
+
+// Comments
+export function submitComment(idIssue, comment) {
+    return (dispatch) => {
+        return firebaseBase.child(idIssue).child('comments').push(comment);
+    };
+};

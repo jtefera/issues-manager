@@ -3,26 +3,31 @@ import {List, ListItem} from 'material-ui/List';
 import Subheader from 'material-ui/Subheader';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
+import CommentForm from '../containers/commentForm';
 
 const commentStyle = {
     fontSize: '14px',
     lineHeight: '16px',
     margin: '0px 0px',
     color: 'rgba(0, 0, 0, 0.541176)',
-}
+};
 
-const ListComments = ({listComments}) => {
-    const commentsEl = listComments.map(({comment, author, date}, id) => (
+const ListComments = ({listComments, idIssue}) => {
+    console.log(Object.entries(listComments));
+    const commentsEl = Object.entries(listComments)
+                    .map((keyValArr) => keyValArr[1])
+                    .map(({comment, email, name}, id) => (
         <li
             key={id}
         >
             <p style={commentStyle}>{comment}</p>
-            <h3>{author} - {date}</h3>
+            <h3>{name} - {email}</h3>
         </li>
     ));
     return (
         <ul className='comments'>
             {commentsEl}
+            <CommentForm idIssue={idIssue}/>
         </ul>
     );
 };

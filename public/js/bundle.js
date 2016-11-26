@@ -23836,6 +23836,7 @@
 	exports.fetchIssues = fetchIssues;
 	exports.sendLoginInfo = sendLoginInfo;
 	exports.logOut = logOut;
+	exports.submitComment = submitComment;
 	
 	var _isomorphicFetch = __webpack_require__(213);
 	
@@ -24058,7 +24059,7 @@
 	var setAsLogged = exports.setAsLogged = function setAsLogged(data) {
 	    return {
 	        type: 'SET_AS_LOGGED',
-	        data: data
+	        username: data.email
 	    };
 	};
 	
@@ -24095,6 +24096,13 @@
 	        });
 	    };
 	}
+	
+	// Comments
+	function submitComment(idIssue, comment) {
+	    return function (dispatch) {
+	        return firebaseBase.child(idIssue).child('comments').push(comment);
+	    };
+	};
 
 /***/ },
 /* 213 */
@@ -45464,13 +45472,15 @@
 	        showIssueDescription = _ref.showIssueDescription,
 	        hideIssueDescription = _ref.hideIssueDescription,
 	        isLogged = _ref.isLogged;
-	    var title = issue.title,
+	    var id = issue.id,
+	        title = issue.title,
 	        name = issue.name,
 	        email = issue.email,
 	        description = issue.description,
 	        date = issue.date,
 	        deleting = issue.deleting,
-	        isConnected = issue.isConnected;
+	        isConnected = issue.isConnected,
+	        comments = issue.comments;
 	
 	    var sentState = isConnected === false ? ' - Sending...' : '';
 	    var actions = isLogged ? _react2.default.createElement(
@@ -45518,7 +45528,7 @@
 	                date,
 	                _react2.default.createElement('br', null),
 	                description,
-	                _react2.default.createElement(_listComments2.default, { listComments: mockComments })
+	                _react2.default.createElement(_listComments2.default, { listComments: comments, idIssue: id })
 	            ),
 	            actions
 	        )
@@ -52414,6 +52424,10 @@
 	
 	var _Divider2 = _interopRequireDefault(_Divider);
 	
+	var _commentForm = __webpack_require__(530);
+	
+	var _commentForm2 = _interopRequireDefault(_commentForm);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var commentStyle = {
@@ -52424,12 +52438,16 @@
 	};
 	
 	var ListComments = function ListComments(_ref) {
-	    var listComments = _ref.listComments;
+	    var listComments = _ref.listComments,
+	        idIssue = _ref.idIssue;
 	
-	    var commentsEl = listComments.map(function (_ref2, id) {
+	    console.log(Object.entries(listComments));
+	    var commentsEl = Object.entries(listComments).map(function (keyValArr) {
+	        return keyValArr[1];
+	    }).map(function (_ref2, id) {
 	        var comment = _ref2.comment,
-	            author = _ref2.author,
-	            date = _ref2.date;
+	            email = _ref2.email,
+	            name = _ref2.name;
 	        return _react2.default.createElement(
 	            'li',
 	            {
@@ -52443,16 +52461,17 @@
 	            _react2.default.createElement(
 	                'h3',
 	                null,
-	                author,
+	                name,
 	                ' - ',
-	                date
+	                email
 	            )
 	        );
 	    });
 	    return _react2.default.createElement(
 	        'ul',
 	        { className: 'comments' },
-	        commentsEl
+	        commentsEl,
+	        _react2.default.createElement(_commentForm2.default, { idIssue: idIssue })
 	    );
 	};
 	
@@ -52751,6 +52770,109 @@
 	
 	exports.default = Divider;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+
+/***/ },
+/* 530 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(198);
+	
+	var _TextField = __webpack_require__(374);
+	
+	var _TextField2 = _interopRequireDefault(_TextField);
+	
+	var _FlatButton = __webpack_require__(382);
+	
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+	
+	var _actions = __webpack_require__(212);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var CommentForm = function CommentForm(_ref) {
+	    var username = _ref.username,
+	        email = _ref.email,
+	        submitCommentHandler = _ref.submitCommentHandler;
+	
+	    var nameInput = void 0;
+	    var emailInput = void 0;
+	    var commentInput = void 0;
+	    console.log(username);
+	    return _react2.default.createElement(
+	        'form',
+	        { onSubmit: function onSubmit(e) {
+	                e.preventDefault();
+	                var comment = {
+	                    name: nameInput.getValue(),
+	                    email: emailInput.getValue(),
+	                    comment: commentInput.getValue()
+	                };
+	                submitCommentHandler(comment);
+	            } },
+	        _react2.default.createElement(_TextField2.default, {
+	            defaultValue: username,
+	            floatingLabelText: 'Name',
+	            name: 'name',
+	            fullWidth: true,
+	            hintText: 'name',
+	            ref: function ref(node) {
+	                nameInput = node;
+	            }
+	        }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(_TextField2.default, {
+	            defaultValue: email,
+	            floatingLabelText: 'Email',
+	            fullWidth: true,
+	            hintText: 'email',
+	            ref: function ref(node) {
+	                emailInput = node;
+	            }
+	        }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(_TextField2.default, {
+	            defaultValue: 'This is a comment',
+	            floatingLabelText: 'Comment',
+	            fullWidth: true,
+	            hintText: 'comment',
+	            ref: function ref(node) {
+	                commentInput = node;
+	            },
+	            multiLine: true,
+	            rows: 4
+	        }),
+	        _react2.default.createElement(_FlatButton2.default, { type: 'submit', label: 'Comment' })
+	    );
+	};
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	    return {
+	        username: state.loginInfo.logged ? state.loginInfo.username : null,
+	        email: state.loginInfo.logged ? state.loginInfo.username : null
+	    };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref2) {
+	    var idIssue = _ref2.idIssue;
+	    return {
+	        submitCommentHandler: function submitCommentHandler(commentObj) {
+	            return dispatch((0, _actions.submitComment)(idIssue, commentObj));
+	        }
+	    };
+	};
+	CommentForm = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CommentForm);
+	
+	exports.default = CommentForm;
 
 /***/ }
 /******/ ]);

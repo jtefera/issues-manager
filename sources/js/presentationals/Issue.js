@@ -13,6 +13,7 @@ const IssuePres = ({
     isLogged,
 }) => {
     const {
+        id,
         title,
         name,
         email,
@@ -20,6 +21,7 @@ const IssuePres = ({
         date,
         deleting,
         isConnected,
+        comments,
     } = issue;
     const sentState = (isConnected === false) ? ' - Sending...' :'';
     const actions = (isLogged) ?
@@ -66,7 +68,7 @@ const IssuePres = ({
                 <CardText expandable={true}>
                     {date}<br />
                     {description}
-                    <ListComments listComments={mockComments} />
+                    <ListComments listComments={comments} idIssue={id}/>
                 </CardText>
                 {actions}
             </Card>
