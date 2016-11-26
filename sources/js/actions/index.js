@@ -112,7 +112,7 @@ export function fetchIssues () {
             const issue = {
                 ...issueFirebase.val(),
                 id: issueFirebase.key,
-                isConnected: getState().connected,
+                received: Date.now(),
             };
             dispatch(addIssue(issue));
         }); 
@@ -144,6 +144,7 @@ export const setStateAsConnected = () => ({
 
 export const setStateAsNotConnected = () => ({
     type: 'SET_STATE_AS_DISCONNECTED',
+    lastConnection: Date.now(),
 });
 
 export const setAllIssuesAsSent = () => ({
@@ -245,6 +246,7 @@ export function startListeningForCommentsOnIssue(idIssue) {
         .on('child_added', function(commentFirebase) {
             const comment = {
                 ...commentFirebase.val(),
+                recieved: Date.now(),
             };
             dispatch(showComment(idIssue, comment));
         });

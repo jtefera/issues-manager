@@ -175,12 +175,19 @@ const messageDisplay = (state = {
     }
 };
 
-const connected = (state = false, action) => {
+const connected = (state = {
+    connected: false,
+}, action) => {
     switch (action.type) {
         case 'SET_STATE_AS_CONNECTED':
-            return true;
+            return {
+                connected: true,
+            };
         case 'SET_STATE_AS_DISCONNECTED':
-            return false;
+            return {
+                connected: false,
+                lastConnection: action.lastConnection,
+            };
         default:
             return state;
     }

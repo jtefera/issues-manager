@@ -23771,14 +23771,21 @@
 	};
 	
 	var connected = function connected() {
-	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
+	        connected: false
+	    };
 	    var action = arguments[1];
 	
 	    switch (action.type) {
 	        case 'SET_STATE_AS_CONNECTED':
-	            return true;
+	            return {
+	                connected: true
+	            };
 	        case 'SET_STATE_AS_DISCONNECTED':
-	            return false;
+	            return {
+	                connected: false,
+	                lastConnection: action.lastConnection
+	            };
 	        default:
 	            return state;
 	    }
@@ -24000,7 +24007,7 @@
 	        return firebaseBase.orderByKey().on('child_added', function (issueFirebase) {
 	            var issue = _extends({}, issueFirebase.val(), {
 	                id: issueFirebase.key,
-	                isConnected: getState().connected
+	                received: Date.now()
 	            });
 	            dispatch(addIssue(issue));
 	        });
@@ -24039,7 +24046,8 @@
 	
 	var setStateAsNotConnected = exports.setStateAsNotConnected = function setStateAsNotConnected() {
 	    return {
-	        type: 'SET_STATE_AS_DISCONNECTED'
+	        type: 'SET_STATE_AS_DISCONNECTED',
+	        lastConnection: Date.now()
 	    };
 	};
 	
@@ -24153,7 +24161,9 @@
 	    return function (dispatch) {
 	        dispatch(listeningToComments(idIssue));
 	        return firebaseBase.child(idIssue).child('comments').on('child_added', function (commentFirebase) {
-	            var comment = _extends({}, commentFirebase.val());
+	            var comment = _extends({}, commentFirebase.val(), {
+	                recieved: Date.now()
+	            });
 	            dispatch(showComment(idIssue, comment));
 	        });
 	    };
@@ -44335,7 +44345,7 @@
 	    return {
 	        logged: state.loginInfo.logged,
 	        username: state.loginInfo.username,
-	        connected: state.connected
+	        connected: state.connected.connected
 	    };
 	};
 	
@@ -45490,7 +45500,9 @@
 	
 	var mapStateToProps = function mapStateToProps(state) {
 	    return {
-	        isLogged: state.loginInfo.logged
+	        isLogged: state.loginInfo.logged,
+	        isConnected: state.connected.connected,
+	        lastConnection: state.connected.lastConnection
 	    };
 	};
 	
@@ -45538,6 +45550,12 @@
 	
 	var _listComments2 = _interopRequireDefault(_listComments);
 	
+	var _colors = __webpack_require__(459);
+	
+	var _IconButton = __webpack_require__(439);
+	
+	var _IconButton2 = _interopRequireDefault(_IconButton);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var IssuePres = function IssuePres(_ref) {
@@ -45545,10 +45563,10 @@
 	        deleteIssue = _ref.deleteIssue,
 	        showDescription = _ref.showDescription,
 	        showEditIssueForm = _ref.showEditIssueForm,
-	        showIssueDescription = _ref.showIssueDescription,
-	        hideIssueDescription = _ref.hideIssueDescription,
 	        isLogged = _ref.isLogged,
-	        listenForComments = _ref.listenForComments;
+	        listenForComments = _ref.listenForComments,
+	        isConnected = _ref.isConnected,
+	        lastConnection = _ref.lastConnection;
 	    var id = issue.id,
 	        title = issue.title,
 	        name = issue.name,
@@ -45556,11 +45574,21 @@
 	        description = issue.description,
 	        date = issue.date,
 	        deleting = issue.deleting,
-	        isConnected = issue.isConnected,
 	        comments = issue.comments,
-	        isListeningComments = issue.isListeningComments;
+	        isListeningComments = issue.isListeningComments,
+	        received = issue.received;
 	
-	    var sentState = isConnected === false ? ' - Sending...' : '';
+	    var sentState = isConnected === false && received > lastConnection ? _react2.default.createElement(
+	        _IconButton2.default,
+	        {
+	            iconClassName: 'material-icons',
+	            iconStyle: {
+	                color: _colors.amber300
+	            },
+	            tooltip: 'Waiting to be sent. No connection'
+	        },
+	        'warning'
+	    ) : null;
 	    var actions = isLogged ? _react2.default.createElement(
 	        _Card.CardActions,
 	        null,
@@ -45582,7 +45610,12 @@
 	                onExpandChange: listeningFunction
 	            },
 	            _react2.default.createElement(_Card.CardHeader, {
-	                title: '' + title + sentState,
+	                title: _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    title,
+	                    sentState
+	                ),
 	                subtitle: name + ' (' + email + ')',
 	                actAsExpander: true,
 	                showExpandableButton: true

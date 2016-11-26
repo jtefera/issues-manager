@@ -9,6 +9,8 @@ import {startListeningForCommentsOnIssue} from '../actions/';
 
 const mapStateToProps = (state) => ({
     isLogged: state.loginInfo.logged,
+    isConnected: state.connected.connected,
+    lastConnection: state.connected.lastConnection,
 });
 
 const mapDispatchToProps = (dispatch, {id, issue}) => ({

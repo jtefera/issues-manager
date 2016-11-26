@@ -59,7 +59,7 @@ let HeaderBar = ({
 const mapStateToProps = (state) => ({
     logged: state.loginInfo.logged,
     username: state.loginInfo.username,
-    connected: state.connected,
+    connected: state.connected.connected,
 });
 
 const mapDispatchToProps = (dispatch) => ({
