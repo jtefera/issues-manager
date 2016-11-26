@@ -52490,12 +52490,21 @@
 	    var listComments = _ref.listComments,
 	        idIssue = _ref.idIssue;
 	
+	    var dateOptions = {
+	        year: 'numeric',
+	        month: 'short',
+	        day: 'numeric',
+	        hour: '2-digit',
+	        minute: '2-digit'
+	    };
 	    var commentsEl = !listComments ? null : Object.entries(listComments).map(function (keyValArr) {
 	        return keyValArr[1];
 	    }).map(function (_ref2, id) {
 	        var comment = _ref2.comment,
 	            email = _ref2.email,
-	            name = _ref2.name;
+	            name = _ref2.name,
+	            date = _ref2.date;
+	
 	        return _react2.default.createElement(
 	            'li',
 	            {
@@ -52510,8 +52519,10 @@
 	                'h3',
 	                null,
 	                name,
-	                ' - ',
-	                email
+	                ' (',
+	                email,
+	                ') - ',
+	                new Date(date).toLocaleDateString('en-US', dateOptions)
 	            )
 	        );
 	    });
@@ -52863,7 +52874,8 @@
 	                var comment = {
 	                    name: nameInput.getValue(),
 	                    email: emailInput.getValue(),
-	                    comment: commentInput.getValue()
+	                    comment: commentInput.getValue(),
+	                    date: Date.now()
 	                };
 	                submitCommentHandler(comment);
 	                nameInput.getInputNode().value = '';
@@ -52917,7 +52929,7 @@
 	    var idIssue = _ref2.idIssue;
 	    return {
 	        submitCommentHandler: function submitCommentHandler(commentObj) {
-	            return dispatch((0, _actions.submitComment)(idIssue, commentObj));
+	            dispatch((0, _actions.submitComment)(idIssue, commentObj));
 	        }
 	    };
 	};

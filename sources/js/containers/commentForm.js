@@ -20,6 +20,7 @@ let CommentForm = ({
                 name: nameInput.getValue(),
                 email: emailInput.getValue(),
                 comment: commentInput.getValue(),
+                date: Date.now(),
             };
             submitCommentHandler(comment);
             nameInput.getInputNode().value = '';
@@ -67,7 +68,9 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, {idIssue}) => ({
-    submitCommentHandler: (commentObj) => dispatch(submitComment(idIssue, commentObj)),
+    submitCommentHandler: (commentObj) => {
+        dispatch(submitComment(idIssue, commentObj));
+    },
 });
 CommentForm = connect(
     mapStateToProps,

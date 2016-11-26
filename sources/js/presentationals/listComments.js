@@ -13,16 +13,30 @@ const commentStyle = {
 };
 
 const ListComments = ({listComments, idIssue}) => {
+    const dateOptions = {    
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+    };
     const commentsEl = (!listComments) ? null : Object.entries(listComments)
-                    .map((keyValArr) => keyValArr[1])
-                    .map(({comment, email, name}, id) => (
-        <li
-            key={id}
-        >
-            <p style={commentStyle}>{comment}</p>
-            <h3>{name} - {email}</h3>
-        </li>
-    ));
+        .map((keyValArr) => keyValArr[1])
+        .map(({comment, email, name, date}, id) => {
+            return (
+                <li
+                    key={id}
+                >
+                    <p style={commentStyle}>{comment}</p>
+                    <h3>
+                        {name} ({email}) - {
+                            (new Date(date))
+                                .toLocaleDateString('en-US', dateOptions)
+                        }
+                    </h3>
+                </li>
+            );
+        });
     return (
         <ul className='comments'>
             {commentsEl}
