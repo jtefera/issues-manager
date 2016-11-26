@@ -1,12 +1,16 @@
 import React from 'react';
-import FlatButton from 'material-ui/FlatButton';
+import IconButton from 'material-ui/IconButton';
 import AppBar from 'material-ui/AppBar';
 import {
     showAddIssueForm,
     showLoginForm,
     logOut,
 } from '../actions/';
+import {
+    amber300,
+} from 'material-ui/styles/colors';
 import {connect} from 'react-redux';
+import FlatButton from 'material-ui/FlatButton';
 
 
 let HeaderBar = ({
@@ -26,7 +30,15 @@ let HeaderBar = ({
                         }}/>;
     const connectionState = (connected) ?
                                 null
-                                : "Disconnected";
+                                : <IconButton
+                                    iconClassName='material-icons'
+                                    iconStyle={{
+                                        color: amber300,
+                                    }}
+                                    tooltip='No connection'
+                                >
+                                    warning
+                                </IconButton>;
     return (
         <AppBar
             title="Issue Tracker"

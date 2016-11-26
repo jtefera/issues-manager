@@ -44272,9 +44272,9 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _FlatButton = __webpack_require__(382);
+	var _IconButton = __webpack_require__(439);
 	
-	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+	var _IconButton2 = _interopRequireDefault(_IconButton);
 	
 	var _AppBar = __webpack_require__(450);
 	
@@ -44282,7 +44282,13 @@
 	
 	var _actions = __webpack_require__(212);
 	
+	var _colors = __webpack_require__(459);
+	
 	var _reactRedux = __webpack_require__(198);
+	
+	var _FlatButton = __webpack_require__(382);
+	
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -44299,7 +44305,17 @@
 	        } }) : _react2.default.createElement(_FlatButton2.default, { label: 'Login', onTouchTap: function onTouchTap() {
 	            showLoginForm();
 	        } });
-	    var connectionState = connected ? null : "Disconnected";
+	    var connectionState = connected ? null : _react2.default.createElement(
+	        _IconButton2.default,
+	        {
+	            iconClassName: 'material-icons',
+	            iconStyle: {
+	                color: _colors.amber300
+	            },
+	            tooltip: 'No connection'
+	        },
+	        'warning'
+	    );
 	    return _react2.default.createElement(_AppBar2.default, {
 	        title: 'Issue Tracker',
 	        showMenuIconButton: false,
