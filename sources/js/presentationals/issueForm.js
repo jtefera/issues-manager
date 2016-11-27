@@ -8,8 +8,11 @@ import MenuItem from 'material-ui/MenuItem';
 class IssueForm extends Component{
     constructor(props) {
         super(props);
-        console.log(props.editingIssue && props.editingIssue.priority);
-        this.state = {priorityVal: (props.editingIssue) ? props.editingIssue.priority : 1};
+        this.state = {
+            priorityVal: (props.editingIssue) ? 
+                props.editingIssue.priority 
+                : Math.ceil(Math.random()*3)
+            };
     }
     handleChange = (event, index, value) => {
         this.setState({priorityVal: value});
@@ -27,12 +30,15 @@ class IssueForm extends Component{
         let nameInput;
         let emailInput;
         let descriptionInput;
-        let defaultTitle = 'Title';
+        let defaultTitle = 'Interesting Task #' + Math.floor(Math.random() * 100);
         let defaultName = 'Jonathan';
-        let defaultDescription = 'Description';
+        let defaultDescription = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' + 
+                'Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate' +
+                ' interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, ' +
+                'mattis quis lacus id, pellentesque lobortis odio.';
         let defaultPriority = 'Priority';
-        let defaultEmail = 'Email';
-        let defaultDate = 'Date';
+        let defaultEmail = 'hello@jtefera.com';
+        let defaultDate;
         let defaultId = null;
         if(editingIssue) {
             defaultTitle = editingIssue.title;
@@ -72,11 +78,10 @@ class IssueForm extends Component{
                             name: nameInput.getValue(),
                             email: emailInput.getValue(),
                             description: descriptionInput.getValue(),
-                            date: defaultDate || Date(),
+                            date: defaultDate || Date.now(),
                             id: defaultId,
                         };
                         e.preventDefault();
-                        console.log(issue);
                         if(!titleInput.getValue().trim()) {
                             return;
                         }

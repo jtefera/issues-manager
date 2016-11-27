@@ -118,7 +118,6 @@ const issuesList = (state = [], action) => {
             );
         case 'LISTENING_TO_COMMENTS':
             return state.map((el) => {
-                console.log(el.id, action.idIssue);
                 return (el.id !== action.idIssue)
                             ? el : {
                                 ...el,

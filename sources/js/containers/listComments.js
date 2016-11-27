@@ -26,7 +26,6 @@ let ListComments = ({
     const commentsEl = (!listComments) ? null : Object.entries(listComments)
         .map((keyValArr) => keyValArr[1])
         .map(({comment, email, name, date, received}, id) => {
-            console.log(isConnected, received, lastConnection);
             const sentState = (isConnected === false
                 && received > lastConnection) ?
                     <NotSentWarning />

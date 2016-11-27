@@ -43,7 +43,16 @@ const IssuePres = ({
     if(deleting) {
         return null;
     }
-    const listeningFunction = (isListeningComments) ? () => null : listenForComments;
+    const listeningFunction = (isListeningComments) ?
+                                () => null
+                                : listenForComments;
+    const dateOptions = {    
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+    };
     return (
         <li>
             <Card
@@ -61,7 +70,8 @@ const IssuePres = ({
                     showExpandableButton={true}
                 />
                 <CardText expandable={true}>
-                    {date}<br />
+                    {(new Date(date))
+                            .toLocaleDateString('en-US', dateOptions)}<br />
                     {description}
                     <ListComments listComments={comments} idIssue={id}/>
                 </CardText>

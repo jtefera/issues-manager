@@ -23716,7 +23716,6 @@
 	            });
 	        case 'LISTENING_TO_COMMENTS':
 	            return state.map(function (el) {
-	                console.log(el.id, action.idIssue);
 	                return el.id !== action.idIssue ? el : _extends({}, el, {
 	                    isListeningComments: true
 	                });
@@ -25454,8 +25453,9 @@
 	            _this.setState({ priorityVal: value });
 	        };
 	
-	        console.log(props.editingIssue && props.editingIssue.priority);
-	        _this.state = { priorityVal: props.editingIssue ? props.editingIssue.priority : 1 };
+	        _this.state = {
+	            priorityVal: props.editingIssue ? props.editingIssue.priority : Math.ceil(Math.random() * 3)
+	        };
 	        return _this;
 	    }
 	
@@ -25476,12 +25476,12 @@
 	            var nameInput = void 0;
 	            var emailInput = void 0;
 	            var descriptionInput = void 0;
-	            var defaultTitle = 'Title';
+	            var defaultTitle = 'Interesting Task #' + Math.floor(Math.random() * 100);
 	            var defaultName = 'Jonathan';
-	            var defaultDescription = 'Description';
+	            var defaultDescription = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' + 'Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate' + ' interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, ' + 'mattis quis lacus id, pellentesque lobortis odio.';
 	            var defaultPriority = 'Priority';
-	            var defaultEmail = 'Email';
-	            var defaultDate = 'Date';
+	            var defaultEmail = 'hello@jtefera.com';
+	            var defaultDate = void 0;
 	            var defaultId = null;
 	            if (editingIssue) {
 	                defaultTitle = editingIssue.title;
@@ -25521,11 +25521,10 @@
 	                                name: nameInput.getValue(),
 	                                email: emailInput.getValue(),
 	                                description: descriptionInput.getValue(),
-	                                date: defaultDate || Date(),
+	                                date: defaultDate || Date.now(),
 	                                id: defaultId
 	                            };
 	                            e.preventDefault();
-	                            console.log(issue);
 	                            if (!titleInput.getValue().trim()) {
 	                                return;
 	                            }
@@ -44247,7 +44246,6 @@
 	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 	    return {
 	        onSubmitHandle: function onSubmitHandle(issue) {
-	            console.log(issue);
 	            dispatch((0, _actions.hideEditIssueForm)());
 	            dispatch((0, _actions.editIssue)(issue.id, issue));
 	        },
@@ -45595,6 +45593,13 @@
 	    var listeningFunction = isListeningComments ? function () {
 	        return null;
 	    } : listenForComments;
+	    var dateOptions = {
+	        year: 'numeric',
+	        month: 'short',
+	        day: 'numeric',
+	        hour: '2-digit',
+	        minute: '2-digit'
+	    };
 	    return _react2.default.createElement(
 	        'li',
 	        null,
@@ -45617,7 +45622,7 @@
 	            _react2.default.createElement(
 	                _Card.CardText,
 	                { expandable: true },
-	                date,
+	                new Date(date).toLocaleDateString('en-US', dateOptions),
 	                _react2.default.createElement('br', null),
 	                description,
 	                _react2.default.createElement(_listComments2.default, { listComments: comments, idIssue: id })
@@ -52702,7 +52707,6 @@
 	            date = _ref2.date,
 	            received = _ref2.received;
 	
-	        console.log(isConnected, received, lastConnection);
 	        var sentState = isConnected === false && received > lastConnection ? _react2.default.createElement(_notSentWarning2.default, null) : null;
 	        return _react2.default.createElement(
 	            'li',

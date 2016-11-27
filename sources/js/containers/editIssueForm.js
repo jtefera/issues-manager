@@ -4,8 +4,7 @@ import IssueForm from '../presentationals/issueForm';
 import {editIssue, hideEditIssueForm} from '../actions/';
 
 const mapDispatchToProps = (dispatch) =>({
-    onSubmitHandle: (issue) => {
-        console.log(issue);
+    onSubmitHandle: (issue) => {        
         dispatch(hideEditIssueForm());
         dispatch(editIssue(issue.id, issue));
     },
