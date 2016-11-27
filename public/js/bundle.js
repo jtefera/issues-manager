@@ -45617,15 +45617,22 @@
 	                    title,
 	                    sentState
 	                ),
-	                subtitle: name + ' (' + email + ')',
+	                subtitle: _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    name,
+	                    ' (',
+	                    email,
+	                    ')',
+	                    _react2.default.createElement('br', null),
+	                    new Date(date).toLocaleDateString('en-US', dateOptions)
+	                ),
 	                actAsExpander: true,
 	                showExpandableButton: true
 	            }),
 	            _react2.default.createElement(
 	                _Card.CardText,
 	                { expandable: true },
-	                new Date(date).toLocaleDateString('en-US', dateOptions),
-	                _react2.default.createElement('br', null),
 	                description,
 	                _react2.default.createElement(_listComments2.default, { listComments: comments, idIssue: id })
 	            ),

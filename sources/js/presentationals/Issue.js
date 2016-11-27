@@ -65,13 +65,15 @@ const IssuePres = ({
                             {sentState}
                         </div>
                     }
-                    subtitle={`${name} (${email})`}
+                    subtitle={<div>
+                        {name} ({email})<br />
+                        {(new Date(date))
+                            .toLocaleDateString('en-US', dateOptions)}
+                    </div>}
                     actAsExpander={true}
                     showExpandableButton={true}
                 />
                 <CardText expandable={true}>
-                    {(new Date(date))
-                            .toLocaleDateString('en-US', dateOptions)}<br />
                     {description}
                     <ListComments listComments={comments} idIssue={id}/>
                 </CardText>
