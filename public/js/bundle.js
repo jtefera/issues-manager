@@ -25433,6 +25433,8 @@
 	
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 	
+	var _mock = __webpack_require__(542);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -25476,11 +25478,11 @@
 	            var nameInput = void 0;
 	            var emailInput = void 0;
 	            var descriptionInput = void 0;
-	            var defaultTitle = 'Interesting Task #' + Math.floor(Math.random() * 100);
-	            var defaultName = 'Jonathan';
-	            var defaultDescription = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' + 'Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate' + ' interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, ' + 'mattis quis lacus id, pellentesque lobortis odio.';
-	            var defaultPriority = 'Priority';
-	            var defaultEmail = 'hello@jtefera.com';
+	            var defaultTitle = (0, _mock.getMockTitle)();
+	            var defaultName = (0, _mock.getMockName)();
+	            var defaultDescription = (0, _mock.getMockText)();
+	            var defaultPriority = 1;
+	            var defaultEmail = (0, _mock.getMockEmail)();
 	            var defaultDate = void 0;
 	            var defaultId = null;
 	            if (editingIssue) {
@@ -52524,6 +52526,8 @@
 	
 	var _actions = __webpack_require__(212);
 	
+	var _mock = __webpack_require__(542);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var CommentForm = function CommentForm(_ref) {
@@ -52534,7 +52538,10 @@
 	    var nameInput = void 0;
 	    var emailInput = void 0;
 	    var commentInput = void 0;
-	    console.log(username);
+	    if (!username) {
+	        username = (0, _mock.getMockName)();
+	        email = (0, _mock.getMockEmail)();
+	    }
 	    return _react2.default.createElement(
 	        'form',
 	        { onSubmit: function onSubmit(e) {
@@ -52572,7 +52579,7 @@
 	        }),
 	        _react2.default.createElement('br', null),
 	        _react2.default.createElement(_TextField2.default, {
-	            defaultValue: 'This is a comment',
+	            defaultValue: (0, _mock.getMockText)(),
 	            floatingLabelText: 'Comment',
 	            fullWidth: true,
 	            hintText: 'comment',
@@ -52750,6 +52757,51 @@
 	ListComments = (0, _reactRedux.connect)(mapStateToProps)(ListComments);
 	
 	exports.default = ListComments;
+
+/***/ },
+/* 542 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var mockNames = ['Jonathan', 'Nahum', 'Jonathan Tefera Endale', 'Maria', 'Luis', 'Mario', 'Marta'];
+	
+	var mockEmails = ['hello@jtefera.com', 'media@icmadrid.com', 'correojona@hotmail.com', 'carlos@icmadrid.com', 'david@icmadrid.com'];
+	
+	var mockTexts = [
+	// Lorem ipsum
+	'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' + 'Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. ' + 'Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed ' + 'pellentesque. Aliquam dui mauris, ' + 'mattis quis lacus id, pellentesque lobortis odio.',
+	// Standart time and date
+	'A standard date and time format string uses a single format specifier' + ' to define the text representation of a date and time value. ' + 'Any date and ' + 'time format string that contains more than one character, ' + 'including white ' + 'space, is interpreted as a custom date and time format string; for more ' + 'information, see Custom Date and Time Format Strings. A standard or ' + 'custom format string can be used in two ways:',
+	// Show expandable
+	'If true, this card component will include a button to expand the ' + 'card. CardTitle, CardHeader and CardActions implement ' + 'showExpandableButton.',
+	// Avatar
+	'This is the Avatar element to be displayed on the Card Header. ' + 'If avatar is an Avatar or other element, it will be rendered. ' + 'If avatar is a string, it will be used as the image src for an Avatar.'];
+	
+	var getMockName = exports.getMockName = function getMockName() {
+	    var len = mockNames.length;
+	    var idx = Math.floor(Math.random() * len);
+	    return mockNames[idx];
+	};
+	
+	var getMockEmail = exports.getMockEmail = function getMockEmail() {
+	    var len = mockEmails.length;
+	    var idx = Math.floor(Math.random() * len);
+	    return mockEmails[idx];
+	};
+	
+	var getMockText = exports.getMockText = function getMockText() {
+	    var len = mockTexts.length;
+	    var idx = Math.floor(Math.random() * len);
+	    return mockTexts[idx];
+	};
+	
+	var getMockTitle = exports.getMockTitle = function getMockTitle() {
+	    return 'Interesting Task #' + Math.floor(Math.random() * 100);
+	};
 
 /***/ }
 /******/ ]);

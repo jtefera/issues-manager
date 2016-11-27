@@ -4,6 +4,10 @@ import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import {
+    getMockTitle, getMockName,
+    getMockEmail, getMockText,
+} from '../mock';
 
 class IssueForm extends Component{
     constructor(props) {
@@ -30,14 +34,11 @@ class IssueForm extends Component{
         let nameInput;
         let emailInput;
         let descriptionInput;
-        let defaultTitle = 'Interesting Task #' + Math.floor(Math.random() * 100);
-        let defaultName = 'Jonathan';
-        let defaultDescription = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' + 
-                'Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. Donec vulputate' +
-                ' interdum sollicitudin. Nunc lacinia auctor quam sed pellentesque. Aliquam dui mauris, ' +
-                'mattis quis lacus id, pellentesque lobortis odio.';
-        let defaultPriority = 'Priority';
-        let defaultEmail = 'hello@jtefera.com';
+        let defaultTitle = getMockTitle()
+        let defaultName = getMockName();
+        let defaultDescription = getMockText()
+        let defaultPriority = 1;
+        let defaultEmail = getMockEmail();
         let defaultDate;
         let defaultId = null;
         if(editingIssue) {

@@ -3,6 +3,9 @@ import {connect} from 'react-redux';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import {submitComment} from '../actions/';
+import {
+    getMockName, getMockEmail, getMockText,
+} from '../mock';
 
 let CommentForm = ({
     username,
@@ -12,7 +15,10 @@ let CommentForm = ({
     let nameInput;
     let emailInput;
     let commentInput;
-    console.log(username);
+    if(!username) {
+        username = getMockName();
+        email = getMockEmail();
+    }
     return (
         <form onSubmit={(e) => {
             e.preventDefault();
@@ -47,7 +53,7 @@ let CommentForm = ({
                 }}
             /><br />
             <TextField
-                defaultValue='This is a comment'
+                defaultValue={getMockText()}
                 floatingLabelText="Comment"
                 fullWidth={true}
                 hintText="comment"
