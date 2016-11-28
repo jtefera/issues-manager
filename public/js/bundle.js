@@ -68,35 +68,35 @@
 	
 	var _addIssueForm2 = _interopRequireDefault(_addIssueForm);
 	
-	var _editIssueForm = __webpack_require__(448);
+	var _editIssueForm = __webpack_require__(449);
 	
 	var _editIssueForm2 = _interopRequireDefault(_editIssueForm);
 	
-	var _HeaderBar = __webpack_require__(449);
+	var _HeaderBar = __webpack_require__(450);
 	
 	var _HeaderBar2 = _interopRequireDefault(_HeaderBar);
 	
-	var _message = __webpack_require__(456);
+	var _message = __webpack_require__(458);
 	
 	var _message2 = _interopRequireDefault(_message);
 	
-	var _loginForm = __webpack_require__(458);
+	var _loginForm = __webpack_require__(460);
 	
 	var _loginForm2 = _interopRequireDefault(_loginForm);
 	
-	var _reduxThunk = __webpack_require__(460);
+	var _reduxThunk = __webpack_require__(461);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _issuesOfPriority = __webpack_require__(461);
+	var _issuesOfPriority = __webpack_require__(462);
 	
 	var _issuesOfPriority2 = _interopRequireDefault(_issuesOfPriority);
 	
-	var _MuiThemeProvider = __webpack_require__(477);
+	var _MuiThemeProvider = __webpack_require__(481);
 	
 	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 	
-	var _reactTapEventPlugin = __webpack_require__(519);
+	var _reactTapEventPlugin = __webpack_require__(523);
 	
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 	
@@ -25433,7 +25433,7 @@
 	
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 	
-	var _mock = __webpack_require__(542);
+	var _mock = __webpack_require__(448);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -44223,6 +44223,51 @@
 
 /***/ },
 /* 448 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var mockNames = ['Jonathan', 'Nahum', 'Jonathan Tefera Endale', 'Maria', 'Luis', 'Mario', 'Marta'];
+	
+	var mockEmails = ['hello@jtefera.com', 'media@icmadrid.com', 'correojona@hotmail.com', 'carlos@icmadrid.com', 'david@icmadrid.com'];
+	
+	var mockTexts = [
+	// Lorem ipsum
+	'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' + 'Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. ' + 'Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed ' + 'pellentesque. Aliquam dui mauris, ' + 'mattis quis lacus id, pellentesque lobortis odio.',
+	// Standart time and date
+	'A standard date and time format string uses a single format specifier' + ' to define the text representation of a date and time value. ' + 'Any date and ' + 'time format string that contains more than one character, ' + 'including white ' + 'space, is interpreted as a custom date and time format string; for more ' + 'information, see Custom Date and Time Format Strings. A standard or ' + 'custom format string can be used in two ways:',
+	// Show expandable
+	'If true, this card component will include a button to expand the ' + 'card. CardTitle, CardHeader and CardActions implement ' + 'showExpandableButton.',
+	// Avatar
+	'This is the Avatar element to be displayed on the Card Header. ' + 'If avatar is an Avatar or other element, it will be rendered. ' + 'If avatar is a string, it will be used as the image src for an Avatar.'];
+	
+	var getMockName = exports.getMockName = function getMockName() {
+	    var len = mockNames.length;
+	    var idx = Math.floor(Math.random() * len);
+	    return mockNames[idx];
+	};
+	
+	var getMockEmail = exports.getMockEmail = function getMockEmail() {
+	    var len = mockEmails.length;
+	    var idx = Math.floor(Math.random() * len);
+	    return mockEmails[idx];
+	};
+	
+	var getMockText = exports.getMockText = function getMockText() {
+	    var len = mockTexts.length;
+	    var idx = Math.floor(Math.random() * len);
+	    return mockTexts[idx];
+	};
+	
+	var getMockTitle = exports.getMockTitle = function getMockTitle() {
+	    return 'Interesting Task #' + Math.floor(Math.random() * 100);
+	};
+
+/***/ },
+/* 449 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44269,7 +44314,7 @@
 	exports.default = IssueEditor;
 
 /***/ },
-/* 449 */
+/* 450 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44286,13 +44331,13 @@
 	
 	var _IconButton2 = _interopRequireDefault(_IconButton);
 	
-	var _AppBar = __webpack_require__(450);
+	var _AppBar = __webpack_require__(451);
 	
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 	
 	var _actions = __webpack_require__(212);
 	
-	var _colors = __webpack_require__(459);
+	var _colors = __webpack_require__(457);
 	
 	var _reactRedux = __webpack_require__(198);
 	
@@ -44367,7 +44412,7 @@
 	exports.default = HeaderBar;
 
 /***/ },
-/* 450 */
+/* 451 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44377,7 +44422,7 @@
 	});
 	exports.default = undefined;
 	
-	var _AppBar = __webpack_require__(451);
+	var _AppBar = __webpack_require__(452);
 	
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 	
@@ -44386,7 +44431,7 @@
 	exports.default = _AppBar2.default;
 
 /***/ },
-/* 451 */
+/* 452 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -44399,7 +44444,7 @@
 	
 	var _extends3 = _interopRequireDefault(_extends2);
 	
-	var _keys = __webpack_require__(452);
+	var _keys = __webpack_require__(453);
 	
 	var _keys2 = _interopRequireDefault(_keys);
 	
@@ -44441,7 +44486,7 @@
 	
 	var _IconButton2 = _interopRequireDefault(_IconButton);
 	
-	var _menu = __webpack_require__(455);
+	var _menu = __webpack_require__(456);
 	
 	var _menu2 = _interopRequireDefault(_menu);
 	
@@ -44772,20 +44817,20 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 452 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(453), __esModule: true };
-
-/***/ },
 /* 453 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(454);
-	module.exports = __webpack_require__(232).Object.keys;
+	module.exports = { "default": __webpack_require__(454), __esModule: true };
 
 /***/ },
 /* 454 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(455);
+	module.exports = __webpack_require__(232).Object.keys;
+
+/***/ },
+/* 455 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// 19.1.2.14 Object.keys(O)
@@ -44799,7 +44844,7 @@
 	});
 
 /***/ },
-/* 455 */
+/* 456 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -44836,210 +44881,7 @@
 	exports.default = NavigationMenu;
 
 /***/ },
-/* 456 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
-	
-	var _actions = __webpack_require__(212);
-	
-	var _reactRedux = __webpack_require__(198);
-	
-	var _message = __webpack_require__(457);
-	
-	var _message2 = _interopRequireDefault(_message);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	    return _extends({}, state.messageDisplay);
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	    return {
-	        hideMessageHandler: function hideMessageHandler() {
-	            return dispatch((0, _actions.hideMessage)());
-	        }
-	    };
-	};
-	
-	var Message = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_message2.default);
-	
-	exports.default = Message;
-
-/***/ },
 /* 457 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Dialog = __webpack_require__(224);
-	
-	var _Dialog2 = _interopRequireDefault(_Dialog);
-	
-	var _FlatButton = __webpack_require__(382);
-	
-	var _FlatButton2 = _interopRequireDefault(_FlatButton);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var Message = function Message(_ref) {
-	    var title = _ref.title,
-	        description = _ref.description,
-	        isError = _ref.isError,
-	        hideMessageHandler = _ref.hideMessageHandler;
-	
-	    var action = _react2.default.createElement(_FlatButton2.default, { label: 'Ok', onTouchTap: hideMessageHandler });
-	    return _react2.default.createElement(
-	        _Dialog2.default,
-	        {
-	            title: title,
-	            modal: false,
-	            open: true,
-	            autoScrollBodyContent: true,
-	            actions: action
-	        },
-	        description
-	    );
-	};
-	exports.default = Message;
-
-/***/ },
-/* 458 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(198);
-	
-	var _Dialog = __webpack_require__(224);
-	
-	var _Dialog2 = _interopRequireDefault(_Dialog);
-	
-	var _FlatButton = __webpack_require__(382);
-	
-	var _FlatButton2 = _interopRequireDefault(_FlatButton);
-	
-	var _TextField = __webpack_require__(374);
-	
-	var _TextField2 = _interopRequireDefault(_TextField);
-	
-	var _actions = __webpack_require__(212);
-	
-	var _colors = __webpack_require__(459);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var LoginForm = function LoginForm(_ref) {
-	    var onSubmitHandle = _ref.onSubmitHandle,
-	        onCancelHandle = _ref.onCancelHandle,
-	        showErrorMessage = _ref.showErrorMessage,
-	        errorMessage = _ref.errorMessage;
-	
-	    var actions = [_react2.default.createElement(_FlatButton2.default, { label: 'Submit', form: 'loginForm', type: 'submit' }), _react2.default.createElement(_FlatButton2.default, { label: 'Cancel', onTouchTap: onCancelHandle })];
-	    var usernameInput = void 0;
-	    var passwordInput = void 0;
-	    var styleErrorMessage = {
-	        color: _colors.red500
-	    };
-	    var errorMessageEl = showErrorMessage ? _react2.default.createElement(
-	        'span',
-	        { style: styleErrorMessage },
-	        errorMessage
-	    ) : null;
-	    return _react2.default.createElement(
-	        _Dialog2.default,
-	        {
-	            title: 'Login',
-	            modal: false,
-	            open: true,
-	            autoScrollBodyContent: true,
-	            actions: actions
-	        },
-	        _react2.default.createElement(
-	            'form',
-	            {
-	                onSubmit: function onSubmit(e) {
-	                    e.preventDefault();
-	                    var usernameVal = usernameInput.getValue();
-	                    var passwordVal = passwordInput.getValue();
-	                    if (!usernameVal || !passwordVal) {
-	                        return null;
-	                    }
-	                    onSubmitHandle(usernameVal, passwordVal);
-	                },
-	                id: 'loginForm'
-	            },
-	            errorMessageEl,
-	            _react2.default.createElement(_TextField2.default, {
-	                defaultValue: 'hello@jtefera.com',
-	                floatingLabelText: 'Username',
-	                fullWidth: true,
-	                hintText: 'your username',
-	                ref: function ref(node) {
-	                    usernameInput = node;
-	                }
-	            }),
-	            _react2.default.createElement(_TextField2.default, {
-	                defaultValue: 'hola',
-	                floatingLabelText: 'Password',
-	                fullWidth: true,
-	                type: 'password',
-	                hintText: 'your password',
-	                ref: function ref(node) {
-	                    passwordInput = node;
-	                }
-	            })
-	        )
-	    );
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-	    return {
-	        onSubmitHandle: function onSubmitHandle(username, password) {
-	            dispatch((0, _actions.sendLoginInfo)(username, password));
-	        },
-	        onCancelHandle: function onCancelHandle() {
-	            return dispatch((0, _actions.hideLoginForm)());
-	        }
-	    };
-	};
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	    return {
-	        showErrorMessage: state.loginInfo.loginError,
-	        errorMessage: state.loginInfo.errorMessage
-	    };
-	};
-	
-	LoginForm = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoginForm);
-	
-	exports.default = LoginForm;
-
-/***/ },
-/* 459 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -45334,7 +45176,210 @@
 	var lightWhite = exports.lightWhite = 'rgba(255, 255, 255, 0.54)';
 
 /***/ },
+/* 458 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _actions = __webpack_require__(212);
+	
+	var _reactRedux = __webpack_require__(198);
+	
+	var _message = __webpack_require__(459);
+	
+	var _message2 = _interopRequireDefault(_message);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	    return _extends({}, state.messageDisplay);
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	    return {
+	        hideMessageHandler: function hideMessageHandler() {
+	            return dispatch((0, _actions.hideMessage)());
+	        }
+	    };
+	};
+	
+	var Message = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(_message2.default);
+	
+	exports.default = Message;
+
+/***/ },
+/* 459 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Dialog = __webpack_require__(224);
+	
+	var _Dialog2 = _interopRequireDefault(_Dialog);
+	
+	var _FlatButton = __webpack_require__(382);
+	
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var Message = function Message(_ref) {
+	    var title = _ref.title,
+	        description = _ref.description,
+	        isError = _ref.isError,
+	        hideMessageHandler = _ref.hideMessageHandler;
+	
+	    var action = _react2.default.createElement(_FlatButton2.default, { label: 'Ok', onTouchTap: hideMessageHandler });
+	    return _react2.default.createElement(
+	        _Dialog2.default,
+	        {
+	            title: title,
+	            modal: false,
+	            open: true,
+	            autoScrollBodyContent: true,
+	            actions: action
+	        },
+	        description
+	    );
+	};
+	exports.default = Message;
+
+/***/ },
 /* 460 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(198);
+	
+	var _Dialog = __webpack_require__(224);
+	
+	var _Dialog2 = _interopRequireDefault(_Dialog);
+	
+	var _FlatButton = __webpack_require__(382);
+	
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+	
+	var _TextField = __webpack_require__(374);
+	
+	var _TextField2 = _interopRequireDefault(_TextField);
+	
+	var _actions = __webpack_require__(212);
+	
+	var _colors = __webpack_require__(457);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var LoginForm = function LoginForm(_ref) {
+	    var onSubmitHandle = _ref.onSubmitHandle,
+	        onCancelHandle = _ref.onCancelHandle,
+	        showErrorMessage = _ref.showErrorMessage,
+	        errorMessage = _ref.errorMessage;
+	
+	    var actions = [_react2.default.createElement(_FlatButton2.default, { label: 'Submit', form: 'loginForm', type: 'submit' }), _react2.default.createElement(_FlatButton2.default, { label: 'Cancel', onTouchTap: onCancelHandle })];
+	    var usernameInput = void 0;
+	    var passwordInput = void 0;
+	    var styleErrorMessage = {
+	        color: _colors.red500
+	    };
+	    var errorMessageEl = showErrorMessage ? _react2.default.createElement(
+	        'span',
+	        { style: styleErrorMessage },
+	        errorMessage
+	    ) : null;
+	    return _react2.default.createElement(
+	        _Dialog2.default,
+	        {
+	            title: 'Login',
+	            modal: false,
+	            open: true,
+	            autoScrollBodyContent: true,
+	            actions: actions
+	        },
+	        _react2.default.createElement(
+	            'form',
+	            {
+	                onSubmit: function onSubmit(e) {
+	                    e.preventDefault();
+	                    var usernameVal = usernameInput.getValue();
+	                    var passwordVal = passwordInput.getValue();
+	                    if (!usernameVal || !passwordVal) {
+	                        return null;
+	                    }
+	                    onSubmitHandle(usernameVal, passwordVal);
+	                },
+	                id: 'loginForm'
+	            },
+	            errorMessageEl,
+	            _react2.default.createElement(_TextField2.default, {
+	                defaultValue: 'hello@jtefera.com',
+	                floatingLabelText: 'Username',
+	                fullWidth: true,
+	                hintText: 'your username',
+	                ref: function ref(node) {
+	                    usernameInput = node;
+	                }
+	            }),
+	            _react2.default.createElement(_TextField2.default, {
+	                defaultValue: 'hola',
+	                floatingLabelText: 'Password',
+	                fullWidth: true,
+	                type: 'password',
+	                hintText: 'your password',
+	                ref: function ref(node) {
+	                    passwordInput = node;
+	                }
+	            })
+	        )
+	    );
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+	    return {
+	        onSubmitHandle: function onSubmitHandle(username, password) {
+	            dispatch((0, _actions.sendLoginInfo)(username, password));
+	        },
+	        onCancelHandle: function onCancelHandle() {
+	            return dispatch((0, _actions.hideLoginForm)());
+	        }
+	    };
+	};
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	    return {
+	        showErrorMessage: state.loginInfo.loginError,
+	        errorMessage: state.loginInfo.errorMessage
+	    };
+	};
+	
+	LoginForm = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(LoginForm);
+	
+	exports.default = LoginForm;
+
+/***/ },
+/* 461 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -45362,7 +45407,7 @@
 	exports['default'] = thunk;
 
 /***/ },
-/* 461 */
+/* 462 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45375,7 +45420,7 @@
 	
 	var _reactRedux = __webpack_require__(198);
 	
-	var _ListIssues = __webpack_require__(462);
+	var _ListIssues = __webpack_require__(463);
 	
 	var _ListIssues2 = _interopRequireDefault(_ListIssues);
 	
@@ -45415,7 +45460,7 @@
 	exports.default = ListIssuesOfPriority;
 
 /***/ },
-/* 462 */
+/* 463 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45428,13 +45473,13 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _issue = __webpack_require__(463);
+	var _issue = __webpack_require__(464);
 	
 	var _issue2 = _interopRequireDefault(_issue);
 	
-	var _Card = __webpack_require__(465);
+	var _Card = __webpack_require__(466);
 	
-	var _colors = __webpack_require__(459);
+	var _colors = __webpack_require__(457);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -45473,7 +45518,7 @@
 	exports.default = ListIssues;
 
 /***/ },
-/* 463 */
+/* 464 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45490,7 +45535,7 @@
 	
 	var _actions = __webpack_require__(212);
 	
-	var _issue = __webpack_require__(464);
+	var _issue = __webpack_require__(465);
 	
 	var _issue2 = _interopRequireDefault(_issue);
 	
@@ -45527,7 +45572,7 @@
 	exports.default = Issue;
 
 /***/ },
-/* 464 */
+/* 465 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45540,23 +45585,23 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Card = __webpack_require__(465);
+	var _Card = __webpack_require__(466);
 	
 	var _FlatButton = __webpack_require__(382);
 	
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 	
-	var _listComments = __webpack_require__(541);
+	var _listComments = __webpack_require__(478);
 	
 	var _listComments2 = _interopRequireDefault(_listComments);
 	
-	var _colors = __webpack_require__(459);
+	var _colors = __webpack_require__(457);
 	
 	var _IconButton = __webpack_require__(439);
 	
 	var _IconButton2 = _interopRequireDefault(_IconButton);
 	
-	var _notSentWarning = __webpack_require__(540);
+	var _notSentWarning = __webpack_require__(480);
 	
 	var _notSentWarning2 = _interopRequireDefault(_notSentWarning);
 	
@@ -45644,7 +45689,7 @@
 	exports.default = IssuePres;
 
 /***/ },
-/* 465 */
+/* 466 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -45654,31 +45699,31 @@
 	});
 	exports.default = exports.CardExpandable = exports.CardActions = exports.CardText = exports.CardMedia = exports.CardTitle = exports.CardHeader = exports.Card = undefined;
 	
-	var _Card2 = __webpack_require__(466);
+	var _Card2 = __webpack_require__(467);
 	
 	var _Card3 = _interopRequireDefault(_Card2);
 	
-	var _CardHeader2 = __webpack_require__(470);
+	var _CardHeader2 = __webpack_require__(471);
 	
 	var _CardHeader3 = _interopRequireDefault(_CardHeader2);
 	
-	var _CardTitle2 = __webpack_require__(473);
+	var _CardTitle2 = __webpack_require__(474);
 	
 	var _CardTitle3 = _interopRequireDefault(_CardTitle2);
 	
-	var _CardMedia2 = __webpack_require__(474);
+	var _CardMedia2 = __webpack_require__(475);
 	
 	var _CardMedia3 = _interopRequireDefault(_CardMedia2);
 	
-	var _CardText2 = __webpack_require__(475);
+	var _CardText2 = __webpack_require__(476);
 	
 	var _CardText3 = _interopRequireDefault(_CardText2);
 	
-	var _CardActions2 = __webpack_require__(476);
+	var _CardActions2 = __webpack_require__(477);
 	
 	var _CardActions3 = _interopRequireDefault(_CardActions2);
 	
-	var _CardExpandable2 = __webpack_require__(467);
+	var _CardExpandable2 = __webpack_require__(468);
 	
 	var _CardExpandable3 = _interopRequireDefault(_CardExpandable2);
 	
@@ -45694,7 +45739,7 @@
 	exports.default = _Card3.default;
 
 /***/ },
-/* 466 */
+/* 467 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -45743,7 +45788,7 @@
 	
 	var _Paper2 = _interopRequireDefault(_Paper);
 	
-	var _CardExpandable = __webpack_require__(467);
+	var _CardExpandable = __webpack_require__(468);
 	
 	var _CardExpandable2 = _interopRequireDefault(_CardExpandable);
 	
@@ -45914,7 +45959,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 467 */
+/* 468 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -45951,11 +45996,11 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _keyboardArrowUp = __webpack_require__(468);
+	var _keyboardArrowUp = __webpack_require__(469);
 	
 	var _keyboardArrowUp2 = _interopRequireDefault(_keyboardArrowUp);
 	
-	var _keyboardArrowDown = __webpack_require__(469);
+	var _keyboardArrowDown = __webpack_require__(470);
 	
 	var _keyboardArrowDown2 = _interopRequireDefault(_keyboardArrowDown);
 	
@@ -46021,7 +46066,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 468 */
+/* 469 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46058,7 +46103,7 @@
 	exports.default = HardwareKeyboardArrowUp;
 
 /***/ },
-/* 469 */
+/* 470 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46095,7 +46140,7 @@
 	exports.default = HardwareKeyboardArrowDown;
 
 /***/ },
-/* 470 */
+/* 471 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -46140,7 +46185,7 @@
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Avatar = __webpack_require__(471);
+	var _Avatar = __webpack_require__(472);
 	
 	var _Avatar2 = _interopRequireDefault(_Avatar);
 	
@@ -46322,7 +46367,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 471 */
+/* 472 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -46332,7 +46377,7 @@
 	});
 	exports.default = undefined;
 	
-	var _Avatar = __webpack_require__(472);
+	var _Avatar = __webpack_require__(473);
 	
 	var _Avatar2 = _interopRequireDefault(_Avatar);
 	
@@ -46341,7 +46386,7 @@
 	exports.default = _Avatar2.default;
 
 /***/ },
-/* 472 */
+/* 473 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -46513,7 +46558,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 473 */
+/* 474 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -46688,7 +46733,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 474 */
+/* 475 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -46899,7 +46944,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 475 */
+/* 476 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -47022,7 +47067,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 476 */
+/* 477 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -47149,7 +47194,256 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 477 */
+/* 478 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(198);
+	
+	var _commentForm = __webpack_require__(479);
+	
+	var _commentForm2 = _interopRequireDefault(_commentForm);
+	
+	var _notSentWarning = __webpack_require__(480);
+	
+	var _notSentWarning2 = _interopRequireDefault(_notSentWarning);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var commentStyle = {
+	    fontSize: '14px',
+	    lineHeight: '16px',
+	    margin: '0px 0px',
+	    color: 'rgba(0, 0, 0, 0.541176)'
+	};
+	
+	var ListComments = function ListComments(_ref) {
+	    var listComments = _ref.listComments,
+	        idIssue = _ref.idIssue,
+	        isConnected = _ref.isConnected,
+	        lastConnection = _ref.lastConnection;
+	
+	    var dateOptions = {
+	        year: 'numeric',
+	        month: 'short',
+	        day: 'numeric',
+	        hour: '2-digit',
+	        minute: '2-digit'
+	    };
+	    var commentsEl = !listComments ? null : Object.entries(listComments).map(function (keyValArr) {
+	        return keyValArr[1];
+	    }).map(function (_ref2, id) {
+	        var comment = _ref2.comment,
+	            email = _ref2.email,
+	            name = _ref2.name,
+	            date = _ref2.date,
+	            received = _ref2.received;
+	
+	        var sentState = isConnected === false && received > lastConnection ? _react2.default.createElement(_notSentWarning2.default, null) : null;
+	        return _react2.default.createElement(
+	            'li',
+	            {
+	                key: id
+	            },
+	            _react2.default.createElement(
+	                'p',
+	                { style: commentStyle },
+	                _react2.default.createElement(
+	                    'b',
+	                    null,
+	                    name,
+	                    '(',
+	                    email,
+	                    '): '
+	                ),
+	                ' ',
+	                comment
+	            ),
+	            new Date(date).toLocaleDateString('en-US', dateOptions),
+	            sentState,
+	            _react2.default.createElement('br', null),
+	            _react2.default.createElement('br', null)
+	        );
+	    });
+	    return _react2.default.createElement(
+	        'ul',
+	        { className: 'comments' },
+	        commentsEl,
+	        _react2.default.createElement(_commentForm2.default, { idIssue: idIssue })
+	    );
+	};
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	    return {
+	        isConnected: state.connected.connected,
+	        lastConnection: state.connected.lastConnection
+	    };
+	};
+	ListComments = (0, _reactRedux.connect)(mapStateToProps)(ListComments);
+	
+	exports.default = ListComments;
+
+/***/ },
+/* 479 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactRedux = __webpack_require__(198);
+	
+	var _TextField = __webpack_require__(374);
+	
+	var _TextField2 = _interopRequireDefault(_TextField);
+	
+	var _FlatButton = __webpack_require__(382);
+	
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+	
+	var _actions = __webpack_require__(212);
+	
+	var _mock = __webpack_require__(448);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var CommentForm = function CommentForm(_ref) {
+	    var username = _ref.username,
+	        email = _ref.email,
+	        submitCommentHandler = _ref.submitCommentHandler;
+	
+	    var nameInput = void 0;
+	    var emailInput = void 0;
+	    var commentInput = void 0;
+	    if (!username) {
+	        username = (0, _mock.getMockName)();
+	        email = (0, _mock.getMockEmail)();
+	    }
+	    return _react2.default.createElement(
+	        'form',
+	        { onSubmit: function onSubmit(e) {
+	                e.preventDefault();
+	                var comment = {
+	                    name: nameInput.getValue(),
+	                    email: emailInput.getValue(),
+	                    comment: commentInput.getValue(),
+	                    date: Date.now()
+	                };
+	                submitCommentHandler(comment);
+	                nameInput.getInputNode().value = '';
+	                emailInput.getInputNode().value = '';
+	                commentInput.getInputNode().value = '';
+	            } },
+	        _react2.default.createElement(_TextField2.default, {
+	            defaultValue: username,
+	            floatingLabelText: 'Name',
+	            name: 'name',
+	            fullWidth: true,
+	            hintText: 'name',
+	            ref: function ref(node) {
+	                nameInput = node;
+	            }
+	        }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(_TextField2.default, {
+	            defaultValue: email,
+	            floatingLabelText: 'Email',
+	            fullWidth: true,
+	            hintText: 'email',
+	            ref: function ref(node) {
+	                emailInput = node;
+	            }
+	        }),
+	        _react2.default.createElement('br', null),
+	        _react2.default.createElement(_TextField2.default, {
+	            defaultValue: (0, _mock.getMockText)(),
+	            floatingLabelText: 'Comment',
+	            fullWidth: true,
+	            hintText: 'comment',
+	            ref: function ref(node) {
+	                commentInput = node;
+	            },
+	            multiLine: true,
+	            rows: 4
+	        }),
+	        _react2.default.createElement(_FlatButton2.default, { type: 'submit', label: 'Comment' })
+	    );
+	};
+	
+	var mapStateToProps = function mapStateToProps(state) {
+	    return {
+	        username: state.loginInfo.logged ? state.loginInfo.username : null,
+	        email: state.loginInfo.logged ? state.loginInfo.username : null
+	    };
+	};
+	
+	var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref2) {
+	    var idIssue = _ref2.idIssue;
+	    return {
+	        submitCommentHandler: function submitCommentHandler(commentObj) {
+	            dispatch((0, _actions.submitComment)(idIssue, commentObj));
+	        }
+	    };
+	};
+	CommentForm = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CommentForm);
+	
+	exports.default = CommentForm;
+
+/***/ },
+/* 480 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _react = __webpack_require__(1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _IconButton = __webpack_require__(439);
+	
+	var _IconButton2 = _interopRequireDefault(_IconButton);
+	
+	var _colors = __webpack_require__(457);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var NotSentWarning = function NotSentWarning() {
+	    return _react2.default.createElement(
+	        _IconButton2.default,
+	        {
+	            iconClassName: 'material-icons',
+	            iconStyle: {
+	                color: _colors.amber300
+	            },
+	            tooltip: 'Waiting to be sent. No connection'
+	        },
+	        'warning'
+	    );
+	};
+	
+	exports.default = NotSentWarning;
+
+/***/ },
+/* 481 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -47180,7 +47474,7 @@
 	
 	var _react = __webpack_require__(1);
 	
-	var _getMuiTheme = __webpack_require__(478);
+	var _getMuiTheme = __webpack_require__(482);
 	
 	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
 	
@@ -47221,7 +47515,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 478 */
+/* 482 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -47236,41 +47530,41 @@
 	
 	exports.default = getMuiTheme;
 	
-	var _lodash = __webpack_require__(479);
+	var _lodash = __webpack_require__(483);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
 	var _colorManipulator = __webpack_require__(387);
 	
-	var _lightBaseTheme = __webpack_require__(480);
+	var _lightBaseTheme = __webpack_require__(484);
 	
 	var _lightBaseTheme2 = _interopRequireDefault(_lightBaseTheme);
 	
-	var _zIndex = __webpack_require__(482);
+	var _zIndex = __webpack_require__(486);
 	
 	var _zIndex2 = _interopRequireDefault(_zIndex);
 	
-	var _autoprefixer = __webpack_require__(483);
+	var _autoprefixer = __webpack_require__(487);
 	
 	var _autoprefixer2 = _interopRequireDefault(_autoprefixer);
 	
-	var _callOnce = __webpack_require__(515);
+	var _callOnce = __webpack_require__(519);
 	
 	var _callOnce2 = _interopRequireDefault(_callOnce);
 	
-	var _rtl = __webpack_require__(516);
+	var _rtl = __webpack_require__(520);
 	
 	var _rtl2 = _interopRequireDefault(_rtl);
 	
-	var _compose = __webpack_require__(517);
+	var _compose = __webpack_require__(521);
 	
 	var _compose2 = _interopRequireDefault(_compose);
 	
-	var _typography = __webpack_require__(518);
+	var _typography = __webpack_require__(522);
 	
 	var _typography2 = _interopRequireDefault(_typography);
 	
-	var _colors = __webpack_require__(459);
+	var _colors = __webpack_require__(457);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -47604,7 +47898,7 @@
 	}
 
 /***/ },
-/* 479 */
+/* 483 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global, module) {/**
@@ -49818,7 +50112,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(191)(module)))
 
 /***/ },
-/* 480 */
+/* 484 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49827,11 +50121,11 @@
 	  value: true
 	});
 	
-	var _colors = __webpack_require__(459);
+	var _colors = __webpack_require__(457);
 	
 	var _colorManipulator = __webpack_require__(387);
 	
-	var _spacing = __webpack_require__(481);
+	var _spacing = __webpack_require__(485);
 	
 	var _spacing2 = _interopRequireDefault(_spacing);
 	
@@ -49867,7 +50161,7 @@
 	    */
 
 /***/ },
-/* 481 */
+/* 485 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -49891,7 +50185,7 @@
 	};
 
 /***/ },
-/* 482 */
+/* 486 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -49913,7 +50207,7 @@
 	};
 
 /***/ },
-/* 483 */
+/* 487 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -49964,7 +50258,7 @@
 	  }
 	};
 	
-	var _inlineStylePrefixer = __webpack_require__(484);
+	var _inlineStylePrefixer = __webpack_require__(488);
 	
 	var _inlineStylePrefixer2 = _interopRequireDefault(_inlineStylePrefixer);
 	
@@ -49978,7 +50272,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 484 */
+/* 488 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -49991,59 +50285,59 @@
 	// special flexbox specifications
 	
 	
-	var _prefixAll2 = __webpack_require__(485);
+	var _prefixAll2 = __webpack_require__(489);
 	
 	var _prefixAll3 = _interopRequireDefault(_prefixAll2);
 	
-	var _getBrowserInformation = __webpack_require__(499);
+	var _getBrowserInformation = __webpack_require__(503);
 	
 	var _getBrowserInformation2 = _interopRequireDefault(_getBrowserInformation);
 	
-	var _getPrefixedKeyframes = __webpack_require__(502);
+	var _getPrefixedKeyframes = __webpack_require__(506);
 	
 	var _getPrefixedKeyframes2 = _interopRequireDefault(_getPrefixedKeyframes);
 	
-	var _capitalizeString = __webpack_require__(487);
+	var _capitalizeString = __webpack_require__(491);
 	
 	var _capitalizeString2 = _interopRequireDefault(_capitalizeString);
 	
-	var _prefixProps = __webpack_require__(503);
+	var _prefixProps = __webpack_require__(507);
 	
 	var _prefixProps2 = _interopRequireDefault(_prefixProps);
 	
-	var _calc = __webpack_require__(504);
+	var _calc = __webpack_require__(508);
 	
 	var _calc2 = _interopRequireDefault(_calc);
 	
-	var _zoomCursor = __webpack_require__(506);
+	var _zoomCursor = __webpack_require__(510);
 	
 	var _zoomCursor2 = _interopRequireDefault(_zoomCursor);
 	
-	var _grabCursor = __webpack_require__(507);
+	var _grabCursor = __webpack_require__(511);
 	
 	var _grabCursor2 = _interopRequireDefault(_grabCursor);
 	
-	var _flex = __webpack_require__(508);
+	var _flex = __webpack_require__(512);
 	
 	var _flex2 = _interopRequireDefault(_flex);
 	
-	var _sizing = __webpack_require__(509);
+	var _sizing = __webpack_require__(513);
 	
 	var _sizing2 = _interopRequireDefault(_sizing);
 	
-	var _gradient = __webpack_require__(510);
+	var _gradient = __webpack_require__(514);
 	
 	var _gradient2 = _interopRequireDefault(_gradient);
 	
-	var _transition = __webpack_require__(511);
+	var _transition = __webpack_require__(515);
 	
 	var _transition2 = _interopRequireDefault(_transition);
 	
-	var _flexboxIE = __webpack_require__(513);
+	var _flexboxIE = __webpack_require__(517);
 	
 	var _flexboxIE2 = _interopRequireDefault(_flexboxIE);
 	
-	var _flexboxOld = __webpack_require__(514);
+	var _flexboxOld = __webpack_require__(518);
 	
 	var _flexboxOld2 = _interopRequireDefault(_flexboxOld);
 	
@@ -50204,7 +50498,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 485 */
+/* 489 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50214,43 +50508,43 @@
 	});
 	exports.default = prefixAll;
 	
-	var _prefixProps = __webpack_require__(486);
+	var _prefixProps = __webpack_require__(490);
 	
 	var _prefixProps2 = _interopRequireDefault(_prefixProps);
 	
-	var _capitalizeString = __webpack_require__(487);
+	var _capitalizeString = __webpack_require__(491);
 	
 	var _capitalizeString2 = _interopRequireDefault(_capitalizeString);
 	
-	var _calc = __webpack_require__(488);
+	var _calc = __webpack_require__(492);
 	
 	var _calc2 = _interopRequireDefault(_calc);
 	
-	var _cursor = __webpack_require__(491);
+	var _cursor = __webpack_require__(495);
 	
 	var _cursor2 = _interopRequireDefault(_cursor);
 	
-	var _flex = __webpack_require__(492);
+	var _flex = __webpack_require__(496);
 	
 	var _flex2 = _interopRequireDefault(_flex);
 	
-	var _sizing = __webpack_require__(493);
+	var _sizing = __webpack_require__(497);
 	
 	var _sizing2 = _interopRequireDefault(_sizing);
 	
-	var _gradient = __webpack_require__(494);
+	var _gradient = __webpack_require__(498);
 	
 	var _gradient2 = _interopRequireDefault(_gradient);
 	
-	var _transition = __webpack_require__(495);
+	var _transition = __webpack_require__(499);
 	
 	var _transition2 = _interopRequireDefault(_transition);
 	
-	var _flexboxIE = __webpack_require__(497);
+	var _flexboxIE = __webpack_require__(501);
 	
 	var _flexboxIE2 = _interopRequireDefault(_flexboxIE);
 	
-	var _flexboxOld = __webpack_require__(498);
+	var _flexboxOld = __webpack_require__(502);
 	
 	var _flexboxOld2 = _interopRequireDefault(_flexboxOld);
 	
@@ -50316,7 +50610,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 486 */
+/* 490 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -50328,7 +50622,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 487 */
+/* 491 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -50345,7 +50639,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 488 */
+/* 492 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50355,11 +50649,11 @@
 	});
 	exports.default = calc;
 	
-	var _joinPrefixedValue = __webpack_require__(489);
+	var _joinPrefixedValue = __webpack_require__(493);
 	
 	var _joinPrefixedValue2 = _interopRequireDefault(_joinPrefixedValue);
 	
-	var _isPrefixedValue = __webpack_require__(490);
+	var _isPrefixedValue = __webpack_require__(494);
 	
 	var _isPrefixedValue2 = _interopRequireDefault(_isPrefixedValue);
 	
@@ -50375,7 +50669,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 489 */
+/* 493 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -50400,7 +50694,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 490 */
+/* 494 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -50418,7 +50712,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 491 */
+/* 495 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50428,7 +50722,7 @@
 	});
 	exports.default = cursor;
 	
-	var _joinPrefixedValue = __webpack_require__(489);
+	var _joinPrefixedValue = __webpack_require__(493);
 	
 	var _joinPrefixedValue2 = _interopRequireDefault(_joinPrefixedValue);
 	
@@ -50449,7 +50743,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 492 */
+/* 496 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -50470,7 +50764,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 493 */
+/* 497 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50480,7 +50774,7 @@
 	});
 	exports.default = sizing;
 	
-	var _joinPrefixedValue = __webpack_require__(489);
+	var _joinPrefixedValue = __webpack_require__(493);
 	
 	var _joinPrefixedValue2 = _interopRequireDefault(_joinPrefixedValue);
 	
@@ -50511,7 +50805,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 494 */
+/* 498 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50521,11 +50815,11 @@
 	});
 	exports.default = gradient;
 	
-	var _joinPrefixedValue = __webpack_require__(489);
+	var _joinPrefixedValue = __webpack_require__(493);
 	
 	var _joinPrefixedValue2 = _interopRequireDefault(_joinPrefixedValue);
 	
-	var _isPrefixedValue = __webpack_require__(490);
+	var _isPrefixedValue = __webpack_require__(494);
 	
 	var _isPrefixedValue2 = _interopRequireDefault(_isPrefixedValue);
 	
@@ -50541,7 +50835,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 495 */
+/* 499 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50551,19 +50845,19 @@
 	});
 	exports.default = transition;
 	
-	var _hyphenateStyleName = __webpack_require__(496);
+	var _hyphenateStyleName = __webpack_require__(500);
 	
 	var _hyphenateStyleName2 = _interopRequireDefault(_hyphenateStyleName);
 	
-	var _capitalizeString = __webpack_require__(487);
+	var _capitalizeString = __webpack_require__(491);
 	
 	var _capitalizeString2 = _interopRequireDefault(_capitalizeString);
 	
-	var _isPrefixedValue = __webpack_require__(490);
+	var _isPrefixedValue = __webpack_require__(494);
 	
 	var _isPrefixedValue2 = _interopRequireDefault(_isPrefixedValue);
 	
-	var _prefixProps = __webpack_require__(486);
+	var _prefixProps = __webpack_require__(490);
 	
 	var _prefixProps2 = _interopRequireDefault(_prefixProps);
 	
@@ -50628,7 +50922,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 496 */
+/* 500 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -50650,7 +50944,7 @@
 
 
 /***/ },
-/* 497 */
+/* 501 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -50687,7 +50981,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 498 */
+/* 502 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -50728,7 +51022,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 499 */
+/* 503 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -50737,7 +51031,7 @@
 	  value: true
 	});
 	
-	var _bowser = __webpack_require__(500);
+	var _bowser = __webpack_require__(504);
 	
 	var _bowser2 = _interopRequireDefault(_bowser);
 	
@@ -50841,7 +51135,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 500 */
+/* 504 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -50852,7 +51146,7 @@
 	
 	!function (name, definition) {
 	  if (typeof module != 'undefined' && module.exports) module.exports = definition()
-	  else if (true) __webpack_require__(501)(name, definition)
+	  else if (true) __webpack_require__(505)(name, definition)
 	  else this[name] = definition()
 	}('bowser', function () {
 	  /**
@@ -51427,14 +51721,14 @@
 
 
 /***/ },
-/* 501 */
+/* 505 */
 /***/ function(module, exports) {
 
 	module.exports = function() { throw new Error("define cannot be used indirect"); };
 
 
 /***/ },
-/* 502 */
+/* 506 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -51459,7 +51753,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 503 */
+/* 507 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -51471,7 +51765,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 504 */
+/* 508 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51481,7 +51775,7 @@
 	});
 	exports.default = calc;
 	
-	var _getPrefixedValue = __webpack_require__(505);
+	var _getPrefixedValue = __webpack_require__(509);
 	
 	var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 	
@@ -51505,7 +51799,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 505 */
+/* 509 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -51521,7 +51815,7 @@
 	module.exports = exports["default"];
 
 /***/ },
-/* 506 */
+/* 510 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51531,7 +51825,7 @@
 	});
 	exports.default = zoomCursor;
 	
-	var _getPrefixedValue = __webpack_require__(505);
+	var _getPrefixedValue = __webpack_require__(509);
 	
 	var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 	
@@ -51557,7 +51851,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 507 */
+/* 511 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51567,7 +51861,7 @@
 	});
 	exports.default = grabCursor;
 	
-	var _getPrefixedValue = __webpack_require__(505);
+	var _getPrefixedValue = __webpack_require__(509);
 	
 	var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 	
@@ -51592,7 +51886,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 508 */
+/* 512 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51602,7 +51896,7 @@
 	});
 	exports.default = flex;
 	
-	var _getPrefixedValue = __webpack_require__(505);
+	var _getPrefixedValue = __webpack_require__(509);
 	
 	var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 	
@@ -51628,7 +51922,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 509 */
+/* 513 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51638,7 +51932,7 @@
 	});
 	exports.default = sizing;
 	
-	var _getPrefixedValue = __webpack_require__(505);
+	var _getPrefixedValue = __webpack_require__(509);
 	
 	var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 	
@@ -51678,7 +51972,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 510 */
+/* 514 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51688,7 +51982,7 @@
 	});
 	exports.default = gradient;
 	
-	var _getPrefixedValue = __webpack_require__(505);
+	var _getPrefixedValue = __webpack_require__(509);
 	
 	var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 	
@@ -51714,7 +52008,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 511 */
+/* 515 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51727,11 +52021,11 @@
 	
 	exports.default = transition;
 	
-	var _hyphenateStyleName = __webpack_require__(496);
+	var _hyphenateStyleName = __webpack_require__(500);
 	
 	var _hyphenateStyleName2 = _interopRequireDefault(_hyphenateStyleName);
 	
-	var _unprefixProperty = __webpack_require__(512);
+	var _unprefixProperty = __webpack_require__(516);
 	
 	var _unprefixProperty2 = _interopRequireDefault(_unprefixProperty);
 	
@@ -51780,7 +52074,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 512 */
+/* 516 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -51797,7 +52091,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 513 */
+/* 517 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51807,7 +52101,7 @@
 	});
 	exports.default = flexboxIE;
 	
-	var _getPrefixedValue = __webpack_require__(505);
+	var _getPrefixedValue = __webpack_require__(509);
 	
 	var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 	
@@ -51861,7 +52155,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 514 */
+/* 518 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51871,7 +52165,7 @@
 	});
 	exports.default = flexboxOld;
 	
-	var _getPrefixedValue = __webpack_require__(505);
+	var _getPrefixedValue = __webpack_require__(509);
 	
 	var _getPrefixedValue2 = _interopRequireDefault(_getPrefixedValue);
 	
@@ -51932,7 +52226,7 @@
 	module.exports = exports['default'];
 
 /***/ },
-/* 515 */
+/* 519 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
@@ -51964,7 +52258,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 516 */
+/* 520 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -51973,7 +52267,7 @@
 	  value: true
 	});
 	
-	var _keys = __webpack_require__(452);
+	var _keys = __webpack_require__(453);
 	
 	var _keys2 = _interopRequireDefault(_keys);
 	
@@ -52066,7 +52360,7 @@
 	}
 
 /***/ },
-/* 517 */
+/* 521 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -52100,7 +52394,7 @@
 	}
 
 /***/ },
-/* 518 */
+/* 522 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -52113,7 +52407,7 @@
 	
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 	
-	var _colors = __webpack_require__(459);
+	var _colors = __webpack_require__(457);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -52140,11 +52434,11 @@
 	exports.default = new Typography();
 
 /***/ },
-/* 519 */
+/* 523 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(process) {var invariant = __webpack_require__(520);
-	var defaultClickRejectionStrategy = __webpack_require__(521);
+	/* WEBPACK VAR INJECTION */(function(process) {var invariant = __webpack_require__(524);
+	var defaultClickRejectionStrategy = __webpack_require__(525);
 	
 	var alreadyInjected = false;
 	
@@ -52166,14 +52460,14 @@
 	  alreadyInjected = true;
 	
 	  __webpack_require__(43).injection.injectEventPluginsByName({
-	    'TapEventPlugin':       __webpack_require__(522)(shouldRejectClick)
+	    'TapEventPlugin':       __webpack_require__(526)(shouldRejectClick)
 	  });
 	};
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 520 */
+/* 524 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -52228,7 +52522,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ },
-/* 521 */
+/* 525 */
 /***/ function(module, exports) {
 
 	module.exports = function(lastTouchEvent, clickTimestamp) {
@@ -52239,7 +52533,7 @@
 
 
 /***/ },
-/* 522 */
+/* 526 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -52267,10 +52561,10 @@
 	var EventPluginUtils = __webpack_require__(45);
 	var EventPropagators = __webpack_require__(42);
 	var SyntheticUIEvent = __webpack_require__(79);
-	var TouchEventUtils = __webpack_require__(523);
+	var TouchEventUtils = __webpack_require__(527);
 	var ViewportMetrics = __webpack_require__(80);
 	
-	var keyOf = __webpack_require__(524);
+	var keyOf = __webpack_require__(528);
 	var topLevelTypes = EventConstants.topLevelTypes;
 	
 	var isStartish = EventPluginUtils.isStartish;
@@ -52416,7 +52710,7 @@
 
 
 /***/ },
-/* 523 */
+/* 527 */
 /***/ function(module, exports) {
 
 	/**
@@ -52464,7 +52758,7 @@
 
 
 /***/ },
-/* 524 */
+/* 528 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -52501,314 +52795,6 @@
 	};
 	
 	module.exports = keyOf;
-
-/***/ },
-/* 525 */,
-/* 526 */,
-/* 527 */,
-/* 528 */,
-/* 529 */,
-/* 530 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(198);
-	
-	var _TextField = __webpack_require__(374);
-	
-	var _TextField2 = _interopRequireDefault(_TextField);
-	
-	var _FlatButton = __webpack_require__(382);
-	
-	var _FlatButton2 = _interopRequireDefault(_FlatButton);
-	
-	var _actions = __webpack_require__(212);
-	
-	var _mock = __webpack_require__(542);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var CommentForm = function CommentForm(_ref) {
-	    var username = _ref.username,
-	        email = _ref.email,
-	        submitCommentHandler = _ref.submitCommentHandler;
-	
-	    var nameInput = void 0;
-	    var emailInput = void 0;
-	    var commentInput = void 0;
-	    if (!username) {
-	        username = (0, _mock.getMockName)();
-	        email = (0, _mock.getMockEmail)();
-	    }
-	    return _react2.default.createElement(
-	        'form',
-	        { onSubmit: function onSubmit(e) {
-	                e.preventDefault();
-	                var comment = {
-	                    name: nameInput.getValue(),
-	                    email: emailInput.getValue(),
-	                    comment: commentInput.getValue(),
-	                    date: Date.now()
-	                };
-	                submitCommentHandler(comment);
-	                nameInput.getInputNode().value = '';
-	                emailInput.getInputNode().value = '';
-	                commentInput.getInputNode().value = '';
-	            } },
-	        _react2.default.createElement(_TextField2.default, {
-	            defaultValue: username,
-	            floatingLabelText: 'Name',
-	            name: 'name',
-	            fullWidth: true,
-	            hintText: 'name',
-	            ref: function ref(node) {
-	                nameInput = node;
-	            }
-	        }),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement(_TextField2.default, {
-	            defaultValue: email,
-	            floatingLabelText: 'Email',
-	            fullWidth: true,
-	            hintText: 'email',
-	            ref: function ref(node) {
-	                emailInput = node;
-	            }
-	        }),
-	        _react2.default.createElement('br', null),
-	        _react2.default.createElement(_TextField2.default, {
-	            defaultValue: (0, _mock.getMockText)(),
-	            floatingLabelText: 'Comment',
-	            fullWidth: true,
-	            hintText: 'comment',
-	            ref: function ref(node) {
-	                commentInput = node;
-	            },
-	            multiLine: true,
-	            rows: 4
-	        }),
-	        _react2.default.createElement(_FlatButton2.default, { type: 'submit', label: 'Comment' })
-	    );
-	};
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	    return {
-	        username: state.loginInfo.logged ? state.loginInfo.username : null,
-	        email: state.loginInfo.logged ? state.loginInfo.username : null
-	    };
-	};
-	
-	var mapDispatchToProps = function mapDispatchToProps(dispatch, _ref2) {
-	    var idIssue = _ref2.idIssue;
-	    return {
-	        submitCommentHandler: function submitCommentHandler(commentObj) {
-	            dispatch((0, _actions.submitComment)(idIssue, commentObj));
-	        }
-	    };
-	};
-	CommentForm = (0, _reactRedux.connect)(mapStateToProps, mapDispatchToProps)(CommentForm);
-	
-	exports.default = CommentForm;
-
-/***/ },
-/* 531 */,
-/* 532 */,
-/* 533 */,
-/* 534 */,
-/* 535 */,
-/* 536 */,
-/* 537 */,
-/* 538 */,
-/* 539 */,
-/* 540 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _IconButton = __webpack_require__(439);
-	
-	var _IconButton2 = _interopRequireDefault(_IconButton);
-	
-	var _colors = __webpack_require__(459);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var NotSentWarning = function NotSentWarning() {
-	    return _react2.default.createElement(
-	        _IconButton2.default,
-	        {
-	            iconClassName: 'material-icons',
-	            iconStyle: {
-	                color: _colors.amber300
-	            },
-	            tooltip: 'Waiting to be sent. No connection'
-	        },
-	        'warning'
-	    );
-	};
-	
-	exports.default = NotSentWarning;
-
-/***/ },
-/* 541 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _react = __webpack_require__(1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(198);
-	
-	var _commentForm = __webpack_require__(530);
-	
-	var _commentForm2 = _interopRequireDefault(_commentForm);
-	
-	var _notSentWarning = __webpack_require__(540);
-	
-	var _notSentWarning2 = _interopRequireDefault(_notSentWarning);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var commentStyle = {
-	    fontSize: '14px',
-	    lineHeight: '16px',
-	    margin: '0px 0px',
-	    color: 'rgba(0, 0, 0, 0.541176)'
-	};
-	
-	var ListComments = function ListComments(_ref) {
-	    var listComments = _ref.listComments,
-	        idIssue = _ref.idIssue,
-	        isConnected = _ref.isConnected,
-	        lastConnection = _ref.lastConnection;
-	
-	    var dateOptions = {
-	        year: 'numeric',
-	        month: 'short',
-	        day: 'numeric',
-	        hour: '2-digit',
-	        minute: '2-digit'
-	    };
-	    var commentsEl = !listComments ? null : Object.entries(listComments).map(function (keyValArr) {
-	        return keyValArr[1];
-	    }).map(function (_ref2, id) {
-	        var comment = _ref2.comment,
-	            email = _ref2.email,
-	            name = _ref2.name,
-	            date = _ref2.date,
-	            received = _ref2.received;
-	
-	        var sentState = isConnected === false && received > lastConnection ? _react2.default.createElement(_notSentWarning2.default, null) : null;
-	        return _react2.default.createElement(
-	            'li',
-	            {
-	                key: id
-	            },
-	            _react2.default.createElement(
-	                'p',
-	                { style: commentStyle },
-	                _react2.default.createElement(
-	                    'b',
-	                    null,
-	                    name,
-	                    '(',
-	                    email,
-	                    '): '
-	                ),
-	                ' ',
-	                comment
-	            ),
-	            new Date(date).toLocaleDateString('en-US', dateOptions),
-	            sentState,
-	            _react2.default.createElement('br', null),
-	            _react2.default.createElement('br', null)
-	        );
-	    });
-	    return _react2.default.createElement(
-	        'ul',
-	        { className: 'comments' },
-	        commentsEl,
-	        _react2.default.createElement(_commentForm2.default, { idIssue: idIssue })
-	    );
-	};
-	
-	var mapStateToProps = function mapStateToProps(state) {
-	    return {
-	        isConnected: state.connected.connected,
-	        lastConnection: state.connected.lastConnection
-	    };
-	};
-	ListComments = (0, _reactRedux.connect)(mapStateToProps)(ListComments);
-	
-	exports.default = ListComments;
-
-/***/ },
-/* 542 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	var mockNames = ['Jonathan', 'Nahum', 'Jonathan Tefera Endale', 'Maria', 'Luis', 'Mario', 'Marta'];
-	
-	var mockEmails = ['hello@jtefera.com', 'media@icmadrid.com', 'correojona@hotmail.com', 'carlos@icmadrid.com', 'david@icmadrid.com'];
-	
-	var mockTexts = [
-	// Lorem ipsum
-	'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' + 'Donec mattis pretium massa. Aliquam erat volutpat. Nulla facilisi. ' + 'Donec vulputate interdum sollicitudin. Nunc lacinia auctor quam sed ' + 'pellentesque. Aliquam dui mauris, ' + 'mattis quis lacus id, pellentesque lobortis odio.',
-	// Standart time and date
-	'A standard date and time format string uses a single format specifier' + ' to define the text representation of a date and time value. ' + 'Any date and ' + 'time format string that contains more than one character, ' + 'including white ' + 'space, is interpreted as a custom date and time format string; for more ' + 'information, see Custom Date and Time Format Strings. A standard or ' + 'custom format string can be used in two ways:',
-	// Show expandable
-	'If true, this card component will include a button to expand the ' + 'card. CardTitle, CardHeader and CardActions implement ' + 'showExpandableButton.',
-	// Avatar
-	'This is the Avatar element to be displayed on the Card Header. ' + 'If avatar is an Avatar or other element, it will be rendered. ' + 'If avatar is a string, it will be used as the image src for an Avatar.'];
-	
-	var getMockName = exports.getMockName = function getMockName() {
-	    var len = mockNames.length;
-	    var idx = Math.floor(Math.random() * len);
-	    return mockNames[idx];
-	};
-	
-	var getMockEmail = exports.getMockEmail = function getMockEmail() {
-	    var len = mockEmails.length;
-	    var idx = Math.floor(Math.random() * len);
-	    return mockEmails[idx];
-	};
-	
-	var getMockText = exports.getMockText = function getMockText() {
-	    var len = mockTexts.length;
-	    var idx = Math.floor(Math.random() * len);
-	    return mockTexts[idx];
-	};
-	
-	var getMockTitle = exports.getMockTitle = function getMockTitle() {
-	    return 'Interesting Task #' + Math.floor(Math.random() * 100);
-	};
 
 /***/ }
 /******/ ]);
