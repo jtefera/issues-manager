@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./server/server.js",
-    "install": "webpack --watch --progress"
+    "dev-build": "webpack --watch --progress",
+    "build": "webpack --watch --progress config=webpack.production.config.js"
   },
   "repository": {
     "type": "git",
@@ -42,6 +43,7 @@
     "webpack": "^1.13.3"
   },
   "devDependencies": {
-    "eslint-config-google": "^0.7.0"
+    "eslint-config-google": "^0.7.0",
+    "webpack-bundle-analyzer": "^2.1.1"
   }
 }

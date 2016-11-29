@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = [
     {
         entry: {
@@ -8,7 +9,7 @@ module.exports = [
             path: __dirname,
             filename: '[name].js',
         },
-        devtool: 'eval',
+        devtool: 'cheap-module-source-map',
         module: {
             loaders: [
                 {
@@ -26,11 +27,23 @@ module.exports = [
             ],
         },
         plugins: [
-            new webpack.DefinePlugin({
-                'process.env': {
-                'NODE_ENV': JSON.stringify('development')
+            new webpack.optimize.UglifyJsPlugin({
+                output: {
+                    comments: false
+                },
+                compress: {
+                    warnings: false,
+                    screw_ie8: true
                 }
             }),
+            new BundleAnalyzerPlugin(),
+            new webpack.DefinePlugin({
+                'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+                }
+            }),
+            new webpack.optimize.DedupePlugin(),
+            new webpack.optimize.OccurenceOrderPlugin(true),
         ],
     },
     {
