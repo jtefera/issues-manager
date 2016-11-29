@@ -81,7 +81,7 @@
 	app.use(_bodyParser2.default.json());
 
 	var ServerPort = process.env.OPENSHIFT_NODEJS_PORT || 3000;
-	var ServerIpAddress = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1';
+	var ServerIpAddress = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
 	app.listen(ServerPort, ServerIpAddress, function () {
 		console.log('dirname is ' + __dirname);
