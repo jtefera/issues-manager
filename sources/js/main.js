@@ -23,15 +23,25 @@ injectTapEventPlugin();
             Comentarios
             Formulario comentario
 */
-const store = createStore(
-    reducer,
-    compose(
-        applyMiddleware(thunkMiddleware),
-        //  For Chrome Debug
-        window.__REDUX_DEVTOOLS_EXTENSION__ &&
-            window.__REDUX_DEVTOOLS_EXTENSION__()
-    )
-);
+let store;
+try{
+    // Debugging in desktop chrome
+    store = createStore(
+        reducer,
+        compose(
+            applyMiddleware(thunkMiddleware),
+            // For Debugging
+            window.__REDUX_DEVTOOLS_EXTENSION__ &&
+                window.__REDUX_DEVTOOLS_EXTENSION__()
+        )
+    );
+} catch(e) {
+    // Works in Mobile
+    store = createStore(
+        reducer,
+        applyMiddleware(thunkMiddleware)
+    );
+}
 const init = () => {
     store.dispatch(fetchIssues());
     store.dispatch(startConnectionCheck());    

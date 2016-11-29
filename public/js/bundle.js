@@ -112,9 +112,16 @@
 	            Comentarios
 	            Formulario comentario
 	*/
-	var store = (0, _redux.createStore)(_reducer2.default, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default),
-	//  For Chrome Debug
-	window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+	var store = void 0;
+	try {
+	    // Debugging in desktop chrome
+	    store = (0, _redux.createStore)(_reducer2.default, (0, _redux.compose)((0, _redux.applyMiddleware)(_reduxThunk2.default),
+	    // For Debugging
+	    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()));
+	} catch (e) {
+	    // Works in Mobile
+	    store = (0, _redux.createStore)(_reducer2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default));
+	}
 	var init = function init() {
 	    store.dispatch((0, _actions.fetchIssues)());
 	    store.dispatch((0, _actions.startConnectionCheck)());
@@ -47239,8 +47246,8 @@
 	        hour: '2-digit',
 	        minute: '2-digit'
 	    };
-	    var commentsEl = !listComments ? null : Object.entries(listComments).map(function (keyValArr) {
-	        return keyValArr[1];
+	    var commentsEl = !listComments ? null : Object.keys(listComments).map(function (key) {
+	        return listComments[key];
 	    }).map(function (_ref2, id) {
 	        var comment = _ref2.comment,
 	            email = _ref2.email,
