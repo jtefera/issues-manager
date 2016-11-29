@@ -23601,6 +23601,8 @@
 	
 	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 	
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	
 	var asyncState = function asyncState() {
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
 	        isFetching: false,
@@ -23688,55 +23690,59 @@
 	            return state;
 	    }
 	};
-	var issuesList = function issuesList() {
+	var issues = function issues() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+	    var action = arguments[1];
+	
+	    switch (action.type) {
+	        case 'ADD_ISSUE':
+	            return _extends({}, state, _defineProperty({}, action.issue.id, _extends({
+	                id: action.issue.id
+	            }, action.issue)));
+	        case 'DELETE_ISSUE':
+	            var newState = _extends({}, state, _defineProperty({}, action.id, null));
+	            delete newState[action.id];
+	            return newState;
+	        case 'OPTIMISTIC_EDIT_ISSUE':
+	            return _extends({}, state, _defineProperty({}, action.id, _extends({
+	                prev: state[action.id]
+	            }, state[action.id], action.issue)));
+	        case 'SET_ALL_ISSUES_AS_SENT':
+	            return Object.keys(state).reduce(function (newState, key) {
+	                newState[key] = _extends({}, state[key], {
+	                    isConnected: true
+	                });
+	            }, {});
+	        case 'MARK_ISSUE_AS_DELETING':
+	            return _extends({}, state, _defineProperty({}, action.id, _extends({}, state[action.id], {
+	                deleting: true
+	            })));
+	        case 'LISTENING_TO_COMMENTS':
+	            return _extends({}, state, _defineProperty({}, action.idIssue, _extends({}, state[action.idIssue], {
+	                isListeningComments: true
+	            })));
+	        case 'SHOW_COMMENT':
+	            var issue = _extends({}, state[action.idIssue]);
+	            var newComments = issue.comments ? [].concat(_toConsumableArray(issue.comments)) : [];
+	            newComments.push(action.comment);
+	            return _extends({}, state, _defineProperty({}, action.idIssue, _extends({}, state[action.idIssue], {
+	                comments: newComments
+	            })));
+	        default:
+	            return state;
+	    }
+	};
+	
+	var orderedIssuesId = function orderedIssuesId() {
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	    var action = arguments[1];
 	
 	    switch (action.type) {
 	        case 'ADD_ISSUE':
-	            return state.concat(_extends({
-	                id: action.id
-	            }, action.issue));
+	            return [].concat(_toConsumableArray(state), [action.issue.id]);
 	        case 'DELETE_ISSUE':
-	            return state.filter(function (el) {
-	                return el.id !== action.id;
-	            });
-	        case 'OPTIMISTIC_EDIT_ISSUE':
-	            return state.map(function (el) {
-	                return el.id !== action.id ? el : _extends({
-	                    prev: el
-	                }, el, action.issue, {
-	                    editMode: false
-	                });
-	            });
-	        case 'SET_ALL_ISSUES_AS_SENT':
-	            return state.map(function (el) {
-	                return _extends({}, el, {
-	                    isConnected: true
-	                });
-	            });
-	        case 'MARK_ISSUE_AS_DELETING':
-	            return state.map(function (el) {
-	                return el.id !== action.id ? el : _extends({}, el, {
-	                    deleting: true
-	                });
-	            });
-	        case 'LISTENING_TO_COMMENTS':
-	            return state.map(function (el) {
-	                return el.id !== action.idIssue ? el : _extends({}, el, {
-	                    isListeningComments: true
-	                });
-	            });
-	        case 'SHOW_COMMENT':
-	            return state.map(function (el) {
-	                if (el.id === action.idIssue) {
-	                    var newComments = el.comments ? [].concat(_toConsumableArray(el.comments)) : [];
-	                    newComments.push(action.comment);
-	                    return _extends({}, el, {
-	                        comments: newComments
-	                    });
-	                }
-	                return el;
+	            return state.filter(function (id) {
+	                return id !== action.id;
 	            });
 	        default:
 	            return state;
@@ -23840,12 +23846,13 @@
 	
 	var issuesApp = (0, _redux.combineReducers)({
 	    asyncState: asyncState,
-	    issuesList: issuesList,
+	    issues: issues,
 	    optimisticIssue: optimisticIssue,
 	    formsDisplay: formsDisplay,
 	    messageDisplay: messageDisplay,
 	    connected: connected,
-	    loginInfo: loginInfo
+	    loginInfo: loginInfo,
+	    orderedIssuesId: orderedIssuesId
 	});
 	exports.default = issuesApp;
 
@@ -45433,8 +45440,6 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
-	
 	var getIssuesWithThePriority = function getIssuesWithThePriority(issues, priority) {
 	    var filteredIsues = issues.filter(function (issue) {
 	        return parseInt(issue.priority, 10) === parseInt(priority, 10);
@@ -45445,7 +45450,10 @@
 	var mapStateToProps = function mapStateToProps(state, _ref) {
 	    var priority = _ref.priority;
 	
-	    var allIssues = [].concat(_toConsumableArray(state.issuesList));
+	    //let allIssues = [...state.issuesList];
+	    var allIssues = state.orderedIssuesId.map(function (id) {
+	        return state.issues[id];
+	    });
 	    if (state.optimisticIssueList) {
 	        allIssues.push(state.optimisticIssue);
 	    }

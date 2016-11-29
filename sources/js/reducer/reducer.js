@@ -85,61 +85,86 @@ const formsDisplay = (state = {
             return state;
     }
 };
-const issuesList = (state = [], action) => {
+const issues = (state = {}, action) => {
     switch (action.type) {
         case 'ADD_ISSUE':
-            return state.concat({
-               id: action.id,
-               ...action.issue,
-            });
+            return {
+                ...state,
+                [action.issue.id]: {
+                    id: action.issue.id,
+                    ...action.issue,
+                },
+            };
         case 'DELETE_ISSUE':
-            return state.filter((el) => el.id !== action.id);
+            let newState = {
+                ...state,
+                [action.id]: null,
+            };
+            delete newState[action.id];
+            return newState;
         case 'OPTIMISTIC_EDIT_ISSUE':
-            return state.map((el) => (el.id !== action.id)
-                                        ? el : {
-                                            prev: el,
-                                            ...el,
-                                            ...action.issue,
-                                            editMode: false,
-                                        }
-            );
-        case 'SET_ALL_ISSUES_AS_SENT':
-            return state.map((el) => ({
-                    ...el,
-                    isConnected: true,
-                })
-            );
-        case 'MARK_ISSUE_AS_DELETING':
-            return state.map((el) => (el.id !== action.id)
-                            ? el : {
-                                ...el,
-                                deleting: true,
-                            }
-            );
-        case 'LISTENING_TO_COMMENTS':
-            return state.map((el) => {
-                return (el.id !== action.idIssue)
-                            ? el : {
-                                ...el,
-                                isListeningComments: true,
-                            };
-            });
-        case 'SHOW_COMMENT':
-            return state.map((el) => {
-                if(el.id === action.idIssue) {
-                    let newComments = (el.comments) ? [...el.comments] : [];
-                    newComments.push(action.comment);
-                    return {
-                        ...el,
-                        comments: newComments,
-                    };
+            return {
+                ...state,
+                [action.id]: {
+                    prev: state[action.id],
+                    ...state[action.id],
+                    ...action.issue,
                 }
-                return el;
-            });
+            }
+        case 'SET_ALL_ISSUES_AS_SENT':
+            return Object.keys(state).reduce((newState, key) => {
+                newState[key] = {
+                    ...state[key],
+                    isConnected: true,
+                }
+            }, {});
+        case 'MARK_ISSUE_AS_DELETING':
+            return {
+                ...state,
+                [action.id]: {
+                    ...state[action.id],
+                    deleting: true,
+                }
+            };
+        case 'LISTENING_TO_COMMENTS':
+            return {
+                ...state,
+                [action.idIssue]: {
+                    ...state[action.idIssue],
+                    isListeningComments: true,
+                }
+            }
+        case 'SHOW_COMMENT':
+            let issue = {
+                ...state[action.idIssue],
+            };
+            let newComments = (issue.comments) ? [...issue.comments] : [];
+            newComments.push(action.comment);
+            return {
+                ...state,
+                [action.idIssue]: {
+                    ...state[action.idIssue],
+                    comments: newComments,
+                }
+            };
         default:
             return state;
     }
 };
+
+const orderedIssuesId = (state = [], action) => {
+    switch(action.type) {
+        case 'ADD_ISSUE':
+            return [
+                ...state,
+                action.issue.id,
+            ]
+        case 'DELETE_ISSUE':
+            return state.filter((id) => id !== action.id);
+        default:
+            return state;
+    }
+}
 
 const messageDisplay = (state = {
     showMessage: false,
@@ -233,11 +258,12 @@ const loginInfo = (state = {
 
 const issuesApp = combineReducers({
     asyncState,
-    issuesList,
+    issues,
     optimisticIssue,
     formsDisplay,
     messageDisplay,
     connected,
     loginInfo,
+    orderedIssuesId,
 });
 export default issuesApp;

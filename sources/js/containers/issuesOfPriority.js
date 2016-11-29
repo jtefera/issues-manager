@@ -10,7 +10,8 @@ const getIssuesWithThePriority = (issues, priority) => {
 };
 
 const mapStateToProps = (state, {priority}) => {
-    let allIssues = [...state.issuesList];
+    //let allIssues = [...state.issuesList];
+    let allIssues = state.orderedIssuesId.map((id) => state.issues[id]);
     if(state.optimisticIssueList) {
         allIssues.push(state.optimisticIssue);
     }
