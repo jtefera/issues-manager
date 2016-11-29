@@ -23,8 +23,8 @@ let ListComments = ({
         hour: '2-digit',
         minute: '2-digit',
     };
-    const commentsEl = (!listComments) ? null : Object.entries(listComments)
-        .map((keyValArr) => keyValArr[1])
+    const commentsEl = (!listComments) ? null : Object.keys(listComments)
+        .map((key) => listComments[key])
         .map(({comment, email, name, date, received}, id) => {
             const sentState = (isConnected === false
                 && received > lastConnection) ?
