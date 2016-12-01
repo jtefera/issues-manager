@@ -14,17 +14,9 @@
     <script type="text/javascript" src="./js/bundle.js"></script>
     <script type="text/javascript">
         if ('serviceWorker' in navigator) {
-            // Override the default scope of '/' with './', so that the registration applies
-            // to the current directory and everything underneath it.
-            navigator.serviceWorker.register('./js/sw.js').then(function(registration) {
-                // At this point, registration has taken place.
-                // The service worker will not handle requests until this page and any
-                // other instances of this page (in other tabs, etc.) have been
-                // closed/reloaded.
-                console.log('succeeded');
+            navigator.serviceWorker.register('./sw.js').then(function(registration) {
+                console.log(registration);
             }).catch(function(error) {
-                // Something went wrong during registration. The service-worker.js file
-                // might be unavailable or contain a syntax error.
                 console.log(error);
             });
         } else {

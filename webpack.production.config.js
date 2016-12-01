@@ -4,6 +4,7 @@ module.exports = [
     {
         entry: {
             './public/js/bundle': './sources/js/main.js',
+            './public/sw': './sources/js/serviceWorker/sw.js',
         },
         output: {
             path: __dirname,
