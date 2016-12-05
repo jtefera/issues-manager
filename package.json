@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node ./server/server.js",
     "dev-build": "webpack --watch --progress",
-    "build": "webpack --watch --progress config=webpack.production.config.js"
+    "build": "webpack --watch --progress --config ./webpack.production.config.js"
   },
   "repository": {
     "type": "git",
@@ -36,7 +36,6 @@
     "normalizr": "^2.2.1",
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
-    "react-overlay": "^0.1.7",
     "react-redux": "^4.4.5",
     "react-tap-event-plugin": "^2.0.1",
     "redux": "^3.6.0",

@@ -30,18 +30,17 @@ module.exports = [
         plugins: [
             new webpack.optimize.UglifyJsPlugin({
                 output: {
-                    comments: false
+                    comments: false,
                 },
                 compress: {
-                    warnings: false,
-                    screw_ie8: true
-                }
+                    'warnings': false,
+                    'screw_ie8': true,
+                },
             }),
-            new BundleAnalyzerPlugin(),
             new webpack.DefinePlugin({
                 'process.env': {
-                'NODE_ENV': JSON.stringify('production')
-                }
+                'NODE_ENV': JSON.stringify('production'),
+                },
             }),
             new webpack.optimize.DedupePlugin(),
             new webpack.optimize.OccurenceOrderPlugin(true),
