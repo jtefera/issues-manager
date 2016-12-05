@@ -44,7 +44,7 @@
 /* 0 */
 /***/ function(module, exports) {
 
-	eval("'use strict';\n\nself.addEventListener('install', function (event) {\n    // pre cache a load of stuff:\n    event.waitUntil(caches.open('myapp-static-v1').then(function (cache) {\n        return cache.addAll(['/', '/js/bundle.js', '/css/style.css']);\n    }));\n});\n\nself.addEventListener('fetch', function (event) {\n    console.log(event.request);\n    event.respondWith(caches.match(event.request).then(function (cachedResponse) {\n        return cachedResponse || fetch(event.request);\n    }));\n});\n\n//////////////////\n// WEBPACK FOOTER\n// ./sources/js/serviceWorker/sw.js\n// module id = 0\n// module chunks = 1\n//# sourceURL=webpack:///./sources/js/serviceWorker/sw.js?");
+	eval("'use strict';\n\nself.addEventListener('install', function (event) {\n    // pre cache a load of stuff:\n    event.waitUntil(caches.open('myapp-static-v1').then(function (cache) {\n        return cache.addAll(['/', '/js/bundle.js', '/css/style.css']);\n    }));\n});\n\nself.addEventListener('fetch', function (event) {\n    console.log(event.request);\n    event.respondWith(\n    /*caches.match(event.request).then(function(cachedResponse) {\n        return cachedResponse || fetch(event.request);\n    })*/\n    fetch(event.request));\n});\n\n//////////////////\n// WEBPACK FOOTER\n// ./sources/js/serviceWorker/sw.js\n// module id = 0\n// module chunks = 1\n//# sourceURL=webpack:///./sources/js/serviceWorker/sw.js?");
 
 /***/ }
 /******/ ]);
