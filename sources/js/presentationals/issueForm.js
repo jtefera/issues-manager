@@ -8,24 +8,9 @@ import {
     getMockTitle, getMockName,
     getMockEmail, getMockText,
 } from '../mock';
+import FullWidth from './fullWidth'; 
 
 const IssueFormMobile = (props) => {
-    const style = {
-        boxSizing: 'border-box',
-        WebkitTapHighlightColor: 'rgba(0, 0, 0, 0)',
-        position: 'fixed',
-        top: 0,
-        bottom: 0,
-        right: 0,
-        left: 0,
-        zIndex: 1600,
-        width: '100%',
-        height: '100%',
-        margin: 0,
-        backgroundColor: 'white',
-        padding: '0 24px 24px',
-        overflowY: 'scroll',    
-    }
     const actions = [
         <FlatButton
                 label='Cancel'
@@ -42,11 +27,11 @@ const IssueFormMobile = (props) => {
         titleForm
     } = props;
     return (
-        <div style={style}>
+        <FullWidth>
             <h3>{titleForm}</h3>
             <IssueFormInterior {...props} />
             {actions[0]} {actions[1]}
-        </div>
+        </FullWidth>
     )
 }
 
@@ -203,7 +188,6 @@ class IssueFormInterior extends Component{
 
 const IssueForm = (props) => {
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    console.log(isMobile);
     if (isMobile) {
         return (
             <IssueFormMobile {...props} />
