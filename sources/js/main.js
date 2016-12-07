@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import {createStore, applyMiddleware, compose} from 'redux';
 import {Provider, connect} from 'react-redux';
 import reducer from './reducer/reducer';
-import {fetchIssues, startConnectionCheck} from './actions/';
+import {initApp} from './actions/';
 import AddIssueForm from './containers/addIssueForm';
 import IssueEditor from './containers/editIssueForm';
 import HeaderBar from './containers/HeaderBar';
@@ -42,12 +42,9 @@ try{
         applyMiddleware(thunkMiddleware)
     );
 }
-const init = () => {
-    store.dispatch(fetchIssues());
-    store.dispatch(startConnectionCheck());    
-}
 
-init();
+//Init App
+store.dispatch(initApp());
 
 let App = ({
     showAddIssueForm,

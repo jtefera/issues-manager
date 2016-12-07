@@ -4,6 +4,16 @@ import '../config/firebaseConfig';
 
 const firebaseBase = firebase.database().ref("issues");
 
+
+//Init
+export const initApp = () => {
+    return (dispatch) => {
+        dispatch(fetchIssues());
+        dispatch(startConnectionCheck());
+        dispatch(listenForAuthChanges());  
+    };
+};
+
 export const addIssue = (issue) => ({
     type: 'ADD_ISSUE',
     issue,
@@ -210,6 +220,16 @@ export function logOut() {
             dispatch(showErrorMessage('Not able to log out', error.message));
         });
     };
+}
+
+export function listenForAuthChanges() {
+    return (dispatch) => {
+        firebase.auth().onAuthStateChanged((authData) => {
+            if(authData) {
+                dispatch(setAsLogged(authData));
+            }
+        });
+    }
 }
 
 // Comments
