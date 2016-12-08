@@ -256,6 +256,26 @@ const loginInfo = (state = {
     }
 };
 
+const deleteIssueState = (state = {
+    isIssueBeingDeleted: false,
+    idBeingDeleted: null,
+}, action) => {
+    switch (action.type) {
+        case 'ASK_TO_CONFIRM_DELETE':
+            return {
+                isIssueBeingDeleted: true,
+                idBeingDeleted: action.id,
+            };
+        case 'HIDE_CONFIRM_DELETE_DIALOG':
+            return {
+                isIssueBeingDeleted: false,
+                idBeingDeleted: null,
+            };
+        default:
+            return state;
+    }
+};
+
 const issuesApp = combineReducers({
     asyncState,
     issues,
@@ -265,5 +285,6 @@ const issuesApp = combineReducers({
     connected,
     loginInfo,
     orderedIssuesId,
+    deleteIssueState,
 });
 export default issuesApp;

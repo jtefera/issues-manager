@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {
-        deleteIssue,
+        askToConfirmDelete,
         showEditIssueForm,
     } from '../actions';
 import IssuePres from '../presentationals/issue';
@@ -14,7 +14,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, {id, issue}) => ({
-   deleteIssue: () => dispatch(deleteIssue(id)),
+   deleteIssue: () => dispatch(askToConfirmDelete(id)),
    showEditIssueForm: () => dispatch(showEditIssueForm(id, issue)),
    listenForComments: () => dispatch(startListeningForCommentsOnIssue(id)),
 });

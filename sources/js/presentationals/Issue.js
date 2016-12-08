@@ -36,7 +36,7 @@ const IssuePres = ({
                     :null;
     const actions = (isLogged) ?
                 (<CardActions>
-                    <FlatButton label="Delete" onTouchTap={deleteIssue}/>
+                    <FlatButton label="Delete" secondary={true} onTouchTap={deleteIssue}/>
                     <FlatButton label="Edit" onTouchTap={showEditIssueForm}/>
                 </CardActions>)
                 : null;

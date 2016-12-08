@@ -22,7 +22,18 @@ export const addIssue = (issue) => ({
 const markIssueAsDeleting = (id) => ({
     type: 'MARK_ISSUE_AS_DELETING',
     id,
-})
+});
+
+export const askToConfirmDelete = (id) => ({
+    type: 'ASK_TO_CONFIRM_DELETE',
+    id,
+});
+
+export const hideConfirmDeleteDialog = () => ({
+    type: 'HIDE_CONFIRM_DELETE_DIALOG',
+});
+
+
 export function deleteIssue(id) {
     return (dispatch) => {
         dispatch(markIssueAsDeleting(id));
