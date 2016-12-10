@@ -8,47 +8,47 @@ import {
     getMockTitle, getMockName,
     getMockEmail, getMockText,
 } from '../mock';
-import FullWidth from './fullWidth'; 
+import FullWidth from './fullWidth';
+import {FormattedMessage} from 'react-intl';
+const actions = (onCancelHandle) => [
+    <FlatButton
+        label={
+            <FormattedMessage
+                id='app.cancel.button.label'
+                defaultMessage='Cancel'
+                />
+        }
+        form='issueForm'
+        onTouchTap={onCancelHandle}
+        />,
+    <FlatButton
+        label={
+            <FormattedMessage
+                id='app.submit.button.label'
+                defaultMessage='Submit'
+                />
+        }
+        form='issueForm'
+        type='submit'
+        />,
+];
 
 const IssueFormMobile = (props) => {
-    const actions = [
-        <FlatButton
-                label='Cancel'
-                form='issueForm'
-                onTouchTap={props.onCancelHandle}
-        />,
-        <FlatButton
-                label='Submit'
-                form='issueForm'
-                type='submit'
-        />,
-    ];
     const {
         titleForm
     } = props;
+    const actionsButtons = actions(props.onCancelHandle);
     return (
         <FullWidth>
             <h3>{titleForm}</h3>
             <IssueFormInterior {...props} />
-            {actions[0]} {actions[1]}
+            {actionsButtons[0]} {actionsButtons[1]}
         </FullWidth>
     )
 }
 
 
 const IssueFormDesktop = (props) => {
-    const actions = [
-        <FlatButton
-                label='Cancel'
-                form='issueForm'
-                onTouchTap={props.onCancelHandle}
-        />,
-        <FlatButton
-                label='Submit'
-                form='issueForm'
-                type='submit'
-        />,
-    ];
     let {
         titleForm,
         editingIssue,
@@ -58,11 +58,11 @@ const IssueFormDesktop = (props) => {
     } = props;
     return (
         <Dialog
-                title={titleForm}
+                title={<div>{titleForm}</div>}
                 modal={false}
                 open={isOpen}
                 autoScrollBodyContent={true}
-                actions={actions}
+                actions={actions(onCancelHandle)}
                 >
             <IssueFormInterior {...props} />
         </Dialog>
@@ -131,15 +131,30 @@ class IssueFormInterior extends Component{
             }>
                 <TextField
                     defaultValue={defaultTitle}
-                    floatingLabelText="Title"
+                    floatingLabelText={
+                        <FormattedMessage
+                            id='app.issueForm.title.label'
+                            defaultMessage='Title'
+                            />
+                    }
                     fullWidth={true}
-                    hintText="title of the issue"
+                    hintText={
+                        <FormattedMessage
+                            id='app.issueForm.title.placeholder'
+                            defaultMessage='title of the issue'
+                            />
+                    }
                     ref={(node) => {
                         titleInput = node;
                     }}
                 /><br />
                 <SelectField
-                    floatingLabelText="Priority"
+                    floatingLabelText={
+                        <FormattedMessage
+                            id='app.issueForm.priority.label'
+                            defaultMessage='Priority'
+                            />
+                    }
                     ref={(node) => {
                         prioritySelect = node;
                     }}
@@ -154,8 +169,18 @@ class IssueFormInterior extends Component{
                 <TextField
                     defaultValue={defaultName}
                     fullWidth={true}
-                    floatingLabelText="Your Name"
-                    hintText="your name"
+                    floatingLabelText={
+                        <FormattedMessage
+                            id='app.issueForm.name.label'
+                            defaultMessage='Your Name'
+                            />
+                    }
+                    hintText={
+                        <FormattedMessage
+                            id='app.issueForm.name.placeholder'
+                            defaultMessage='your name'
+                            />
+                    }
                     ref={(node) => {
                         nameInput = node;
                     }}
@@ -163,15 +188,35 @@ class IssueFormInterior extends Component{
                 <TextField
                     defaultValue={defaultEmail}
                     fullWidth={true}
-                    floatingLabelText="Your Email"
-                    hintText="your email"
+                    floatingLabelText={
+                        <FormattedMessage
+                            id='app.issueForm.email.label'
+                            defaultMessage='Your email'
+                            />
+                    }
+                    hintText={
+                        <FormattedMessage
+                            id='app.issueForm.email.placeholder'
+                            defaultMessage='your email'
+                            />
+                    }
                     ref={(node) => {
                         emailInput = node;
                     }}
                 /><br />
                 <TextField
-                    hintText="detailed description of the issue"
-                    floatingLabelText="Description"
+                    hintText={
+                        <FormattedMessage
+                            id='app.issueForm.description.placeholder'
+                            defaultMessage='detailed description of the issue'
+                            />
+                    }
+                    floatingLabelText={
+                        <FormattedMessage
+                            id='app.issueForm.description.label'
+                            defaultMessage='Description'
+                            />
+                    }
                     fullWidth={true}
                     multiLine={true}
                     defaultValue={defaultDescription}

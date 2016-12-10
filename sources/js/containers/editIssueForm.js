@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import IssueForm from '../presentationals/issueForm';
 import {editIssue, hideEditIssueForm} from '../actions/';
+import {FormattedMessage} from 'react-intl';
 
 const mapDispatchToProps = (dispatch) =>({
     onSubmitHandle: (issue) => {        
@@ -14,7 +15,10 @@ const mapDispatchToProps = (dispatch) =>({
 const mapStateToProps = (state) =>{ 
     return ({
         isOpen: state.formsDisplay.showEditIssueForm,
-        titleForm: 'Edit Issue',
+        titleForm: <FormattedMessage
+            id='app.editIssue.form.title'
+            defaultMessage='Edit Issue'
+        />,
         editingIssue: state.formsDisplay.editingIssue,
     });
 };

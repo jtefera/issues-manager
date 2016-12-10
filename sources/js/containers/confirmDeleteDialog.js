@@ -5,11 +5,26 @@ import {
     hideConfirmDeleteDialog,
 } from '../actions';
 import ConfirmDialog from '../presentationals/confirmDialog';
-
+import {FormattedMessage} from 'react-intl';
 const mapStateToProps = (state) => ({
-    title: 'Delete Issue?',
-    description: 'Are you sure you want to delete this issue?',
-    confirmLabel: 'Delete',
+    title: (
+        <FormattedMessage
+            id='app.confirmDelete.modal.title'
+            defaultMessage='Delete Issue?'
+        />
+        ),
+    description: (
+        <FormattedMessage
+            id='app.confirmDelete.modal.description'
+            defaultMessage='Are you sure you want to delete this issue?'
+        />
+    ),
+    confirmLabel: (
+        <FormattedMessage
+            id='app.confirmDelete.delete.button.label'
+            defaultMessage='Delete'
+        />
+    ),
     id: state.deleteIssueState.idBeingDeleted,
 });
 

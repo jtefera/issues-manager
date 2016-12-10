@@ -1,6 +1,7 @@
 import React from 'react';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
+import {FormattedMessage} from 'react-intl';
 
 
 const ConfirmDialog = (props) => {
@@ -13,7 +14,12 @@ const ConfirmDialog = (props) => {
         confirmLabel,
     } = props;
     const actions = [
-        <FlatButton label='Cancel' onTouchTap={onCancelHandler} />,
+        <FlatButton label={
+            <FormattedMessage
+                id='app.cancel.button.label'
+                defaultMessage='Cancel'
+            />
+        } onTouchTap={onCancelHandler} />,
         <FlatButton
             label={confirmLabel}
             onTouchTap={onConfirmHandler}
@@ -22,13 +28,13 @@ const ConfirmDialog = (props) => {
     ];
     return (
         <Dialog
-            title={title}
+            title={<div>{title}</div>}
             modal={false}
             open={true}
             autoScrollBodyContent={true}
             actions={actions}
         >
-            {description}
+            {<div>{description}</div>}
         </Dialog>
     );
 };

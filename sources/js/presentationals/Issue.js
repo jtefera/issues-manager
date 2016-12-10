@@ -7,6 +7,7 @@ import {
 } from 'material-ui/styles/colors';
 import IconButton from 'material-ui/IconButton';
 import NotSentWarning from './notSentWarning';
+import {FormattedMessage, FormattedRelative} from 'react-intl';
 
 const IssuePres = ({
     issue,
@@ -36,8 +37,18 @@ const IssuePres = ({
                     :null;
     const actions = (isLogged) ?
                 (<CardActions>
-                    <FlatButton label="Delete" secondary={true} onTouchTap={deleteIssue}/>
-                    <FlatButton label="Edit" onTouchTap={showEditIssueForm}/>
+                    <FlatButton label={
+                        <FormattedMessage
+                            id='app.issue.delete.button.label'
+                            defaultMessage='Delete'
+                        />
+                    } secondary={true} onTouchTap={deleteIssue}/>
+                    <FlatButton label={
+                        <FormattedMessage
+                            id='app.issue.edit.button.label'
+                            defaultMessage='Edit'
+                        />
+                    } onTouchTap={showEditIssueForm}/>
                 </CardActions>)
                 : null;
     if(deleting) {
@@ -67,8 +78,9 @@ const IssuePres = ({
                     }
                     subtitle={<div>
                         {name} ({email})<br />
-                        {(new Date(date))
-                            .toLocaleDateString('en-US', dateOptions)}
+                        <FormattedRelative
+                            value={new Date(date)}
+                        />
                     </div>}
                     actAsExpander={true}
                     showExpandableButton={true}

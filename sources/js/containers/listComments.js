@@ -2,6 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import CommentForm from '../containers/commentForm';
 import NotSentWarning from '../presentationals/notSentWarning';
+import {FormattedRelative} from 'react-intl';
 
 const commentStyle = {
     fontSize: '14px',
@@ -36,8 +37,15 @@ let ListComments = ({
                 >
                     <p style={commentStyle}><b>{name}({email}): </b> {comment}</p>
                     {
-                        (new Date(date))
-                            .toLocaleDateString('en-US', dateOptions)
+                        <FormattedRelative
+                            value={new Date(date)}
+                            month='long'
+                            year='numeric'
+                            month='long'
+                            day='2-digit'
+                            hour='numeric'
+                            minute='numeric'
+                        />
                     }
                     {sentState}
                     <br />

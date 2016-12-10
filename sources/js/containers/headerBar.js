@@ -11,6 +11,7 @@ import {
 } from 'material-ui/styles/colors';
 import {connect} from 'react-redux';
 import FlatButton from 'material-ui/FlatButton';
+import {FormattedMessage} from 'react-intl';
 
 
 let HeaderBar = ({
@@ -22,12 +23,25 @@ let HeaderBar = ({
     connected,
 }) => {
     const logButton = (logged) ?
-                        <FlatButton label="Log out" onTouchTap={() => {
-                            logOut();
-                        }}/>
-                        : <FlatButton label="Login" onTouchTap={() => {
-                            showLoginForm();
-                        }}/>;
+        <FlatButton
+            label={
+                <FormattedMessage
+                    id='app.logOut.button.label'
+                    defaultMessage='Log Out'
+                    />
+            } onTouchTap={() => {
+                logOut();
+            } } />
+        : <FlatButton
+            label={
+                <FormattedMessage
+                    id='app.logIn.button.label'
+                    defaultMessage='Log In'
+                    />
+            }
+            onTouchTap={() => {
+                showLoginForm();
+            } } />;
     const connectionState = (connected) ?
                                 null
                                 : <IconButton
@@ -41,14 +55,25 @@ let HeaderBar = ({
                                 </IconButton>;
     return (
         <AppBar
-            title="Issue Tracker"
+            title={
+                <FormattedMessage
+                    id='app.appName'
+                    defaultMessage='Issue Tracker'
+                />
+            }
             showMenuIconButton={false}
             iconElementRight={
                 <div>
                     {connectionState}
-                    <FlatButton label="Add Issue" onTouchTap={() => {
-                        showAddIssueForm();
-                    }}/>
+                    <FlatButton
+                        label={
+                            <FormattedMessage
+                                id='app.addIssue.button.label'
+                                defaultMessage='Add Issue'
+                                />
+                        } onTouchTap={() => {
+                            showAddIssueForm();
+                        } } />
                     {logButton}
                 </div>
             }

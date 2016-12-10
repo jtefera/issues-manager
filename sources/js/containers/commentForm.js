@@ -6,6 +6,7 @@ import {submitComment} from '../actions/';
 import {
     getMockName, getMockEmail, getMockText,
 } from '../mock';
+import {FormattedMessage} from 'react-intl';
 
 let CommentForm = ({
     username,
@@ -35,35 +36,70 @@ let CommentForm = ({
         }}>
             <TextField
                 defaultValue={username}
-                floatingLabelText="Name"
+                floatingLabelText={
+                    <FormattedMessage
+                        id='app.comment.name.label'
+                        defaultMessage='Name'
+                    />
+                }
                 name="name"
                 fullWidth={true}
-                hintText="name"
+                hintText={
+                    <FormattedMessage
+                        id='app.comment.name.placeholder'
+                        defaultMessage='name'
+                    />
+                }
                 ref={(node) => {
                     nameInput = node;
                 }}
             /><br />
             <TextField
                 defaultValue={email}
-                floatingLabelText="Email"
+                floatingLabelText={
+                    <FormattedMessage
+                        id='app.comment.email.label'
+                        defaultMessage='Email'
+                    />
+                }
                 fullWidth={true}
-                hintText="email"
+                hintText={
+                    <FormattedMessage
+                        id='app.comment.email.placeholder'
+                        defaultMessage='email'
+                    />
+                }
                 ref={(node) => {
                     emailInput = node;
                 }}
             /><br />
             <TextField
                 defaultValue={getMockText()}
-                floatingLabelText="Comment"
+                floatingLabelText={
+                    <FormattedMessage
+                        id='app.comment.comment.label'
+                        defaultMessage='Comment'
+                    />
+                }
                 fullWidth={true}
-                hintText="comment"
+                hintText={
+                    <FormattedMessage
+                        id='app.comment.comment.placeholder'
+                        defaultMessage='comment'
+                    />
+                }
                 ref={(node) => {
                     commentInput = node;
                 }}
                 multiLine={true}
                 rows={4}
             />
-            <FlatButton type="submit" label="Comment" />
+            <FlatButton type="submit" label={
+                    <FormattedMessage
+                        id='app.comment.comment.button.label'
+                        defaultMessage='Comment'
+                    />
+                } />
         </form>
     );
 };

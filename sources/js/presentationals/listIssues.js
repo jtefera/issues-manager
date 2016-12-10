@@ -6,6 +6,7 @@ import {
     orange500,
     teal500,
 } from 'material-ui/styles/colors';
+import {FormattedMessage} from 'react-intl';
 
 const ListIssues = ({issues, priority}) => {
     const issuesEl = issues.map(
@@ -13,7 +14,15 @@ const ListIssues = ({issues, priority}) => {
                 return (<Issue key={issue.id} id={issue.id} issue={issue}/>);
             }
         );
-    const title = `Priority ${priority}`;
+    const title = (
+        <FormattedMessage
+            id='app.listIssues.title'
+            defaultMessage='Priority {priority}'
+            values={{
+                priority,
+            }}
+        />
+    );
     const style = {
         margin: '10px 20px',
     };

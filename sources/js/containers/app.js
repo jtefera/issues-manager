@@ -7,6 +7,12 @@ import LoginForm from './loginForm';
 import ListIssuesOfPriority from './issuesOfPriority.js';
 import ConfirmDeleteDialog from './confirmDeleteDialog';
 import {connect} from 'react-redux';
+import {addLocaleData, IntlProvider} from 'react-intl';
+import es from 'react-intl/locale-data/es';
+import esMessages from '../l10n/es';
+
+addLocaleData([...es]);
+
 
 
 let App = ({
@@ -22,17 +28,22 @@ let App = ({
     const message = (showMessage) ? <Message /> : null;
     const deleteConfirm = (showDeleteConfirmDialog) ? <ConfirmDeleteDialog /> : null;
     return (
-        <div>
-            <HeaderBar />
-            {addIssueForm}
-            {editIssueForm}
-            {loginForm}
-            {message}
-            {deleteConfirm}
-            <ListIssuesOfPriority priority="1"/>
-            <ListIssuesOfPriority priority="2"/>
-            <ListIssuesOfPriority priority="3"/>
-        </div>
+        <IntlProvider
+            locale='es'
+            messages={esMessages}
+        >
+            <div>
+                <HeaderBar />
+                {addIssueForm}
+                {editIssueForm}
+                {loginForm}
+                {message}
+                {deleteConfirm}
+                <ListIssuesOfPriority priority="1"/>
+                <ListIssuesOfPriority priority="2"/>
+                <ListIssuesOfPriority priority="3"/>
+            </div>
+        </IntlProvider>
     );
 };
 

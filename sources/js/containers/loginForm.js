@@ -6,7 +6,22 @@ import TextField from 'material-ui/TextField';
 import {hideLoginForm, sendLoginInfo} from '../actions/';
 import {red500} from 'material-ui/styles/colors';
 import FullWidth from '../presentationals/fullWidth';
+import {FormattedMessage} from 'react-intl';
 
+const actions = (onCancelHandle) => ([
+    <FlatButton label={
+        <FormattedMessage
+            id='app.cancel.button.label'
+            defaultMessage='Cancel'
+            />
+    } onTouchTap={onCancelHandle} />,
+    <FlatButton label={
+        <FormattedMessage
+            id='app.submit.button.label'
+            defaultMessage='Submit'
+            />
+    } form='loginForm' type='submit' />,
+]);
 
 const LoginFormForm = ({
     onSubmitHandle,
@@ -40,19 +55,39 @@ const LoginFormForm = ({
             {errorMessageEl}
             <TextField
                 defaultValue='hello@jtefera.com'
-                floatingLabelText="Username"
+                floatingLabelText={
+                    <FormattedMessage
+                        id='app.loginForm.username.label'
+                        defaultMessage='Username'
+                    />
+                }
                 fullWidth={true}
-                hintText="your username"
+                hintText={
+                    <FormattedMessage
+                        id='app.loginForm.username.placeholder'
+                        defaultMessage='your username'
+                    />
+                }
                 ref={(node) => {
                     usernameInput = node;
                 }}
             />
             <TextField
                 defaultValue='hola'
-                floatingLabelText='Password'
+                floatingLabelText={
+                    <FormattedMessage
+                        id='app.loginForm.password.label'
+                        defaultMessage='Password'
+                    />
+                }
                 fullWidth={true}
                 type="password"
-                hintText='your password'
+                hintText={
+                    <FormattedMessage
+                        id='app.loginForm.password.placeholder'
+                        defaultMessage='your password'
+                    />
+                }
                 ref={(node) => {
                     passwordInput = node;
                 }}
@@ -62,32 +97,32 @@ const LoginFormForm = ({
 };
 
 const LoginFormDesktop = (props) => {
-    const actions = [
-        <FlatButton label='Submit' form='loginForm' type='submit'/>,
-        <FlatButton label='Cancel' onTouchTap={props.onCancelHandle}/>,
-    ];
     return (
         <Dialog
-            title='Login'
+            title={
+                <div>
+                    <FormattedMessage
+                        id='app.loginForm.form.title'
+                        defaultMessage='Login'
+                        />
+                </div>
+            }
             modal={false}
             open={true}
             autoScrollBodyContent={true}
-            actions={actions}
-        >
+            actions={actions(props.onCancelHandle)}
+            >
             <LoginFormForm {...props} />
         </Dialog>
     );
 };
 
 const LoginFormMobile = (props) => {
-    const actions = [
-        <FlatButton label='Submit' form='loginForm' type='submit'/>,
-        <FlatButton label='Cancel' onTouchTap={props.onCancelHandle}/>,
-    ];
+    const actionsButtons = actions(props.onCancelHandle);
     return (
         <FullWidth>
             <LoginFormForm {...props} />
-            {actions[0]} {actions[1]}
+            {actionsButtons[0]} {actionsButtons[1]}
         </FullWidth>
     );
 }

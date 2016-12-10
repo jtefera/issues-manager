@@ -5,6 +5,7 @@ import {
         hideAddIssueForm,
     } from '../actions';
 import IssueForm from '../presentationals/issueForm';
+import {FormattedMessage} from 'react-intl'; 
 
 const mapDispatchToProps = (dispatch) =>({
     onSubmitHandle: (issue) => {
@@ -16,7 +17,10 @@ const mapDispatchToProps = (dispatch) =>({
 
 const mapStateToProps = (state) => ({
     isOpen: state.formsDisplay.showAddIssueForm,
-    titleForm: 'Add Issue',
+    titleForm: <FormattedMessage
+        id='app.addIssue.form.title'
+        defaultMessage='Add Issue'
+    />,
 });
 const AddIssueForm = connect(
     mapStateToProps,
